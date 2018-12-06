@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Oder_infrastructure.Logging
+namespace Swintake.infrastructure.Logging
 {
     public static class ApplicationLogging
     {
