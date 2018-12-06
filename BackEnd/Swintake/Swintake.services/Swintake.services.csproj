@@ -4,4 +4,16 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Swintake.domain\Swintake.domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Campaigns\" />
+    <Folder Include="Candidates\" />
+    <Folder Include="JobApplications\" />
+    <Folder Include="SelectionSteps\" />
+    <Folder Include="Users\" />
+  </ItemGroup>
+
 </Project>
