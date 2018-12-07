@@ -1,6 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SecuredWebApi.Services.Security;
 using Swintake.domain.Users;
+using Swintake.services.Users;
 using Swintake.services.Users.Security;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,22 +12,24 @@ using System.Text;
 
 namespace SecuredWebApi.Services
 {
-    public class UserAuthenticationService
-    {
-
-        // Never store secretive or sensitive information like this (never store them in source-code)
-        // Better approaches for development: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.1&tabs=windows
-        public static readonly string SECRET_KEY = "MyVerySecretKeyThatShouldNotBePlacedLikeThisHere";
-
+    public class UserAuthenticationService : IUserAuthenticationService
+    { 
         private readonly IUserRepository _userRepository;
         private readonly Hasher _hasher;
         private readonly Salter _salter;
+        private Secrets _secrets { get; }
 
-        public UserAuthenticationService(IUserRepository userRepository, Hasher hasher, Salter salter)
+        public UserAuthenticationService()
+        {
+        }
+
+        public UserAuthenticationService(IUserRepository userRepository, Hasher hasher, Salter salter, IOptions<Secrets> secrets)
         {
             _userRepository = userRepository;
             _hasher = hasher;
             _salter = salter;
+            _secrets = secrets.Value;
+            
         }
 
         public JwtSecurityToken Authenticate(string providedEmail, string providedPassword)
@@ -54,7 +59,7 @@ namespace SecuredWebApi.Services
 
         private SecurityTokenDescriptor CreateTokenDescription(User foundUser)
         {
-            var key = Encoding.ASCII.GetBytes(SECRET_KEY);
+            var key = Encoding.ASCII.GetBytes(_secrets.SuperStrongPassword);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
