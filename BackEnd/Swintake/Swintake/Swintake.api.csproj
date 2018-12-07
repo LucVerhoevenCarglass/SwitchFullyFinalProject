@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\Campaigns\" />
     <Folder Include="Helpers\Candidates\" />
     <Folder Include="Helpers\JobApplications\" />
     <Folder Include="Helpers\SelectionSteps\" />
