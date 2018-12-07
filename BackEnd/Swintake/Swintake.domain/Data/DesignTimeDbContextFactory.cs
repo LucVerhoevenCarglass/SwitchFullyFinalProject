@@ -29,7 +29,7 @@ namespace Swintake.domain.Data
 
         public SwintakeContext CreateDbContext(string[] args)
         {
-            var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
+            var foo = Environment.GetEnvironmentVariable("LocalSql", EnvironmentVariableTarget.User);
             if (foo != null && foo.Equals("SqlServer"))
             {
                 _connectionstring = "(LocalDb)\\MSSQLLocalDb";
