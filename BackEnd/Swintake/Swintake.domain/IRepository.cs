@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Swintake.domain
 {
-    interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : Entity
     {
         T Save(T entity);
         T Update(T entity);
