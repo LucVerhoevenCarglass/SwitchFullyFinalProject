@@ -12,7 +12,7 @@ namespace Swintake.api.Helpers.Campaigns
         public override Campaign ToDomain(CampaignDto dtoObject)
         {
             return Campaign.CampaignBuilder.NewCampaign()
-                .WithId(string.IsNullOrWhiteSpace(dtoObject.Id) ? Guid.Empty : new Guid(dtoObject.Id))
+                .WithId(string.IsNullOrWhiteSpace(dtoObject.Id) ? new Guid() : new Guid(dtoObject.Id)) //replaced Guid.empty by new Guid()
                 .WithName(dtoObject.Name)
                 .WithClient(dtoObject.Client)
                 .WithStatus(dtoObject.Status)
