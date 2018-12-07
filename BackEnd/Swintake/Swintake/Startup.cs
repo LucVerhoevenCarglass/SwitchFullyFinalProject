@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using SecuredWebApi.Services;
@@ -19,7 +13,9 @@ using Swintake.domain.Data;
 using Swintake.domain.Users;
 using Swintake.infrastructure.Exceptions;
 using Swintake.infrastructure.Logging;
+using Swintake.services.Users;
 using Swintake.services.Users.Security;
+using System;
 
 namespace Swintake.api
 {
@@ -27,6 +23,8 @@ namespace Swintake.api
     {
 
         private string _connectionstring = ".\\SQLExpress";
+        private string _usersApiKey = null;
+
         public Startup(IConfiguration configuration, ILoggerFactory logFactory)
         {
             var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
@@ -34,6 +32,10 @@ namespace Swintake.api
             {
                 _connectionstring = "(LocalDb)\\MSSQLLocalDb";
             }
+
+
+
+
             Configuration = configuration;
             ApplicationLogging.LoggerFactory = logFactory;
         }
@@ -48,8 +50,9 @@ namespace Swintake.api
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<Hasher>();
             services.AddSingleton<Salter>();
-            services.AddSingleton<UserAuthenticationService>();
+            services.AddSingleton<IUserAuthenticationService,UserAuthenticationService>();
             services.AddSingleton<SwintakeContext>();
+            services.Configure<Secrets>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
@@ -66,14 +69,20 @@ namespace Swintake.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                builder.AddUserSecrets<Startup>();
+
             }
             else
             {
                 app.UseHsts();
             }
+
+            builder.Build();
 
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
@@ -98,4 +107,3 @@ namespace Swintake.api
         }
     }
 }
-//test

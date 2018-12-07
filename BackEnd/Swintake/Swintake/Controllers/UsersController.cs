@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SecuredWebApi.Services;
 using Swintake.api.Helpers.Users;
 using Swintake.domain.Users;
+using Swintake.services.Users;
 
 namespace Swintake.api.Controllers
 {
@@ -11,9 +12,9 @@ namespace Swintake.api.Controllers
 
     public class UsersController : ControllerBase
     {
-        private readonly UserAuthenticationService _userAuthService;
+        private readonly IUserAuthenticationService _userAuthService;
 
-        public UsersController(UserAuthenticationService userAuthService)
+        public UsersController(IUserAuthenticationService userAuthService)
         {
             _userAuthService = userAuthService;
         }
