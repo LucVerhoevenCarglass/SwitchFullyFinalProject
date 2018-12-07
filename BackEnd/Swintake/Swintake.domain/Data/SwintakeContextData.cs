@@ -2,22 +2,32 @@
 using Swintake.domain.Users;
 using System;
 using System.Collections.Generic;
+using Swintake.domain.Campaigns;
 
 namespace Swintake.domain.Data
 {
     class SwintakeContextData
     {
-        internal User reinout = new UserBuilder()
-            .WithEmail("reinout@switchfully.com")
-            .WithFirstName("Reinout")
-            .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-            .Build();
+        //internal User reinout = new UserBuilder()
+        //    .WithEmail("reinout@switchfully.com")
+        //    .WithFirstName("Reinout")
+        //    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+        //    .Build();
        
-        internal User niels = new UserBuilder()
-            .WithEmail("niels@switchfully.com")
-            .WithFirstName("Niels")
-            .WithUserSecurity(new UserSecurity("TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=", "rODZhnBsLGRP908sBZiXzg=="))
-            .Build();
+        //internal User niels = new UserBuilder()
+        //    .WithEmail("niels@switchfully.com")
+        //    .WithFirstName("Niels")
+        //    .WithUserSecurity(new UserSecurity("TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=", "rODZhnBsLGRP908sBZiXzg=="))
+        //    .Build();
+
+        internal Campaign campain1 = new Campaign.CampaignBuilder()
+            .WithId(Guid.NewGuid())
+            .WithClient("ClientSwinTake")
+            .WithClassStartDate(DateTime.Now)
+            .WithStartDate(DateTime.Now)
+            .WithComment("CommentSwinTake")
+            .WithName("TestCampaignSwinTake")
+            .WithStatus(CampaignStatus.Active).Build();
     }
 
     public partial class SwintakeContext
@@ -58,6 +68,8 @@ namespace Swintake.domain.Data
                     UserId = idNiels
                 });   
             });
+
+            modelbuilder.Entity<Campaign>(camp => { camp.HasData(seedData.campain1); });
         }
     }
 }
