@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Swintake.domain.Users;
 
 namespace Swintake.domain.Data
 {
-    public class SwintakeContext : DbContext
+    public partial class SwintakeContext : DbContext
     {
         private readonly ILoggerFactory _loggerFactory;
+
+        public DbSet<User> Users { get; set; }
+
         public SwintakeContext(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
@@ -32,6 +33,16 @@ namespace Swintake.domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .ToTable("Users")
+                .HasKey(u => u.Id);
+
+            modelBuilder.Entity<User>()
+                .OwnsOne(u => u.UserSecurity, us =>
+                {
+                    us.Property(u => u.PasswordHashedAndSalted).HasColumnName("PasswordHashed");
+                    us.Property(u => u.AppliedSalt).HasColumnName("AppliedSalt");
+                });
 
             base.OnModelCreating(modelBuilder);
         }
