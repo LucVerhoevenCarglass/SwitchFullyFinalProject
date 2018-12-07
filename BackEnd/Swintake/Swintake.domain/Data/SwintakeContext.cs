@@ -50,11 +50,13 @@ namespace Swintake.domain.Data
                 .ToTable("Campaigns")
                 .HasKey(campaign => campaign.Id);
 
-
             base.OnModelCreating(modelBuilder);
 
             SeedData(modelBuilder);
         }
+
+       
+
 
     }
 

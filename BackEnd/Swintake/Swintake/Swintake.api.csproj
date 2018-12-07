@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>ecafb124-3b88-4041-ac3d-6bf9172b7efa</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\Campaigns\" />
     <Folder Include="Helpers\Candidates\" />
     <Folder Include="Helpers\JobApplications\" />
     <Folder Include="Helpers\SelectionSteps\" />
