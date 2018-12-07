@@ -16,11 +16,11 @@ namespace SecuredWebApi.Services
         // Better approaches for development: https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.1&tabs=windows
         public static readonly string SECRET_KEY = "MyVerySecretKeyThatShouldNotBePlacedLikeThisHere";
 
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly Hasher _hasher;
         private readonly Salter _salter;
 
-        public UserAuthenticationService(UserRepository userRepository, Hasher hasher, Salter salter)
+        public UserAuthenticationService(IUserRepository userRepository, Hasher hasher, Salter salter)
         {
             _userRepository = userRepository;
             _hasher = hasher;

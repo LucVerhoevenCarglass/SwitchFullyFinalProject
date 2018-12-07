@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Swintake.domain.Data;
 
 namespace Swintake.domain.Migrations
 {
     [DbContext(typeof(SwintakeContext))]
-    partial class SwintakeContextModelSnapshot : ModelSnapshot
+    [Migration("20181207103257_addNewUsers")]
+    partial class addNewUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +35,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("9b406cf0-614a-4cdd-b9ff-d4ca1afc72f3"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("cce969a1-3baf-4ef5-a6f9-5ff5dcdaa260"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("88878a2c-04d6-43b9-b22b-650ea27d39c6"), Email = "reinout@switchfully.com", FirstName = "Reinout" }
                     );
                 });
 
@@ -58,8 +59,7 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("9b406cf0-614a-4cdd-b9ff-d4ca1afc72f3"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" },
-                                new { UserId = new Guid("cce969a1-3baf-4ef5-a6f9-5ff5dcdaa260"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("88878a2c-04d6-43b9-b22b-650ea27d39c6"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" }
                             );
                         });
                 });

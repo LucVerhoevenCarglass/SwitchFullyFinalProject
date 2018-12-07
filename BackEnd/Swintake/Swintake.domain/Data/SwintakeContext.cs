@@ -45,6 +45,8 @@ namespace Swintake.domain.Data
                 });
 
             base.OnModelCreating(modelBuilder);
+
+            SeedData(modelBuilder);
         }
 
     }

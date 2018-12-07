@@ -11,7 +11,8 @@ namespace Swintake.domain.Users
         public string Email { get; private set; }
         public UserSecurity UserSecurity { get; private set; }
 
-        
+        private User() { }
+
         public User(UserBuilder userBuilder) : base(userBuilder.Id)
         {
             FirstName = userBuilder.FirstName;

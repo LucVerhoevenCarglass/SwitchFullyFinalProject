@@ -11,12 +11,10 @@ namespace Swintake.api.Controllers
 
     public class UsersController : ControllerBase
     {
-        private readonly UserRepository _userRepository;
         private readonly UserAuthenticationService _userAuthService;
 
-        public UsersController(UserRepository userRepository, UserAuthenticationService userAuthService)
+        public UsersController(UserAuthenticationService userAuthService)
         {
-            _userRepository = userRepository;
             _userAuthService = userAuthService;
         }
 
