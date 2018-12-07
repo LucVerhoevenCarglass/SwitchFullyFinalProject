@@ -6,7 +6,7 @@ namespace Swintake.domain
 {
     public abstract class Entity
     {
-        private Entity()
+        protected Entity()
         {
 
         }

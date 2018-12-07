@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Swintake.domain.Data;
 
 namespace Swintake.domain.Migrations
 {
     [DbContext(typeof(SwintakeContext))]
-    partial class SwintakeContextModelSnapshot : ModelSnapshot
+    [Migration("20181207082909_userTable")]
+    partial class userTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,11 +33,6 @@ namespace Swintake.domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new { Id = new Guid("9b406cf0-614a-4cdd-b9ff-d4ca1afc72f3"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("cce969a1-3baf-4ef5-a6f9-5ff5dcdaa260"), Email = "niels@switchfully.com", FirstName = "Niels" }
-                    );
                 });
 
             modelBuilder.Entity("Swintake.domain.Users.User", b =>
@@ -45,10 +42,10 @@ namespace Swintake.domain.Migrations
                             b1.Property<Guid?>("UserId");
 
                             b1.Property<string>("AppliedSalt")
-                                .HasColumnName("AppliedSalt");
+                                .HasColumnName("User_AppliedSalt");
 
                             b1.Property<string>("PasswordHashedAndSalted")
-                                .HasColumnName("PasswordHashed");
+                                .HasColumnName("User_PasswordHashed");
 
                             b1.ToTable("Users");
 
@@ -56,11 +53,6 @@ namespace Swintake.domain.Migrations
                                 .WithOne("UserSecurity")
                                 .HasForeignKey("Swintake.domain.Users.UserSecurity", "UserId")
                                 .OnDelete(DeleteBehavior.Cascade);
-
-                            b1.HasData(
-                                new { UserId = new Guid("9b406cf0-614a-4cdd-b9ff-d4ca1afc72f3"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" },
-                                new { UserId = new Guid("cce969a1-3baf-4ef5-a6f9-5ff5dcdaa260"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
-                            );
                         });
                 });
 #pragma warning restore 612, 618

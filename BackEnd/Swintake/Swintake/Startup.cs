@@ -13,9 +13,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NJsonSchema;
 using NSwag.AspNetCore;
+using SecuredWebApi.Services;
+using SecuredWebApi.Services.Security;
 using Swintake.domain.Data;
+using Swintake.domain.Users;
 using Swintake.infrastructure.Exceptions;
 using Swintake.infrastructure.Logging;
+using Swintake.services.Users.Security;
 
 namespace Swintake.api
 {
@@ -41,6 +45,11 @@ namespace Swintake.api
         {
 
             services.AddSingleton(ConfigureDbContext());
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<Hasher>();
+            services.AddSingleton<Salter>();
+            services.AddSingleton<UserAuthenticationService>();
+            services.AddSingleton<SwintakeContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
