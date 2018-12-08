@@ -13,7 +13,7 @@ namespace Swintake.services.tests.Campaigns
         {
             Campaign.CampaignBuilder campaignBuilder = new Campaign.CampaignBuilder();
 
-            Campaign campaign = new Campaign();
+            //Campaign campaign = new Campaign();
         }
 
     }

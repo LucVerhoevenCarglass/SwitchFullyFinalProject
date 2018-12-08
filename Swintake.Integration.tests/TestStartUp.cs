@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Swintake.api;
 using Swintake.domain.Data;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Swintake.api.integrationtests
+namespace Swintake.Integration.tests
 {
     public class TestStartup : Startup
     {
