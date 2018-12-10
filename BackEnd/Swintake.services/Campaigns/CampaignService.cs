@@ -6,7 +6,7 @@ using Swintake.domain.Campaigns;
 
 namespace Swintake.services.Campaigns
 {
-    class CampaignService : ICampaignService
+    public class CampaignService : ICampaignService
     {
         // constructor
         private readonly IRepository<Campaign> _campaignRepository;
@@ -33,7 +33,7 @@ namespace Swintake.services.Campaigns
                 || campaign.StartDate < DateTime.Today
                 || campaign.ClassStartDate < DateTime.Today)
             {
-                throw new Exception("some field of campaign is invalid");
+                throw new Exception("some fields of campaign are invalid");
             }
 
             // ok, save

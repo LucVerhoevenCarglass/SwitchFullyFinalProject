@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Swintake.services.Campaigns
 {
-    interface ICampaignService
+    public interface ICampaignService
     {
         Campaign CreateCampaign(Campaign campaign); //Is Save to repository
     }
