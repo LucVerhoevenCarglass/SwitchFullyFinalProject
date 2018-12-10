@@ -9,10 +9,11 @@ namespace Swintake.api.Helpers.Campaigns
 {
     public class CampaignMapper : Mapper<CampaignDto, Campaign>
     {
+        // methods
         public override Campaign ToDomain(CampaignDto dtoObject)
         {
             return Campaign.CampaignBuilder.NewCampaign()
-                .WithId(string.IsNullOrWhiteSpace(dtoObject.Id) ? new Guid() : new Guid(dtoObject.Id)) //replaced Guid.empty by new Guid()
+                .WithId(string.IsNullOrWhiteSpace(dtoObject.Id) ? new Guid() : new Guid(dtoObject.Id)) //replaced Guid.empty with new Guid()
                 .WithName(dtoObject.Name)
                 .WithClient(dtoObject.Client)
                 .WithStatus(dtoObject.Status)

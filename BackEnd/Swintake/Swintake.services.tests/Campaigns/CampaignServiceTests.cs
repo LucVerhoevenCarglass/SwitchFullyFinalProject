@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Swintake.services.tests.Campaigns
 {
-    class CampaignServiceTests
+    public class CampaignServiceTests
     {
         [Fact]
         public void CreateCampaign_HappyPath()
