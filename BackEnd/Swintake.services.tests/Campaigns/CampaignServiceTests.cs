@@ -6,6 +6,7 @@ using System.Text;
 using NSubstitute;
 using Swintake.domain;
 using Swintake.domain.Campaigns;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.Campaigns;
 using Xunit;
 
@@ -46,7 +47,7 @@ namespace Swintake.services.tests.Campaigns
         {
             Campaign testCampaign2 = CloneObject(TestCampaign);
             testCampaign2.Name = string.Empty;
-            Exception ex = Assert.Throws<Exception>(() => _campaignService.AddCampaign(testCampaign2));
+            Exception ex = Assert.Throws<EntityNotValidException>(() => _campaignService.AddCampaign(testCampaign2));
             Assert.Contains("some fields of campaign are invalid", ex.Message);
         }
 
