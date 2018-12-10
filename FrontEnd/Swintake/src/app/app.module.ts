@@ -6,10 +6,12 @@ import { CoreModule } from './core/core.module';
 import { RoutingModule } from './routing/routing.module';
 import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent
   ],
   
   imports: [

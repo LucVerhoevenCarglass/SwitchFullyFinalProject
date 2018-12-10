@@ -6,12 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swintake.api;
 using Swintake.domain.Data;
+using Swintake.services.Users.Security;
 using System;
 
 namespace Swintake.Integration.tests
 {
     public class TestStartup : Startup
     {
+
         public TestStartup(IConfiguration configuration, ILoggerFactory logFactory) : base(configuration, logFactory)
         {
         }
@@ -31,11 +33,10 @@ namespace Swintake.Integration.tests
                 .AddApplicationPart(typeof(Startup).Assembly);
         }
 
-        protected override void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env)
+        protected override void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env, ConfigurationBuilder builder)
         {
-            base.ConfigureSwintake(app, env);
-            var builder = new ConfigurationBuilder();
-            builder.AddUserSecrets<TestStartup>();
+            base.ConfigureSwintake(app, env, builder);
+            //builder.AddUserSecrets<TestStartup>();
             builder.Build();
         }
     }

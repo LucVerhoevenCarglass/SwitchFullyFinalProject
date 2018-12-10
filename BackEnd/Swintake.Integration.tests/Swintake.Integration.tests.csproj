@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-    <UserSecretsId>Swintake.Integration.tests-3a50d927-20aa-4f55-9193-6046675b3714</UserSecretsId>
+    <UserSecretsId>ecafb124-3b88-4041-ac3d-6bf9172b7efa</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

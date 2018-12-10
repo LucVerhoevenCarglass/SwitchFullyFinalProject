@@ -37,9 +37,6 @@ namespace Swintake.api
                 _connectionstring = "(LocalDb)\\MSSQLLocalDb";
             }
 
-
-
-
             Configuration = configuration;
             ApplicationLogging.LoggerFactory = logFactory;
         }
@@ -63,7 +60,9 @@ namespace Swintake.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            ConfigureSwintake(app, env);
+            var builder = new ConfigurationBuilder();
+
+            ConfigureSwintake(app, env, builder);
 
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
@@ -105,14 +104,13 @@ namespace Swintake.api
             services.AddSwagger();
         }
 
-        protected virtual void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env)
+        protected virtual void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env, ConfigurationBuilder builder)
         {
-            var builder = new ConfigurationBuilder();
 
+                builder.AddUserSecrets<Startup>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                builder.AddUserSecrets<Startup>();
 
             }
             else
