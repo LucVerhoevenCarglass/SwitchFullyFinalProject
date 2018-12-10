@@ -6,6 +6,7 @@ using System.Text;
 using NSubstitute;
 using Swintake.domain;
 using Swintake.domain.Campaigns;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.Campaigns;
 using Xunit;
 
@@ -20,7 +21,6 @@ namespace Swintake.services.tests.Campaigns
         {
             _campaignRepository = Substitute.For<IRepository<Campaign>>();
             _campaignService = new CampaignService(_campaignRepository);
-
         }
 
         internal Campaign TestCampaign = new Campaign.CampaignBuilder()
@@ -36,7 +36,7 @@ namespace Swintake.services.tests.Campaigns
         public void CreateCampaign_HappyPath()
         {
             //given
-            _campaignRepository.Save(TestCampaign).Returns(TestCampaign); // nakijken over .Returns
+            _campaignRepository.Save(TestCampaign);
             Campaign createdCompaign = _campaignService.AddCampaign(TestCampaign);
             Assert.NotNull(createdCompaign);
             Assert.NotEqual(createdCompaign.Id, Guid.Empty);
@@ -47,10 +47,9 @@ namespace Swintake.services.tests.Campaigns
         {
             Campaign testCampaign2 = CloneObject(TestCampaign);
             testCampaign2.Name = string.Empty;
-            Exception ex = Assert.Throws<Exception>(() => _campaignService.AddCampaign(testCampaign2));
+            Exception ex = Assert.Throws<EntityNotValidException>(() => _campaignService.AddCampaign(testCampaign2));
             Assert.Contains("some fields of campaign are invalid", ex.Message);
         }
-
 
         private T CloneObject<T>(T obj)
         {

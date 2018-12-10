@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Swintake.domain;
 using Swintake.domain.Campaigns;
+using Swintake.infrastructure.Exceptions;
 
 namespace Swintake.services.Campaigns
 {
@@ -22,7 +23,7 @@ namespace Swintake.services.Campaigns
             // controle
             if (campaign == null)
             {
-                throw new Exception("campaign is null");
+                throw new EntityNotValidException("campaign is null", campaign);
             }
 
             if (campaign.Id == null
@@ -33,11 +34,12 @@ namespace Swintake.services.Campaigns
                 || campaign.StartDate < DateTime.Today
                 || campaign.ClassStartDate < DateTime.Today)
             {
-                throw new Exception("some fields of campaign are invalid");
+                throw new EntityNotValidException("some fields of campaign are invalid", campaign);
             }
 
             // ok, save
             _campaignRepository.Save(campaign);
+
             return campaign;
         }
     }
