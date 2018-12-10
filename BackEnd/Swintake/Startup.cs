@@ -49,22 +49,7 @@ namespace Swintake.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddSingleton(ConfigureDbContext());
-            services.AddSingleton<SwintakeContext>();
-
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<Hasher>();
-            services.AddSingleton<Salter>();
-            services.AddSingleton<IUserAuthenticationService,UserAuthenticationService>();
-            services.Configure<Secrets>(Configuration);
-
-            services.AddScoped<IRepository<Campaign>, CampaignRepository>();
-            services.AddScoped<ICampaignService, CampaignService>();
-            services.AddTransient<CampaignMapper>();
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSwagger();
+            ConfigureSwintakeServices(services);
         }
 
         protected virtual DbContextOptions<SwintakeContext> ConfigureDbContext()
@@ -78,20 +63,7 @@ namespace Swintake.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                builder.AddUserSecrets<Startup>();
-
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            builder.Build();
+            ConfigureSwintake(app, env);
 
             app.UseSwaggerUi3WithApiExplorer(settings =>
             {
@@ -114,5 +86,39 @@ namespace Swintake.api
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
+
+        protected virtual void ConfigureSwintakeServices(IServiceCollection services)
+        {
+            services.AddSingleton(ConfigureDbContext());
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<Hasher>();
+            services.AddSingleton<Salter>();
+            services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddSingleton<SwintakeContext>();
+            services.Configure<Secrets>(Configuration);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwagger();
+        }
+
+        protected virtual void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                builder.AddUserSecrets<Startup>();
+
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            builder.Build();
+        }
     }
 }
+
+//test
