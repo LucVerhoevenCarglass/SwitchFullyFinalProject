@@ -30,13 +30,5 @@ namespace Swintake.Integration.tests
             services.AddMvc()
                 .AddApplicationPart(typeof(Startup).Assembly);
         }
-
-        protected override void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            base.ConfigureSwintake(app, env);
-            var builder = new ConfigurationBuilder();
-            builder.AddUserSecrets<TestStartup>();
-            builder.Build();
-        }
     }
 }
