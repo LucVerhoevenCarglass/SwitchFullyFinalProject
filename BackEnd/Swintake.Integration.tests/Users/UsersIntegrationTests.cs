@@ -1,6 +1,7 @@
 ﻿//using Microsoft.AspNetCore.Hosting;
 //using Microsoft.AspNetCore.TestHost;
 //using Microsoft.EntityFrameworkCore;
+//using Microsoft.Extensions.Configuration;
 //using Microsoft.Extensions.DependencyInjection;
 //using Newtonsoft.Json;
 //using Swintake.api.Helpers.Users;
@@ -23,6 +24,17 @@
 //                .Options;
 //        }
 
+//        IConfiguration Configuration { get; set; }
+
+//        public UsersIntegrationTests()
+//        {
+//            // the type specified here is just so the secrets library can 
+//            // find the UserSecretId we added in the csproj file
+//            var builder = new ConfigurationBuilder()
+//                .AddUserSecrets<UsersIntegrationTests>();
+
+//            Configuration = builder.Build();
+//        }
 
 //        [Fact]
 //        public async Task GivenExistingUser_WhenAuthenticate_ThenReturnOkWithJwtSecurityTokenRawData()
@@ -31,6 +43,10 @@
 
 //            using (server)
 //            {
+//                var username = Configuration["ApiUsername"];
+//                var password = Configuration["ApiPassword"];
+
+//                var 
 //                var client = server.CreateClient();
 
 //                var context = server.Host.Services.GetService<SwintakeContext>();

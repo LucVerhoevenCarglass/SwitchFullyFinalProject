@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,6 +29,14 @@ namespace Swintake.Integration.tests
             //This is required for MVC to find our Controllers in our TestStartup
             services.AddMvc()
                 .AddApplicationPart(typeof(Startup).Assembly);
+        }
+
+        protected override void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            base.ConfigureSwintake(app, env);
+            var builder = new ConfigurationBuilder();
+            builder.AddUserSecrets<TestStartup>();
+            builder.Build();
         }
     }
 }
