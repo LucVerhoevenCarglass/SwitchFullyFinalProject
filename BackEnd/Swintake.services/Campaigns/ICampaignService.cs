@@ -7,6 +7,6 @@ namespace Swintake.services.Campaigns
 {
     public interface ICampaignService
     {
-        Campaign CreateCampaign(Campaign campaign); //Is Save to repository
+        Campaign AddCampaign(Campaign campaign); 
     }
 }

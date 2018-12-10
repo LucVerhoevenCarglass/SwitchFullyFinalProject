@@ -9,9 +9,10 @@ namespace Swintake.domain.Campaigns
     {
         // fields en constructor
         private readonly SwintakeContext _context;
-        protected CampaignRepository() { }
 
-        protected CampaignRepository(SwintakeContext context)
+        //protected CampaignRepository() { }
+
+        public CampaignRepository(SwintakeContext context)
         {
             _context = context;
         }
@@ -29,7 +30,7 @@ namespace Swintake.domain.Campaigns
 
         public Campaign Save(Campaign campaign)
         {
-            _context.Campaigns.Add(campaign);
+            _context.Add(campaign); 
             _context.SaveChanges();
             return campaign;
         }

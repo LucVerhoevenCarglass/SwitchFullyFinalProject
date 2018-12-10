@@ -17,7 +17,7 @@ namespace Swintake.services.Campaigns
         }
 
         // methode
-        public Campaign CreateCampaign(Campaign campaign)
+        public Campaign AddCampaign(Campaign campaign)
         {
             // controle
             if (campaign == null)
