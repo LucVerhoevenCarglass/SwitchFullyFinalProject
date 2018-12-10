@@ -26,6 +26,7 @@ namespace Swintake.Integration.tests
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
                     .Build()));
 
             using (server)
