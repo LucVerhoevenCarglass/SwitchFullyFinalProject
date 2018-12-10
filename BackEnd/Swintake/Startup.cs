@@ -107,9 +107,9 @@ namespace Swintake.api
         protected virtual void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env, ConfigurationBuilder builder)
         {
 
-                builder.AddUserSecrets<Startup>();
             if (env.IsDevelopment())
             {
+                builder.AddUserSecrets<Startup>();
                 app.UseDeveloperExceptionPage();
 
             }
@@ -118,7 +118,9 @@ namespace Swintake.api
                 app.UseHsts();
             }
 
-            builder.Build();
+            builder
+                .AddEnvironmentVariables()
+                .Build();
         }
     }
 }
