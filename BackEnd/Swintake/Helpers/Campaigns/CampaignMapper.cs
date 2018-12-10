@@ -13,23 +13,27 @@ namespace Swintake.api.Helpers.Campaigns
         public override Campaign ToDomain(CampaignDto dtoObject)
         {
             return Campaign.CampaignBuilder.NewCampaign()
-                .WithId(string.IsNullOrWhiteSpace(dtoObject.Id) ? new Guid() : new Guid(dtoObject.Id)) //replaced Guid.empty with new Guid()
+                .WithId(new Guid(dtoObject.Id))
                 .WithName(dtoObject.Name)
                 .WithClient(dtoObject.Client)
-                .WithStatus(dtoObject.Status)
+                .WithStatus(dtoObject.Status) 
                 .WithStartDate(dtoObject.StartDate)
                 .WithClassStartDate(dtoObject.ClassStartDate)
                 .WithComment(dtoObject.Comment)
                 .Build();
+        }
 
-            //return new Campaign(
-            //        dtoObject.Name,
-            //        dtoObject.Client,
-            //        dtoObject.Status,
-            //        dtoObject.StartDate,
-            //        dtoObject.ClassStartDate,
-            //        dtoObject.Comment
-            //        );
+        public Campaign toNewDomain(CreateCampaignDto createCampaignDto)
+        {
+            return Campaign.CampaignBuilder.NewCampaign()
+                .WithId(Guid.NewGuid())
+                .WithName(createCampaignDto.Name)
+                .WithClient(createCampaignDto.Client)
+                .WithStatus(CampaignStatus.Active)
+                .WithStartDate(createCampaignDto.StartDate)
+                .WithClassStartDate(createCampaignDto.ClassStartDate)
+                .WithComment(createCampaignDto.Comment)
+                .Build();
         }
 
         public override CampaignDto ToDto(Campaign domainObject)

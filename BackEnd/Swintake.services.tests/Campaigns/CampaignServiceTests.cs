@@ -15,6 +15,14 @@ namespace Swintake.services.tests.Campaigns
     {
         private readonly CampaignService _campaignService;
         private readonly IRepository<Campaign> _campaignRepository;
+
+        public CampaignServiceTests()
+        {
+            _campaignRepository = Substitute.For<IRepository<Campaign>>();
+            _campaignService = new CampaignService(_campaignRepository);
+
+        }
+
         internal Campaign TestCampaign = new Campaign.CampaignBuilder()
             .WithId(Guid.NewGuid())
             .WithClient("ClientSwinTake")
@@ -24,19 +32,12 @@ namespace Swintake.services.tests.Campaigns
             .WithName("TestCampaignSwinTake")
             .WithStatus(CampaignStatus.Active).Build();
 
-        public CampaignServiceTests()
-        {
-            _campaignRepository = Substitute.For<IRepository<Campaign>>();
-            _campaignService = new CampaignService(_campaignRepository);
-
-        }
-
         [Fact]
         public void CreateCampaign_HappyPath()
         {
             //given
-            _campaignRepository.Save(TestCampaign).Returns(TestCampaign);
-            Campaign createdCompaign = _campaignService.CreateCampaign(TestCampaign);
+            _campaignRepository.Save(TestCampaign).Returns(TestCampaign); // nakijken over .Returns
+            Campaign createdCompaign = _campaignService.AddCampaign(TestCampaign);
             Assert.NotNull(createdCompaign);
             Assert.NotEqual(createdCompaign.Id, Guid.Empty);
         }
@@ -46,7 +47,7 @@ namespace Swintake.services.tests.Campaigns
         {
             Campaign testCampaign2 = CloneObject(TestCampaign);
             testCampaign2.Name = string.Empty;
-            Exception ex = Assert.Throws<Exception>(() => _campaignService.CreateCampaign(testCampaign2));
+            Exception ex = Assert.Throws<Exception>(() => _campaignService.AddCampaign(testCampaign2));
             Assert.Contains("some fields of campaign are invalid", ex.Message);
         }
 
