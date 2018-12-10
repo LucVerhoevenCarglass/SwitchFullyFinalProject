@@ -1,12 +1,15 @@
+<div *ngIf="user">
 <ul class="navbar-nav ml-auto">
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="fas fa-user"></span> <span class="label-title">Signed-in as:</span> Reinout Van Bets
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      <span class="fas fa-user"></span> <span class="label-title">Signed-in as:</span> {{user.FirstName}}
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#">Sign-out</a>
+      <a class="dropdown-item" (click)="logOut()">Sign-out</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="#">Reset password</a>
     </div>
   </li>
 </ul>
+</div>
