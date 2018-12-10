@@ -97,6 +97,10 @@ namespace Swintake.api
             services.AddSingleton<SwintakeContext>();
             services.Configure<Secrets>(Configuration);
 
+            services.AddScoped<IRepository<Campaign>, CampaignRepository>();
+            services.AddScoped<ICampaignService, CampaignService>();
+            services.AddTransient<CampaignMapper>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
         }
