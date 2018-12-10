@@ -38,6 +38,7 @@ namespace Swintake.services.Campaigns
 
             // ok, save
             _campaignRepository.Save(campaign);
+
             return campaign;
         }
     }

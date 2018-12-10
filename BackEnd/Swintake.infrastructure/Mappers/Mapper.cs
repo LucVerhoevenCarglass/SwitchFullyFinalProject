@@ -8,6 +8,5 @@ namespace Swintake.infrastructure.Mappers
     {
         public abstract DTO ToDto(DOMAIN domainObject);
         public abstract DOMAIN ToDomain(DTO dtoObject);
-
     }
 }
