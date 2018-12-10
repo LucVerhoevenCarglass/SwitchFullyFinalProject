@@ -7,6 +7,7 @@ namespace Swintake.domain.Campaigns
 {
     public class CampaignRepository : IRepository<Campaign>
     {
+        // fields en constructor
         private readonly SwintakeContext _context;
         protected CampaignRepository() { }
 
@@ -15,6 +16,7 @@ namespace Swintake.domain.Campaigns
             _context = context;
         }
 
+        // methodes
         public Campaign Get(Guid entityId)
         {
             throw new NotImplementedException();

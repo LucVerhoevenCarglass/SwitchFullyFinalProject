@@ -7,6 +7,7 @@ namespace Swintake.domain.Campaigns
 {
     public class Campaign : Entity
     {
+        // fields
         public string Name { get; set; }
         public string Client { get; set; }
         public CampaignStatus Status { get; set; }
@@ -14,6 +15,7 @@ namespace Swintake.domain.Campaigns
         public DateTime ClassStartDate { get; set; }
         public string Comment { get; set; }
 
+        // constructors
         private Campaign() : base(Guid.Empty) { }
 
         //public Campaign(string name, string client, CampaignStatus status, DateTime startDate, DateTime classStartDate, string comment) : base(Guid.Empty)
@@ -36,6 +38,7 @@ namespace Swintake.domain.Campaigns
             this.Comment = campaignBuilder.Comment;
         }
 
+        // class in class
         public class CampaignBuilder : Builder<Campaign>
         {
             public Guid Id { get; set; }

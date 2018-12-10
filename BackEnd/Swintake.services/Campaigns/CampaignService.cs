@@ -8,6 +8,7 @@ namespace Swintake.services.Campaigns
 {
     public class CampaignService : ICampaignService
     {
+        // constructor
         private readonly IRepository<Campaign> _campaignRepository;
 
         public CampaignService(IRepository<Campaign> campaignRepository)
@@ -15,9 +16,10 @@ namespace Swintake.services.Campaigns
             _campaignRepository = campaignRepository;
         }
 
+        // methode
         public Campaign CreateCampaign(Campaign campaign)
         {
-            //controle
+            // controle
             if (campaign == null)
             {
                 throw new Exception("campaign is null");
@@ -34,7 +36,7 @@ namespace Swintake.services.Campaigns
                 throw new Exception("some fields of campaign are invalid");
             }
 
-            //ok save
+            // ok, save
             _campaignRepository.Save(campaign);
             return campaign;
         }

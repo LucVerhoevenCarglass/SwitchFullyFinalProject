@@ -8,6 +8,7 @@ namespace Swintake.api.Helpers.Campaigns
 {
     public class CampaignDto
     {
+        // fields
         public string Id { get; set; } // veranderd van Guid naar string, wat is de impact?
         public string Name { get; set; }
         public string Client { get; set; }
