@@ -16,15 +16,15 @@ namespace Swintake.domain.Campaigns
 
         private Campaign() : base(Guid.Empty) { }
 
-        public Campaign(string name, string client, CampaignStatus status, DateTime startDate, DateTime classStartDate, string comment) : base(Guid.Empty)
-        {
-            Name = name;
-            Client = client;
-            Status = status;
-            StartDate = startDate;
-            ClassStartDate = classStartDate;
-            Comment = comment;
-        }
+        //public Campaign(string name, string client, CampaignStatus status, DateTime startDate, DateTime classStartDate, string comment) : base(Guid.Empty)
+        //{
+        //    Name = name;
+        //    Client = client;
+        //    Status = status;
+        //    StartDate = startDate;
+        //    ClassStartDate = classStartDate;
+        //    Comment = comment;
+        //}
 
         public Campaign(CampaignBuilder campaignBuilder) : base(campaignBuilder.Id)
         {

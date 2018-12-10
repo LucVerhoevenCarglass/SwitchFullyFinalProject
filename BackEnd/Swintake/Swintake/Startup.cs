@@ -16,6 +16,10 @@ using Swintake.infrastructure.Logging;
 using Swintake.services.Users;
 using Swintake.services.Users.Security;
 using System;
+using Swintake.api.Helpers.Campaigns;
+using Swintake.domain;
+using Swintake.domain.Campaigns;
+using Swintake.services.Campaigns;
 
 namespace Swintake.api
 {
@@ -47,12 +51,17 @@ namespace Swintake.api
         {
 
             services.AddSingleton(ConfigureDbContext());
+            services.AddSingleton<SwintakeContext>();
+
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<Hasher>();
             services.AddSingleton<Salter>();
             services.AddSingleton<IUserAuthenticationService,UserAuthenticationService>();
-            services.AddSingleton<SwintakeContext>();
             services.Configure<Secrets>(Configuration);
+
+            services.AddScoped<IRepository<Campaign>, CampaignRepository>();
+            services.AddScoped<ICampaignService, CampaignService>();
+            services.AddTransient<CampaignMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
