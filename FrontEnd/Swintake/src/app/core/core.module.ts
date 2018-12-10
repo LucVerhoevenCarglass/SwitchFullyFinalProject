@@ -4,6 +4,7 @@ import { UserService } from './users/user.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [],
@@ -12,14 +13,16 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MomentModule
   ],
   exports:[
     CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  MomentModule],
   providers:[UserService]
 })
 export class CoreModule { }

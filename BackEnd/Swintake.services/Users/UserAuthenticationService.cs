@@ -12,7 +12,7 @@ using System.Text;
 namespace SecuredWebApi.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
-    { 
+    {
         private readonly IUserRepository _userRepository;
         private readonly Hasher _hasher;
         private readonly Salter _salter;
@@ -28,7 +28,7 @@ namespace SecuredWebApi.Services
             _hasher = hasher;
             _salter = salter;
             _secrets = secrets.Value;
-            
+
         }
 
         public JwtSecurityToken Authenticate(string providedEmail, string providedPassword)
@@ -74,6 +74,20 @@ namespace SecuredWebApi.Services
         private bool IsSuccessfullyAuthenticated(string providedPassword, UserSecurity persistedUserSecurity)
         {
             return _hasher.DoesProvidedPasswordMatchPersistedPassword(providedPassword, persistedUserSecurity);
+        }
+
+        public string GetNameByMail(string email)
+        {
+            User foundUser = _userRepository.FindByEmail(email);
+
+            if(foundUser != null)
+            {
+                return foundUser.FirstName;
+            }
+            else
+            {
+                return "user not found";
+            }
         }
     }
 }

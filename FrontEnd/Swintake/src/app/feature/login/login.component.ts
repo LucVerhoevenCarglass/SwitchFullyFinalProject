@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms'
 import { UserService } from 'src/app/core/users/user.service';
+import { Authentication } from 'src/app/core/users/authentication';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +17,13 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     }
   );
-  constructor(private formbuilder: FormBuilder, private userService: UserService) { }
+  constructor(private formbuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   authenticate() : void{
-    this.userService.authenticate(this.userForm.value)
-    .subscribe(user => window.location.href = `/jobapplications/`);
+    this.authService.login(this.userForm.value).
+    subscribe(i => window.location.href = `/jobapplications/`);
   }
 }
