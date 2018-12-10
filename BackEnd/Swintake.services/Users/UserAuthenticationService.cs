@@ -16,7 +16,7 @@ namespace SecuredWebApi.Services
         private readonly IUserRepository _userRepository;
         private readonly Hasher _hasher;
         private readonly Salter _salter;
-        private Secrets _secrets { get; }
+        private string secretKey{ get; }
 
         public UserAuthenticationService()
         {
@@ -27,8 +27,7 @@ namespace SecuredWebApi.Services
             _userRepository = userRepository;
             _hasher = hasher;
             _salter = salter;
-            _secrets = secrets.Value;
-            
+            secretKey = secrets.Value != null && secrets.Value.SuperStrongPassword != null ? secrets.Value.SuperStrongPassword : Environment.GetEnvironmentVariable("SuperStrongPassword", EnvironmentVariableTarget.Machine);
         }
 
         public JwtSecurityToken Authenticate(string providedEmail, string providedPassword)
@@ -58,7 +57,7 @@ namespace SecuredWebApi.Services
 
         private SecurityTokenDescriptor CreateTokenDescription(User foundUser)
         {
-            var key = Encoding.ASCII.GetBytes(_secrets.SuperStrongPassword);
+            var key = Encoding.ASCII.GetBytes(secretKey);
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
