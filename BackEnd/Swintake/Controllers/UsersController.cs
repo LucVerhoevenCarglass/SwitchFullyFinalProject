@@ -21,13 +21,13 @@ namespace Swintake.api.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public ActionResult<string> Authenticate([FromBody] UserDTO userDTO)
+        public ActionResult Authenticate([FromBody] UserDTO userDTO)
         {
             var securityToken = _userAuthService.Authenticate(userDTO.Email, userDTO.Password);
 
             if (securityToken != null)
             {
-                return Ok(securityToken.RawData);
+                return Ok();
             }
 
             return BadRequest("Email or Password incorrect!");

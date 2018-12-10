@@ -6,12 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swintake.api;
 using Swintake.domain.Data;
+using Swintake.services.Users.Security;
 using System;
 
 namespace Swintake.Integration.tests
 {
     public class TestStartup : Startup
     {
+
         public TestStartup(IConfiguration configuration, ILoggerFactory logFactory) : base(configuration, logFactory)
         {
         }
