@@ -5,7 +5,7 @@ import { CampaignService } from './campaigns/campaign.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import {MomentModule} from 'ngx-moment';
+//import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [],
@@ -15,7 +15,7 @@ import {MomentModule} from 'ngx-moment';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MomentModule
+  //  MomentModule
   ],
   exports:[
     CommonModule,

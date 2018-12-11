@@ -1,0 +1,31 @@
+<h1>Create a new campaign</h1>
+<form [formGroup]="createNewCampaignForm">
+  
+  <label>
+    campaign name:
+    <input type="text" formControlName="campaignName">
+  </label>
+  <br/>
+  <label>
+    campaign client:
+    <input type="text" formControlName="campaignClient">
+  </label>
+  <br/>
+  <label>
+    campaign start date:
+    <input type="date" formControlName="campaignStartDate">
+  </label>
+  <br/>
+  <label>
+    campaign class start date:
+    <input type="date" formControlName="campaignClassStartDate">
+  </label>
+  <br/>
+  <label>
+    campaign comment:
+    <input type="text" formControlName="campaignComment">
+  </label>
+  <br />
+  <button type="submit" (click)="create()">Create</button>
+  <button type="reset" (click)="cancel()">Cancel</button>
+</form>

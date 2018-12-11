@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { User } from '../users/user';
 import {map, tap} from 'rxjs/operators'
 import { shareReplay } from 'rxjs/operators';
-import * as moment from "moment";
+//import * as moment from "moment";
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -29,9 +29,9 @@ export class AuthService {
   }
 
   setSession(authResult) {
-    const expiresAt = moment().add(authResult.expiresIn, 'second');
+  //  const expiresAt = moment().add(authResult.expiresIn, 'second');
 
     localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+ //   localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
   }
 }

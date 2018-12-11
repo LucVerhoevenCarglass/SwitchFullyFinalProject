@@ -16,7 +16,7 @@ export class CampaignService {
   constructor(private http: HttpClient) { }
   
   addCampaign(campaign: Campaign): Observable<Campaign> {
-    return this.http.post<Campaign>(ApiUrl.urlCampaign, campaign, httpOptions);
+    return this.http.post<Campaign>("http://localhost:53941//api/campaign", campaign, httpOptions);
   }
 
   getCampaigns(): Observable<Campaign[]> {
