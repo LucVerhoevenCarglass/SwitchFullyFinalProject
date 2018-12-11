@@ -31,7 +31,6 @@ namespace Swintake.api
     {
 
         private string _connectionstring = ".\\SQLExpress";
-        private string _usersApiKey = null;
 
         public Startup(IConfiguration configuration, ILoggerFactory logFactory)
         {
