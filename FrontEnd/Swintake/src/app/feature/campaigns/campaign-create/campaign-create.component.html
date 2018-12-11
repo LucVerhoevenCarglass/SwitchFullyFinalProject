@@ -1,34 +1,32 @@
 <h1>Create a new campaign</h1>
 
 <form [formGroup]="createNewCampaignForm" (ngSubmit)="isValid() && create()" >
-
   
-    <mat-form-field>
+ <mat-form-field class="inputfield" >
     <mat-label>Name:</mat-label>
-    <input matInput [formControl]="name">
+    <input matInput  [formControl]="name">
     <mat-error *ngIf="submitted && name.invalid">{{getErrorMessage()}}</mat-error> 
     </mat-form-field >
-    <br/>
-
-    <mat-form-field>
+    
+    <mat-form-field class="inputfield">
         <mat-label>Client:</mat-label>
         <input matInput [formControl]="client">
         <mat-error *ngIf="submitted && client.invalid">{{getErrorMessage()}}</mat-error> 
     </mat-form-field >
     
-    <mat-form-field>
+    <mat-form-field class="inputfield">
         <mat-label>Start date::</mat-label>
         <input matInput type="date"  [formControl]="startDate">
         <mat-error *ngIf="submitted && startDate.invalid">{{getErrorMessage()}}</mat-error> 
     </mat-form-field >
         
-    <mat-form-field>
+    <mat-form-field class="inputfield">
         <mat-label>Class start date:</mat-label>
         <input matInput type="date" [formControl]="classStartDate">
         <mat-error *ngIf="submitted && classStartDate.invalid">{{getErrorMessage()}}</mat-error> 
     </mat-form-field >
 
-    <mat-form-field>
+    <mat-form-field class="inputfield">
         <mat-label>Comment:</mat-label>
         <input matInput [formControl]="comment">
         <mat-error *ngIf="submitted && comment.invalid">{{getErrorMessage()}}</mat-error> 
