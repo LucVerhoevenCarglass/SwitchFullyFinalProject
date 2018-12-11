@@ -35,7 +35,7 @@ namespace Swintake.api
 
         public Startup(IConfiguration configuration, ILoggerFactory logFactory)
         {
-            var foo = Environment.GetEnvironmentVariable("ParkSharkSql", EnvironmentVariableTarget.User);
+            var foo = Environment.GetEnvironmentVariable("LocalSql", EnvironmentVariableTarget.User);
             if (foo != null && foo.Equals("SqlServer"))
             {
                 _connectionstring = "(LocalDb)\\MSSQLLocalDb";

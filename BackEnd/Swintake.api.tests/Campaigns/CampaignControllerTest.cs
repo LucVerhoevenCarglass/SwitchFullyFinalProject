@@ -17,14 +17,14 @@ namespace Swintake.api.tests.Campaigns
     {
 
         private readonly ICampaignService campaignServiceStub;
-        private readonly CampaignController campaignController;
+        private readonly CampaignsController _campaignsController;
         private readonly CampaignMapper campaignMapperStub;
 
         public CampaignControllerTest()
         {
             campaignServiceStub = Substitute.For<ICampaignService>();
             campaignMapperStub = Substitute.For<CampaignMapper>();
-            campaignController = new CampaignController(campaignServiceStub, campaignMapperStub);
+            _campaignsController = new CampaignsController(campaignServiceStub, campaignMapperStub);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Swintake.api.tests.Campaigns
             campaignMapperStub.ToDto(campaign).Returns(newDTO);
 
             //when
-            CreatedResult result = (CreatedResult)campaignController.CreateCampaign(newDTOCreated).Result;
+            CreatedResult result = (CreatedResult)_campaignsController.CreateCampaign(newDTOCreated).Result;
 
             //then
             Assert.Equal(201, result.StatusCode);
