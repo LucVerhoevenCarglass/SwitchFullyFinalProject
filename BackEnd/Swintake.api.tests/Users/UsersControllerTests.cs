@@ -36,7 +36,7 @@ namespace Swintake.api.tests.Users
             _userAuthService.Authenticate(userDTO.Email, userDTO.Password).Returns(new JwtSecurityToken());
 
             //when
-            OkResult returnValue = (OkResult) _usersController.Authenticate(userDTO);
+            OkObjectResult returnValue = (OkObjectResult) _usersController.Authenticate(userDTO).Result;
 
             //then
             Assert.Equal(200, returnValue.StatusCode);
@@ -51,7 +51,7 @@ namespace Swintake.api.tests.Users
             _userAuthService.Authenticate(userDTO.Email, userDTO.Password).Returns(new JwtSecurityToken());
 
             //when
-            BadRequestObjectResult returnValue = (BadRequestObjectResult) _usersController.Authenticate(otherUserDTO);
+            BadRequestObjectResult returnValue = (BadRequestObjectResult) _usersController.Authenticate(otherUserDTO).Result;
 
             //then
             Assert.Equal(400, returnValue.StatusCode);

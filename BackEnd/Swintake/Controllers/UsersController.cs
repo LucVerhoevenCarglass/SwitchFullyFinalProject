@@ -23,14 +23,14 @@ namespace Swintake.api.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public ActionResult<KeyValuePair<JwtSecurityToken, string>> Authenticate([FromBody] UserDTO userDTO)
+        public ActionResult<JwtSecurityToken> Authenticate([FromBody] UserDTO userDTO)
         {
             var securityToken = _userAuthService.Authenticate(userDTO.Email, userDTO.Password);
 
             if (securityToken != null)
             {
                 var userName = _userAuthService.GetNameByMail(userDTO.Email);
-                return Ok(new KeyValuePair<JwtSecurityToken, string>(securityToken, userName));
+                return Ok(securityToken);
             }
 
             return BadRequest("Email or Password incorrect!");
