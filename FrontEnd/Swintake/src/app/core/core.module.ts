@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import {MomentModule} from 'ngx-moment';
+import { AuthService } from './authentication/auth.service';
+import { AuthInterceptor } from './authentication/authInterceptor';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,6 @@ import {MomentModule} from 'ngx-moment';
     HttpClientModule,
     ReactiveFormsModule,
   MomentModule],
-  providers:[UserService]
+  providers:[UserService, AuthService]
 })
 export class CoreModule { }

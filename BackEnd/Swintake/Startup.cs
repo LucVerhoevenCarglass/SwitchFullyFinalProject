@@ -20,6 +20,10 @@ using Swintake.api.Helpers.Campaigns;
 using Swintake.domain;
 using Swintake.domain.Campaigns;
 using Swintake.services.Campaigns;
+using Swintake.api.Helpers.Users;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Swintake.api
 {
@@ -95,14 +99,43 @@ namespace Swintake.api
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
             services.AddSingleton<SwintakeContext>();
             services.Configure<Secrets>(Configuration);
-
+            services.AddSingleton<UserMapper>();
             services.AddScoped<IRepository<Campaign>, CampaignRepository>();
             services.AddScoped<ICampaignService, CampaignService>();
             services.AddTransient<CampaignMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
+            services.AddCors();
+
+            services
+                .AddAuthorization()
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+               {
+                   options.RequireHttpsMetadata = false;
+                   options.SaveToken = true;
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(GetSecretKey()),
+                       ValidateIssuer = false,
+                       ValidateAudience = false
+                   };
+               });
         }
+
+        private byte[] GetSecretKey()
+        {
+            var secretKey = Configuration["SuperStrongPassword"];
+
+            return Encoding.ASCII.GetBytes(secretKey);
+        }
+
 
         protected virtual void ConfigureSwintake(IApplicationBuilder app, IHostingEnvironment env, ConfigurationBuilder builder)
         {
@@ -118,11 +151,11 @@ namespace Swintake.api
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
+
             builder
                 .AddEnvironmentVariables()
                 .Build();
         }
     }
 }
-
-//test

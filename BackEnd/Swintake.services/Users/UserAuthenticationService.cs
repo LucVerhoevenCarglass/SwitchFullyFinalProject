@@ -62,7 +62,8 @@ namespace SecuredWebApi.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email, foundUser.Email)
+                    new Claim(ClaimTypes.Email, foundUser.Email),
+                    new Claim(ClaimTypes.Name, foundUser.FirstName)
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -73,12 +74,6 @@ namespace SecuredWebApi.Services
         private bool IsSuccessfullyAuthenticated(string providedPassword, UserSecurity persistedUserSecurity)
         {
             return _hasher.DoesProvidedPasswordMatchPersistedPassword(providedPassword, persistedUserSecurity);
-        }
-
-        public string GetNameByMail(string email)
-        {
-            User foundUser = _userRepository.FindByEmail(email);
-            return foundUser.FirstName;
         }
     }
 }

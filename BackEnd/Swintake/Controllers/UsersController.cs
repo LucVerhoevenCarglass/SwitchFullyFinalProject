@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SecuredWebApi.Services;
+using Newtonsoft.Json;
 using Swintake.api.Helpers.Users;
-using Swintake.domain.Users;
 using Swintake.services.Users;
-using System.Collections.Generic;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Swintake.api.Controllers
@@ -15,10 +14,12 @@ namespace Swintake.api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserAuthenticationService _userAuthService;
+        private readonly UserMapper _userMapper;
 
-        public UsersController(IUserAuthenticationService userAuthService)
+        public UsersController(IUserAuthenticationService userAuthService, UserMapper userMapper)
         {
             _userAuthService = userAuthService;
+            _userMapper = userMapper;
         }
 
         [HttpPost("authenticate")]
@@ -29,17 +30,25 @@ namespace Swintake.api.Controllers
 
             if (securityToken != null)
             {
-                var userName = _userAuthService.GetNameByMail(userDTO.Email);
-                return Ok(securityToken);
+                var test = JsonConvert.SerializeObject(securityToken.RawData);
+                return Ok(test);
             }
 
             return BadRequest("Email or Password incorrect!");
         }
 
-        [HttpGet("{email}")]
-        public string GetNameByMail([FromRoute] string email)
+        [HttpGet("current")]
+        [Authorize]
+        public ActionResult<UserDTO> GetCurrentUser()
         {
-            return _userAuthService.GetNameByMail(email);
+            var authenticatedUser = _userAuthService.GetCurrentLoggedInUser(User);
+
+            if(authenticatedUser != null)
+            {
+                return Ok(_userMapper.toDTO(authenticatedUser));
+            }
+
+            return BadRequest("Could not find user");
         }
     }
 

@@ -25,7 +25,7 @@ namespace Swintake.api.tests.Users
         public UsersControllerTests()
         {
             _userAuthService = Substitute.For<IUserAuthenticationService>();
-            _usersController = new UsersController(_userAuthService);
+            _usersController = new UsersController(_userAuthService, new UserMapper());
         }
 
         [Fact]

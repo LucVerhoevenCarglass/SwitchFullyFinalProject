@@ -1,37 +1,44 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { User } from '../users/user';
-import {map, tap} from 'rxjs/operators'
+import { map, tap, catchError } from 'rxjs/operators'
 import { shareReplay } from 'rxjs/operators';
-import * as moment from "moment";
-import { Observable } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { error } from 'util';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class AuthService {
 
-  private userUrl = 'http://localhost:56258/api/Users/authenticate';
-  userName: string;
+  private tokenInfoSubject: BehaviorSubject<any>;
+  public tokenInfo: Observable<any>;
+  private userUrl = 'http://localhost:56258/api/Users/';
 
-  constructor(private http: HttpClient) { }
-
-  login(user: User): Observable<User>
-  {
-    return this.http.post<User>(this.userUrl, user, httpOptions)
-      .pipe(
-        tap(res => this.setSession),
-        tap(res => console.log(res)));
+  constructor(private http: HttpClient) {
+    this.tokenInfoSubject = new BehaviorSubject<any>(JSON.parse(sessionStorage.getItem('tokenInfo')));
+    this.tokenInfo = this.tokenInfoSubject.asObservable();
   }
 
-  setSession(authResult) {
-    const expiresAt = moment().add(authResult.expiresIn, 'second');
+  login(email: string, password: string) {
+    return this.http.post<any>(`${this.userUrl}authenticate`, { email, password })
+      .pipe(map(user => {
+        if (user) {
+          localStorage.setItem('tokenInfo', user);
+          this.tokenInfoSubject.next(user);
+        }
+        return user;
+      }));
+  }
+  
+  getCurrentUser() {
+    return this.http.get(`${this.userUrl}current`);
+  }
 
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+  logout() {
+    sessionStorage.removeItem('tokenInfo');
   }
 }

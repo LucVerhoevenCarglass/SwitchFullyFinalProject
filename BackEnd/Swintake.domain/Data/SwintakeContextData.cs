@@ -46,8 +46,8 @@ namespace Swintake.domain.Data
                 });
                 u.OwnsOne(us => us.UserSecurity).HasData(new
                 {
-                    PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=",
-                    AppliedSalt = "rODZhnBsLGRP908sBZiXzg==",
+                    PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=",
+                    AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==",
                     UserId = idReinout
                 });   
             });
