@@ -11,13 +11,13 @@ namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CampaignController : ControllerBase
+    public class CampaignsController : ControllerBase
     {
         // dependency injection
         private readonly ICampaignService _campaignService;
         private readonly CampaignMapper _campaignMapper;
 
-        public CampaignController(ICampaignService campaignService, CampaignMapper campaignMapper)
+        public CampaignsController(ICampaignService campaignService, CampaignMapper campaignMapper)
         {
             _campaignService = campaignService;
             _campaignMapper = campaignMapper;

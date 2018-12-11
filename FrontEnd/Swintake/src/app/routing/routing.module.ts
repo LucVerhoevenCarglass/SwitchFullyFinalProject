@@ -5,6 +5,7 @@ import { JobApplicationsComponent } from '../feature/job-applications/job-applic
 import { CampaignCreateComponent } from '../feature/campaigns/campaign-create/campaign-create.component';
 
 const routes: Routes=[
+  {path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: 'login', component: LoginComponent},
   {path: 'jobapplications', component: JobApplicationsComponent},
   {path: 'createcampaign', component: CampaignCreateComponent}

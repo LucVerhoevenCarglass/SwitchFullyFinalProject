@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CampaignService } from '../../../core/campaigns/campaign.service'
+import { Campaign } from 'src/app/core/campaigns/campaign';
 
 @Component({
   selector: 'app-campaign-create',
@@ -9,23 +10,55 @@ import { CampaignService } from '../../../core/campaigns/campaign.service'
 })
 export class CampaignCreateComponent implements OnInit {
 
-  createNewCampaignForm = new FormGroup({
+  /*createNewCampaignForm = new FormGroup({
     campaignName : new FormControl(''),
     campaignClient : new FormControl(''),
     campaignStartDate : new FormControl(''),
     campaignClassStartDate : new FormControl(''),
     campaignComment : new FormControl('')
   });
+  */
+  createNewCampaignForm = this.formbuilder.group({
+    Name: ['', Validators.required],
+    Client: ['', Validators.required],
+    StartDate: ['', Validators.required],
+    ClassStartDate: ['', Validators.required],
+    Comment: [''],
+    });
 
-  constructor(private campaignService: CampaignService) { }
+    campaign: Campaign = new Campaign();
+    submitted = false;
+
+
+
+  constructor(
+    private campaignService: CampaignService,
+    private formbuilder: FormBuilder) { }
 
   ngOnInit() {
   }
 
   create() {
-    console.log("starting create a campaign");
     this.campaignService.addCampaign(this.createNewCampaignForm.value)
-    console.log("created a campaign");
+        .subscribe();
+  }
+
+  cancel(){
+    this.createNewCampaignForm;
+  }
+
+  get i()
+  {
+    return this.createNewCampaignForm.controls;
+  }
+
+  isValid(): boolean{
+    this.submitted=true;
+    if(this.createNewCampaignForm.invalid)
+    {
+      return false;;
+    }
+   return true;
   }
 
 }

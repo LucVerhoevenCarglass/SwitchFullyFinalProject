@@ -1,31 +1,40 @@
 <h1>Create a new campaign</h1>
-<form [formGroup]="createNewCampaignForm">
+<form [formGroup]="createNewCampaignForm" (ngSubmit)="isValid() && create()" >
   
   <label>
     campaign name:
-    <input type="text" formControlName="campaignName">
-  </label>
+  </label>    
+    <mat-form-field>
+    <input matInput placeholder="The item name" formControlName="name" [ngClass]="{'is-invalid': submitted && i.name.errors}" [(ngModel)]="campaign.name">
+    <div *ngIf="submitted && i.name.errors" class="invalid-feedback">
+      <div *ngIf="i.name.errors.required">name is required</div>
+    </div>
+    </mat-form-field>
+
+
+ 
+
   <br/>
   <label>
     campaign client:
-    <input type="text" formControlName="campaignClient">
+    <input type="text" formControlName="Client">
   </label>
   <br/>
   <label>
     campaign start date:
-    <input type="date" formControlName="campaignStartDate">
+    <input type="date" formControlName="StartDate">
   </label>
   <br/>
   <label>
     campaign class start date:
-    <input type="date" formControlName="campaignClassStartDate">
+    <input type="date" formControlName="ClassStartDate">
   </label>
   <br/>
   <label>
     campaign comment:
-    <input type="text" formControlName="campaignComment">
+    <input type="text" formControlName="Comment">
   </label>
   <br />
   <button type="submit" (click)="create()">Create</button>
-  <button type="reset" (click)="cancel()">Cancel</button>
+  <button type="reset" (click)="cancel()">Cancel</button> 
 </form>
