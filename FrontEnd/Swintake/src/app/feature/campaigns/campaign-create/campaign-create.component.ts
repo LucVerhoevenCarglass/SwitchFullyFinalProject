@@ -29,8 +29,6 @@ export class CampaignCreateComponent implements OnInit {
     campaign: Campaign = new Campaign();
     submitted = false;
 
-
-
   constructor(
     private campaignService: CampaignService,
     private formbuilder: FormBuilder) { }
