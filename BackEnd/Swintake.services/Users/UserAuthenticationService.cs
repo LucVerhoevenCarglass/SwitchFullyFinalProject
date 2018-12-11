@@ -74,5 +74,11 @@ namespace SecuredWebApi.Services
         {
             return _hasher.DoesProvidedPasswordMatchPersistedPassword(providedPassword, persistedUserSecurity);
         }
+
+        public string GetNameByMail(string email)
+        {
+            User foundUser = _userRepository.FindByEmail(email);
+            return foundUser.FirstName;
+        }
     }
 }

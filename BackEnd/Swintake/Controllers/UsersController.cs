@@ -4,6 +4,8 @@ using SecuredWebApi.Services;
 using Swintake.api.Helpers.Users;
 using Swintake.domain.Users;
 using Swintake.services.Users;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Swintake.api.Controllers
 {
@@ -21,16 +23,23 @@ namespace Swintake.api.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public ActionResult Authenticate([FromBody] UserDTO userDTO)
+        public ActionResult<JwtSecurityToken> Authenticate([FromBody] UserDTO userDTO)
         {
             var securityToken = _userAuthService.Authenticate(userDTO.Email, userDTO.Password);
 
             if (securityToken != null)
             {
-                return Ok();
+                var userName = _userAuthService.GetNameByMail(userDTO.Email);
+                return Ok(securityToken);
             }
 
             return BadRequest("Email or Password incorrect!");
+        }
+
+        [HttpGet("{email}")]
+        public string GetNameByMail([FromRoute] string email)
+        {
+            return _userAuthService.GetNameByMail(email);
         }
     }
 
