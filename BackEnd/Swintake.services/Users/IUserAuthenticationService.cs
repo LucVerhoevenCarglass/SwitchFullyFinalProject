@@ -11,6 +11,5 @@ namespace Swintake.services.Users
     {
         JwtSecurityToken Authenticate(string providedEmail, string providedPassword);
         User GetCurrentLoggedInUser(ClaimsPrincipal principleUser);
-        string GetNameByMail(string email);
     }
 }
