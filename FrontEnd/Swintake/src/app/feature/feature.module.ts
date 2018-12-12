@@ -4,7 +4,6 @@ import { CoreModule } from '../core/core.module';
 import { RoutingModule } from '../routing/routing.module';
 import { LoginComponent } from './login/login.component';
 import { JobApplicationsComponent } from './job-applications/job-applications.component';
-import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CampaignDetailComponent } from './campaigns/campaign-detail/campaign-detail.component';
 import { CampaignCreateComponent } from './campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
@@ -12,7 +11,7 @@ import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.c
 @NgModule({
   declarations: [
     LoginComponent, 
-    JobApplicationsComponent, CampaignsComponent, CampaignDetailComponent, CampaignCreateComponent, CampaignListComponent
+    JobApplicationsComponent, CampaignDetailComponent, CampaignCreateComponent, CampaignListComponent
   ],
   imports: [
     CommonModule,
