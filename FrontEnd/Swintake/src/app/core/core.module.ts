@@ -8,7 +8,6 @@ import { AuthService } from './authentication/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthGuard } from './authentication/auth.guard';
 
 @NgModule({
