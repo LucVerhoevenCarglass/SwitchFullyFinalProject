@@ -18,8 +18,7 @@ import { AuthGuard } from './authentication/auth.guard';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule
+    ReactiveFormsModule
   ],
   exports:[
     CommonModule,
@@ -27,7 +26,6 @@ import { AuthGuard } from './authentication/auth.guard';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     NgbModule
   ],
   providers:[
