@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Campaign } from './campaign';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ApiUrl } from '../CommonUrl/CommonUrl';
 
 const httpOptions = {
@@ -17,14 +17,14 @@ export class CampaignService {
   
   addCampaign(campaign: Campaign): Observable<Campaign> {
 
-    return this.http.post<Campaign>('http://localhost:53941//api/campaign', campaign, httpOptions);
+    return this.http.post<Campaign>(ApiUrl.urlCampaign, campaign, httpOptions);
   }
 
-  getCampaigns(): Observable<Campaign[]> {
-    return this.http.get<Campaign[]>(ApiUrl.urlCampaign);
+  getCampaigns():  Observable<Campaign[]> {
+    return this.http.get<Campaign[]>(ApiUrl.urlCampaign)
   }
 
-  getCampaign(id: string): Observable<Campaign> {
+  getCampaignById(id: string): Observable<Campaign> {
     return this.http.get<Campaign>(`${ApiUrl.urlCampaign}id:string?id=${id}`);
    }
 

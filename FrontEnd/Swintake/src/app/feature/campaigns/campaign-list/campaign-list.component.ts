@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Campaign } from '../../../core/campaigns/campaign';
 import { CampaignService } from '../../../core/campaigns/campaign.service';
+//import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-campaign-list',
@@ -9,7 +10,8 @@ import { CampaignService } from '../../../core/campaigns/campaign.service';
 })
 export class CampaignListComponent implements OnInit {
 
-  campaigns: Campaign[];
+  campaigns: Campaign[] = [];
+  //campaigns$ : Observable<Campaign[]>;
 
   constructor(private campaignService: CampaignService) { }
 
@@ -17,9 +19,13 @@ export class CampaignListComponent implements OnInit {
     this.getAllCampaigns();
   }
 
-  getAllCampaigns(){
+ // getAllCampaigns(){
+ //   this.campaigns$=this.campaignService.getCampaigns();
+    //.subscribe(campaigns => this.campaigns = campaigns);
+ // }
+ getAllCampaigns(): void {
     this.campaignService.getCampaigns()
-    .subscribe(campaigns => this.campaigns = campaigns);
-  }
-  
+            .subscribe(campaigns => this.campaigns = campaigns);
+}
+
 }

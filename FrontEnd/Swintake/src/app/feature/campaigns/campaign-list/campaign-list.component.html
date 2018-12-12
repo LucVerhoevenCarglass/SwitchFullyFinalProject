@@ -1,24 +1,19 @@
 <h1>Campaigns</h1>
 
-<div class="table-responsive">
-  <table id="mytable" class="table table-bordred table-striped">
+<div class="table-bordred">
+  <table id="tableCompaigns" class="table table-bordred table-striped">
      <thead>
-       <th>ID</th>
        <th>Name</th>
        <th>Client</th>
        <th>StartDate</th>
-       <th>EndDate</th>
-       <th>Status</th>
+       <th>ClassStartDate</th>
      </thead>
-<!--   
-      Dit moet het bovenste vervangen zodra ik de compaigns heb.....   
-       <tr *ngFor= "let campaign of campaigns | async" >
-       <td>{{campaign.id}}</td>
+
+     <tr *ngFor= "let campaign of campaigns" >
        <td>{{campaign.name}}</td>
        <td>{{campaign.client}}</td>
        <td>{{campaign.startDate}}</td>
-       <td>{{campaign.endDate}}</td>
-       <td>{{campaign.status}}</td>
-     </tr>  -->
+       <td>{{campaign.classStartDate}}</td>
+     </tr>  
  </table>
  </div> 
