@@ -90,5 +90,41 @@ namespace Swintake.Integration.tests.Campaigns
             }
         }
 
+
+        [Fact]
+        public async Task GivenHappyPath_WhenGetAllCampaigns_ThenCampaignsAreReturned()
+        {
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>()
+                .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
+                    .Build()));
+
+            using (server)
+            {
+                var client = server.CreateClient();
+
+                var context = server.Host.Services.GetService<SwintakeContext>();
+
+                var newDTOCreated = new CreateCampaignDto()
+                {
+                    Name = "testCampaign",
+                    Client = "testClient",
+                    ClassStartDate = DateTime.Today.AddDays(5),
+                    StartDate = DateTime.Today.AddDays(5),
+                    Comment = "testComment"
+                };
+
+                var content = JsonConvert.SerializeObject(newDTOCreated);
+                var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+                var response = await client.GetAsync("api/campaigns");
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal("OK", response.StatusCode.ToString());
+            }
+        }
+
     }
 }

@@ -23,7 +23,7 @@ namespace Swintake.api.Helpers.Campaigns
                 .Build();
         }
 
-        public virtual Campaign toNewDomain(CreateCampaignDto createCampaignDto)
+        public virtual Campaign ToNewDomain(CreateCampaignDto createCampaignDto)
         {
             return Campaign.CampaignBuilder.NewCampaign()
                 .WithId(Guid.NewGuid())
