@@ -16,7 +16,7 @@ export class CampaignService {
   constructor(private http: HttpClient) { }
   
   addCampaign(campaign: Campaign): Observable<Campaign> {
-
+    delete campaign.id;
     return this.http.post<Campaign>(ApiUrl.urlCampaign, campaign, httpOptions);
   }
 
