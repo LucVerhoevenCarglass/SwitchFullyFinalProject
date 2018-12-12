@@ -7,11 +7,12 @@ import { JobApplicationsComponent } from './job-applications/job-applications.co
 import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CampaignDetailComponent } from './campaigns/campaign-detail/campaign-detail.component';
 import { CampaignCreateComponent } from './campaigns/campaign-create/campaign-create.component';
+import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
 
 @NgModule({
   declarations: [
     LoginComponent, 
-    JobApplicationsComponent, CampaignsComponent, CampaignDetailComponent, CampaignCreateComponent
+    JobApplicationsComponent, CampaignsComponent, CampaignDetailComponent, CampaignCreateComponent, CampaignListComponent
   ],
   imports: [
     CommonModule,

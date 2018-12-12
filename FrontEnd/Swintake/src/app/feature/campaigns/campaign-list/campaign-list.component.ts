@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Campaign } from '../../core/campaigns/campaign';
-import { CampaignService } from '../../core/campaigns/campaign.service';
+import { Campaign } from '../../../core/campaigns/campaign';
+import { CampaignService } from '../../../core/campaigns/campaign.service';
 
 @Component({
-  selector: 'app-campaigns',
-  templateUrl: './campaigns.component.html',
-  styleUrls: ['./campaigns.component.css']
+  selector: 'app-campaign-list',
+  templateUrl: './campaign-list.component.html',
+  styleUrls: ['./campaign-list.component.css']
 })
-export class CampaignsComponent implements OnInit {
+export class CampaignListComponent implements OnInit {
 
   campaigns: Campaign[];
 
@@ -21,5 +21,5 @@ export class CampaignsComponent implements OnInit {
     this.campaignService.getCampaigns()
     .subscribe(campaigns => this.campaigns = campaigns);
   }
-
+  
 }
