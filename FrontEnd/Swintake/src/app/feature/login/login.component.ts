@@ -5,24 +5,52 @@ import { Authentication } from 'src/app/core/users/authentication';
 import { AuthService } from 'src/app/core/authentication/auth.service';
 import { Router, ActivatedRoute } from '@angular/router'
 import { first } from 'rxjs/operators'
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'ngbd-modal-content',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Hello, World!</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  `
+})
+export class NgbdModalContent {
+
+  constructor(public activeModal: NgbActiveModal) {}
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   isSubmitted = false;
   userForm: FormGroup;
   invalidLogin: boolean;
   
-  constructor(private formbuilder: FormBuilder, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private formbuilder: FormBuilder, 
+    private authService: AuthService, 
+    private route: ActivatedRoute, 
+    private router: Router,
+    private modalService: NgbModal) { }
   
   ngOnInit() {
     this.userForm = this.formbuilder.group(
       {
-        email: ['', Validators.required, Validators.email],
+        email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required]
       }
     );
@@ -49,11 +77,15 @@ export class LoginComponent implements OnInit {
         .subscribe(
           i => window.location.href = '/jobapplications',
           error => {
-            console.log(error);
+            this.open();
           });
     }
   }
   getCurrentUser() {
     this.authService.getCurrentUser();
+  }
+
+  open() {
+    this.modalService.open(NgbdModalContent);
   }
 }
