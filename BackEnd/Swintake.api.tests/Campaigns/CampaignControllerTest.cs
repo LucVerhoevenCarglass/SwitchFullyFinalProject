@@ -119,6 +119,7 @@ namespace Swintake.api.tests.Campaigns
             IEnumerable<CampaignDto> IEnumerableCampaignDto = new List<CampaignDto>();
 
             //then
+            //als dit verder nog problemen oplevert, mag deze hele test weggegooid worden.
             if (allCampaigns != null)
             {
                 Assert.Equal(IEnumerableCampaignDto.GetType().ToString(), allCampaigns.GetType().ToString());
