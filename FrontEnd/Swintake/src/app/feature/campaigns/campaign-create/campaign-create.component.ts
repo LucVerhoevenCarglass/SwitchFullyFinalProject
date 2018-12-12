@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CampaignService } from '../../../core/campaigns/campaign.service'
 import { Campaign } from 'src/app/core/campaigns/campaign';
+import { DateValidator } from './dateValidator';
+import { Router } from '@angular/router';
+import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
+
 
 @Component({
   selector: 'app-campaign-create',
@@ -10,30 +14,22 @@ import { Campaign } from 'src/app/core/campaigns/campaign';
 })
 export class CampaignCreateComponent implements OnInit {
 
-  /*createNewCampaignForm = new FormGroup({
-    campaignName : new FormControl(''),
-    campaignClient : new FormControl(''),
-    campaignStartDate : new FormControl(''),
-    campaignClassStartDate : new FormControl(''),
-    campaignComment : new FormControl('')
-  });
-  */
     campaign: Campaign = new Campaign();
     submitted = false;
     createNewCampaignForm:FormGroup;
-    //email = new FormControl('', [Validators.required, Validators.email]);
     name = new FormControl('', [Validators.required ]);
     client = new FormControl('', [Validators.required ]);
-    startDate = new FormControl('', [Validators.required ]);
-    classStartDate = new FormControl('', [Validators.required ]);
+    startDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
+    classStartDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
     comment = new FormControl('');
 
   constructor(
     private campaignService: CampaignService,
-    private formbuilder: FormBuilder) { }
+    private formbuilder: FormBuilder,
+    private _router: Router) { }
 
     ngOnInit() {
-      this.campaign.Name="new Campaign";
+      this.campaign.name="new Campaign";
       this.createNewCampaignForm = this.formbuilder.group({
         name: this.name,
         client: this.client,
@@ -50,9 +46,14 @@ export class CampaignCreateComponent implements OnInit {
            this.classStartDate.hasError('required') ? 'Is Required' : '';
   }
 
+ // create() {
+ //   this.campaignService.addCampaign(this.createNewCampaignForm.value)
+ //       .subscribe();
+
   create() {
-    this.campaignService.addCampaign(this.createNewCampaignForm.value)
-        .subscribe();
+          this.campaignService.addCampaign(this.createNewCampaignForm.value)
+              .subscribe()
+          this._router.navigateByUrl('/listcampaigns');
   }
 
   cancel(){

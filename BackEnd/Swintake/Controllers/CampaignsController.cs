@@ -35,7 +35,12 @@ namespace Swintake.api.Controllers
        [HttpGet]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
+            //var allCompaigns = _campaignService.GetCampaigns()
+            //    .Select(campaign => _campaignMapper.ToDto(campaign));
+            //return ok(allCompaigns.ToList());
+
             //service gets domain items
+
             IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
 
             //from domain to dto

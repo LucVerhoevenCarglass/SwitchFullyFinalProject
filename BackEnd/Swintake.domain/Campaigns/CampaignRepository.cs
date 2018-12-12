@@ -27,6 +27,8 @@ namespace Swintake.domain.Campaigns
 
         public IList<Campaign> GetAll()
         {
+            //return _context.Campaigns.ToList();
+
             //list to catch campaigns
             List<Campaign> campaigns = new List<Campaign>();
             foreach (var campaign in _context.Campaigns)

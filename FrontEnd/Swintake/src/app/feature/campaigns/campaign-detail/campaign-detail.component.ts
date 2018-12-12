@@ -19,7 +19,7 @@ export class CampaignDetailComponent implements OnInit {
 
   getCampaign(): void{
     const id = this.route.snapshot.paramMap.get('id');
-    this.campaignService.getCampaign(id)
+    this.campaignService.getCampaignById(id)
     .subscribe(campaign => this.campaign = campaign);
   }
 

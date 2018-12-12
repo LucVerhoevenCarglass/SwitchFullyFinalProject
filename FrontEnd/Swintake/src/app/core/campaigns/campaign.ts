@@ -1,7 +1,8 @@
 export class Campaign{
-    Name: string;
-    Client: string;
-    StartDate: Date;
-    ClassStartDate : Date;
-    Comment: string;
+    id?: string;
+    name: string;
+    client: string;
+    startDate: Date;
+    classStartDate : Date;
+    comment?: string;
 }
