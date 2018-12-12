@@ -42,5 +42,10 @@ namespace Swintake.services.Campaigns
 
             return campaign;
         }
+
+        public IEnumerable<Campaign> GetCampaigns()
+        {
+            return _campaignRepository.GetAll();
+        }
     }
 }
