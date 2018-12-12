@@ -40,6 +40,7 @@ namespace Swintake.api.Controllers
             //return ok(allCompaigns.ToList());
 
             //service gets domain items
+
             IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
 
             //from domain to dto

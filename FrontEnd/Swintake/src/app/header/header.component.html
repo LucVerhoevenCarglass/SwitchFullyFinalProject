@@ -24,10 +24,10 @@
         <div ngbDropdown>
         <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
-          <span class="fas fa-user" *ngIf='userName'></span> <span class="label-title">Signed-in as:</span> {{userName}}
+          <span class="fas fa-user" *ngIf='currentUserToken'></span> <span class="label-title">Signed-in as:</span><span id="loggedInUser">{{CurrentUserName()}}</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" (click)="logOut()">Sign-out</a>
+          <a class="dropdown-item" (click)="logOut()" id="logOutLink">Sign-out</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Reset password</a>
         </div>

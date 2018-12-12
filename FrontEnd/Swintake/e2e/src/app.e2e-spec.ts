@@ -1,14 +1,13 @@
-import { AppPage } from './app.po';
+import { LoginPage } from './login.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+fdescribe('workspace-project App', () => {
+  let loginPage: LoginPage = new LoginPage();
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+ // beforeAll(() => loginPage.navigateTo());
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to Swintake!');
+  it('should authenticate the user', () => {
+    loginPage.navigateTo();
+    loginPage.login(loginPage.user)
+    .expectIfUserIsLoggedIn('Niels');
   });
 });

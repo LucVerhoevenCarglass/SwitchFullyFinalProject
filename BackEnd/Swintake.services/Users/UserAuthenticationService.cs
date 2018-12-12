@@ -33,11 +33,16 @@ namespace SecuredWebApi.Services
         public JwtSecurityToken Authenticate(string providedEmail, string providedPassword)
         {
             User foundUser = _userRepository.FindByEmail(providedEmail);
+            if(foundUser == null)
+            {
+                return null;
+            }
 
             if (IsSuccessfullyAuthenticated(providedPassword, foundUser.UserSecurity))
             {
                 return new JwtSecurityTokenHandler().CreateToken(CreateTokenDescription(foundUser)) as JwtSecurityToken;
             }
+
             return null;
         }
 
