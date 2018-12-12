@@ -1,5 +1,5 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark box-header-border box-header-shadow">
-  <a class="navbar-brand" href="#">Switch<span class="text-green">fully</span></a>
+  <a class="navbar-brand" routerLink="/jobapplications/">Switch<span class="text-green">fully</span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/jobapplications">Home<span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/jobapplications/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link">Candidates</a>
@@ -16,17 +16,15 @@
         <a class="nav-link" routerLink="/createcampaign">Create campaign</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" *ngIf='currentUserToken'>
       <li class="nav-item dropdown">
         <div ngbDropdown>
-        <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
-          <span class="fas fa-user" *ngIf='currentUserToken'></span> <span class="label-title">Signed-in as:</span><span id="loggedInUser">{{CurrentUserName()}}</span>
+          <span class="fas fa-user"></span> <span class="label-title">Signed-in as:</span><span id="loggedInUser">{{currentUserName()}}</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu>
           <a class="dropdown-item" (click)="logOut()" id="logOutLink">Sign-out</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Reset password</a>
         </div>
       </div>
       </li>

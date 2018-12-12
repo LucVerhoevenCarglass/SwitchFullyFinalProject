@@ -4,12 +4,10 @@ import { CampaignService } from './campaigns/campaign.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './authentication/auth.service';
+import { AuthService } from '../core/authentication/services/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AuthGuard } from './authentication/auth.guard';
+import { AuthGuard } from './authentication/helpers/auth.guard';
 
 @NgModule({
   declarations: [],

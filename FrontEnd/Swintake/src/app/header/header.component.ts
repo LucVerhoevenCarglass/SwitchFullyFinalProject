@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
-import { AuthService } from 'src/app/core/authentication/auth.service';
+import { AuthService } from 'src/app/core/authentication/services/auth.service';
 import { Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
-import { UserAuth } from '../core/authentication/userAuth';
-import { User } from '../core/users/user';
+import { UserAuth } from '../core/authentication/classes/userAuth';
 import { Router } from '@angular/router';
-import { LoggedInUser } from '../core/authentication/loggedInUser';
+import { LoggedInUser } from '../core/authentication/classes/loggedInUser';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-header',
@@ -18,8 +19,8 @@ export class HeaderComponent {
   currentUser: LoggedInUser = new LoggedInUser();
   currentUserToken: UserAuth;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.tokenInfo.subscribe(t => {this.currentUserToken = t});
+  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
+    this.authService.tokenInfo.subscribe(t => { this.currentUserToken = t });
     console.log(this.currentUserToken);
   }
 
@@ -32,9 +33,8 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  CurrentUserName(): string {
-    if(this.currentUserToken && !this.currentUser.firstName)
-    {
+  currentUserName(): string {
+    if (this.currentUserToken && !this.currentUser.firstName) {
       this.authService.getCurrentUser().pipe(first()).subscribe(
         user => {
           this.currentUser = user;

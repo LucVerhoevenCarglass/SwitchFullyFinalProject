@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { Observable, of, BehaviorSubject } from 'rxjs';
-import { UserAuth } from './userAuth';
-import { LoggedInUser } from './loggedInUser';
+import { UserAuth } from '../classes/userAuth';
+import { LoggedInUser } from '../classes/loggedInUser';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.removeItem('tokenInfo');
+    localStorage.removeItem('tokenInfo');
     this.tokenInfoSubject.next(null);
   }
 }

@@ -5,16 +5,14 @@ import {
     Router,
     RouterStateSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
-        private router: Router
+        protected router: Router
     ) { }
 
     canActivate(
@@ -22,10 +20,10 @@ export class AuthGuard implements CanActivate {
         state: RouterStateSnapshot
     ) {
         const currentUserToken = this.authService.tokenInfo;
-        if (currentUserToken) {
+        if (localStorage.getItem('tokenInfo')) {
             return true;
         }
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         return false;
     }
 }

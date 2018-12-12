@@ -1,10 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../users/user';
+import { User } from '../classes/user';
 import { of } from 'rxjs'
-import { LoggedInUser } from './loggedInUser';
+import { LoggedInUser } from '../classes/loggedInUser';
 
 fdescribe('AuthService', () => {
   let httpClient: HttpClient;
