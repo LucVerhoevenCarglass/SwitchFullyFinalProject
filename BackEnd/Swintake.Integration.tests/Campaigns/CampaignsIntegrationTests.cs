@@ -122,7 +122,7 @@ namespace Swintake.Integration.tests.Campaigns
                 var response = await client.GetAsync("api/campaigns");
                 response.EnsureSuccessStatusCode();
 
-                Assert.Equal("Success", response.StatusCode.ToString());
+                Assert.Equal("OK", response.StatusCode.ToString());
             }
         }
 
