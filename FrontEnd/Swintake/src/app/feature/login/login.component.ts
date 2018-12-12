@@ -13,19 +13,34 @@ import { first } from 'rxjs/operators'
 })
 export class LoginComponent implements OnInit {
 
-  userForm = this.formbuilder.group(
-    {
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    }
-  );
+  isSubmitted = false;
+  userForm: FormGroup;
   invalidLogin: boolean;
-
+  
   constructor(private formbuilder: FormBuilder, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
-
+  
   ngOnInit() {
+    this.userForm = this.formbuilder.group(
+      {
+        email: ['', Validators.required, Validators.email],
+        password: ['', Validators.required]
+      }
+    );
   }
 
+  get f(){
+    return this.userForm.controls;
+  }
+
+  isValid(): boolean{
+    this.isSubmitted = true;
+    if(this.userForm.invalid)
+    {
+      return false;
+    }
+    return true;
+  }
+  
   login(): void {
     const val = this.userForm.value;
     if (val.email && val.password) {
