@@ -27,7 +27,13 @@ namespace Swintake.domain.Campaigns
 
         public IList<Campaign> GetAll()
         {
-            throw new NotImplementedException();
+            //list to catch campaigns
+            List<Campaign> campaigns = new List<Campaign>();
+            foreach (var campaign in _context.Campaigns)
+            {
+                campaigns.Add(campaign);
+            }
+            return campaigns;
         }
 
         public Campaign Save(Campaign campaign)

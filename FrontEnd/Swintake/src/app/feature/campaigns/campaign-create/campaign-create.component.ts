@@ -28,8 +28,6 @@ export class CampaignCreateComponent implements OnInit {
     classStartDate = new FormControl('', [Validators.required ]);
     comment = new FormControl('');
 
-
-
   constructor(
     private campaignService: CampaignService,
     private formbuilder: FormBuilder) { }
