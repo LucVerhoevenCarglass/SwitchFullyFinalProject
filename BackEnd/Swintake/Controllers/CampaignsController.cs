@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Campaigns;
+using Swintake.domain.Campaigns;
 using Swintake.services.Campaigns;
 
 namespace Swintake.api.Controllers
@@ -34,26 +35,34 @@ namespace Swintake.api.Controllers
             return Created($"api/campaign/{newCampaign.Id}", newCampaign);
         }
 
-        //GET: api/Campaign
-        //[HttpGet]
-        // public IEnumerable<string> Get()
-        // {
-        //     return new string[] { "value1", "value2" };
-        // }
+       // GET: api/Campaign
+       [HttpGet]
+        public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
+        {
+            //service gets domain items
+            IEnumerable<Campaign> campaigns = _campaignService.GetCampaigns();
+
+            //from domain to dto
+            List<CampaignDto> campaignDtos = new List<CampaignDto>();
+          
+            foreach (Campaign campaign in campaigns)
+            {
+                //convert each campaign to dto
+                CampaignDto campaignDto = _campaignMapper.ToDto(campaign);
+                //add to to list
+                campaignDtos.Add(campaignDto);
+            }
+
+            //return dto result
+            return Ok(campaignDtos);
+        }
 
         // GET: api/Campaign/5
-        [HttpGet("{id}", Name = "Get")]
-        public ActionResult<CampaignDto> Get(string id)
-        {
-            var campaign = _campaignService.GetCampaignByID(id);
-            if (campaign == null)
-            {
-                return BadRequest("Id not found");
-            }
-            var campaignToReturn = _campaignMapper.ToDto(campaign);
-
-            return Ok(campaignToReturn);
-        }
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // PUT: api/Campaign/5
         //[HttpPut("{id}")]

@@ -7,16 +7,22 @@ import { JobApplicationsComponent } from './job-applications/job-applications.co
 import { CampaignDetailComponent } from './campaigns/campaign-detail/campaign-detail.component';
 import { CampaignCreateComponent } from './campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
+import { NgbdModalContent } from '../feature/login/login.component';
 
 @NgModule({
   declarations: [
     LoginComponent, 
-    JobApplicationsComponent, CampaignDetailComponent, CampaignCreateComponent, CampaignListComponent
+    JobApplicationsComponent, 
+    CampaignDetailComponent, 
+    CampaignCreateComponent, 
+    CampaignListComponent, 
+    NgbdModalContent
   ],
+  entryComponents:[NgbdModalContent],
   imports: [
     CommonModule,
     CoreModule,
-    RoutingModule,
+    RoutingModule
   ],
 })
 export class FeatureModule { }
