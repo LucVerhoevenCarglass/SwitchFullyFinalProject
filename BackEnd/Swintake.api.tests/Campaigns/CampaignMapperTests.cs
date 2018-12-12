@@ -26,7 +26,7 @@ namespace Swintake.api.tests.Campaigns
             var campaignMapper = new CampaignMapper();
 
             //when
-            var newDomain = campaignMapper.toNewDomain(newDTO);
+            var newDomain = campaignMapper.ToNewDomain(newDTO);
 
             //then
             Assert.IsType<Guid>(newDomain.Id);
