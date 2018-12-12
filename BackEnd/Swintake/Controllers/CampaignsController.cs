@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Campaigns;
 using Swintake.domain.Campaigns;
@@ -30,7 +26,7 @@ namespace Swintake.api.Controllers
         {
             var newCampaign = _campaignMapper.ToDto(
                      _campaignService.AddCampaign(
-                        _campaignMapper.toNewDomain(createCampaignDto)));
+                        _campaignMapper.ToNewDomain(createCampaignDto)));
 
             return Created($"api/campaign/{newCampaign.Id}", newCampaign);
         }
@@ -40,7 +36,7 @@ namespace Swintake.api.Controllers
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
             //service gets domain items
-            IEnumerable<Campaign> campaigns = _campaignService.GetCampaigns();
+            IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
 
             //from domain to dto
             List<CampaignDto> campaignDtos = new List<CampaignDto>();
@@ -52,17 +48,24 @@ namespace Swintake.api.Controllers
                 //add to to list
                 campaignDtos.Add(campaignDto);
             }
-
+            
             //return dto result
             return Ok(campaignDtos);
         }
 
         // GET: api/Campaign/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}", Name = "Get")]
+        public ActionResult<CampaignDto> Get(string id)
+        {
+            var campaign = _campaignService.GetCampaignByID(id);
+            if (campaign == null)
+            {
+                return BadRequest("Id not found");
+            }
+            var campaignToReturn = _campaignMapper.ToDto(campaign);
+
+            return Ok(campaignToReturn);
+        }
 
         // PUT: api/Campaign/5
         //[HttpPut("{id}")]
