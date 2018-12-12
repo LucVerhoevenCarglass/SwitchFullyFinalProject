@@ -1,7 +1,9 @@
 ﻿using Swintake.domain.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Swintake.domain.Campaigns
 {
@@ -20,7 +22,7 @@ namespace Swintake.domain.Campaigns
         // methodes
         public Campaign Get(Guid entityId)
         {
-            throw new NotImplementedException();
+            return _context.Campaigns.SingleOrDefault(campaign => campaign.Id == entityId);
         }
 
         public IList<Campaign> GetAll()

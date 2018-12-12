@@ -42,5 +42,10 @@ namespace Swintake.services.Campaigns
 
             return campaign;
         }
+
+        public Campaign GetCampaignByID(string id)
+        {
+            return _campaignRepository.Get(new Guid(id));
+        }
     }
 }

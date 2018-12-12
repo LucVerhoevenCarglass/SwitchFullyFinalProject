@@ -7,6 +7,7 @@ namespace Swintake.services.Campaigns
 {
     public interface ICampaignService
     {
-        Campaign AddCampaign(Campaign campaign); 
+        Campaign AddCampaign(Campaign campaign);
+        Campaign GetCampaignByID(string id);
     }
 }

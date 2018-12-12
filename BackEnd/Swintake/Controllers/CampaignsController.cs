@@ -34,19 +34,26 @@ namespace Swintake.api.Controllers
             return Created($"api/campaign/{newCampaign.Id}", newCampaign);
         }
 
-        // GET: api/Campaign
+        //GET: api/Campaign
         //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // public IEnumerable<string> Get()
+        // {
+        //     return new string[] { "value1", "value2" };
+        // }
 
         // GET: api/Campaign/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}", Name = "Get")]
+        public ActionResult<CampaignDto> Get(string id)
+        {
+            var campaign = _campaignService.GetCampaignByID(id);
+            if (campaign == null)
+            {
+                return BadRequest("Id not found");
+            }
+            var campaignToReturn = _campaignMapper.ToDto(campaign);
+
+            return Ok(campaignToReturn);
+        }
 
         // PUT: api/Campaign/5
         //[HttpPut("{id}")]
