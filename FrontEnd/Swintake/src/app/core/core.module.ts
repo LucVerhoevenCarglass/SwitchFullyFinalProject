@@ -5,6 +5,9 @@ import { CampaignService } from './campaigns/campaign.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import {MomentModule} from 'ngx-moment';
+import { AuthService } from './authentication/auth.service';
+import { AuthInterceptor } from './authentication/authInterceptor';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule} from '@angular/material/list';

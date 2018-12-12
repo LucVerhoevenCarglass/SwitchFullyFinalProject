@@ -50,7 +50,7 @@ namespace Swintake.Integration.tests
                 var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync("api/users/authenticate", stringContent);
-                var responseString = await response.Content.ReadAsStringAsync();
+                //var responseString = await response.Content.ReadAsStringAsync();
 
                 // The returned token is of format plain/text not of json.
                 // var test = JsonConvert.DeserializeObject(responseString);

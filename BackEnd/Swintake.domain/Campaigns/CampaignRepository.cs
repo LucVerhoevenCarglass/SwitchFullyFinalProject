@@ -32,7 +32,7 @@ namespace Swintake.domain.Campaigns
 
         public Campaign Save(Campaign campaign)
         {
-            _context.Add(campaign); 
+            _context.Campaigns.Add(campaign); 
             _context.SaveChanges();
             return campaign;
         }

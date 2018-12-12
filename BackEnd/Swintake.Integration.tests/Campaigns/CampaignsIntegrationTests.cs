@@ -23,6 +23,8 @@ namespace Swintake.Integration.tests.Campaigns
             var server = new TestServer(new WebHostBuilder()
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
                     .Build()));
 
             using (server)
@@ -43,8 +45,11 @@ namespace Swintake.Integration.tests.Campaigns
                 var content = JsonConvert.SerializeObject(newDTOCreated);
                 var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync("api/campaign/", stringContent);
+                var response = await client.PostAsync("api/campaigns", stringContent);
+                response.EnsureSuccessStatusCode();
+
                 var responseString = await response.Content.ReadAsStringAsync();
+                var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseString);
 
                 Assert.Equal("Created", response.StatusCode.ToString());
             }
@@ -56,6 +61,8 @@ namespace Swintake.Integration.tests.Campaigns
             var server = new TestServer(new WebHostBuilder()
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
                     .Build()));
 
             using (server)
@@ -76,7 +83,7 @@ namespace Swintake.Integration.tests.Campaigns
                 var content = JsonConvert.SerializeObject(newDTOCreated);
                 var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync("api/campaign/", stringContent);
+                var response = await client.PostAsync("api/campaigns", stringContent);
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 Assert.Equal("BadRequest", response.StatusCode.ToString());
