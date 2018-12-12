@@ -6,8 +6,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './authentication/auth.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [],
@@ -16,8 +17,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule
+    ReactiveFormsModule
+
   ],
   exports:[
     CommonModule,
@@ -25,7 +26,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    NgbModule
   ],
   providers:[
     CampaignService,
