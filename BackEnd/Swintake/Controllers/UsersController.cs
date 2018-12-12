@@ -39,7 +39,7 @@ namespace Swintake.api.Controllers
 
         [HttpGet("current")]
         [Authorize]
-        public ActionResult<UserDTO> GetCurrentUser()
+        public ActionResult<UserReplyDTO> GetCurrentUser()
         {
             var authenticatedUser = _userAuthService.GetCurrentLoggedInUser(User);
 

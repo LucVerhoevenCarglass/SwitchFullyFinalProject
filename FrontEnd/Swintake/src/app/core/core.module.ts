@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from './users/user.service';
 import { CampaignService } from './campaigns/campaign.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AuthGuard } from './authentication/auth.guard';
 
 @NgModule({
   declarations: [],
@@ -32,8 +32,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   providers:[
     CampaignService,
-    UserService,
-    AuthService
+    AuthService,
+    AuthGuard
   ]
 
 })

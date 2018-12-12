@@ -3,12 +3,13 @@ import {RouterModule, Routes} from '@angular/router'
 import { LoginComponent } from '../feature/login/login.component';
 import { JobApplicationsComponent } from '../feature/job-applications/job-applications.component';
 import { CampaignCreateComponent } from '../feature/campaigns/campaign-create/campaign-create.component';
+import { AuthGuard } from '../core/authentication/auth.guard';
 
 const routes: Routes=[
-  {path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'jobapplications', component: JobApplicationsComponent},
-  {path: 'createcampaign', component: CampaignCreateComponent}
+  {path: 'jobapplications', component: JobApplicationsComponent, canActivate: [AuthGuard]},
+  {path: 'createcampaign', component: CampaignCreateComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
