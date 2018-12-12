@@ -16,6 +16,20 @@
         <a class="nav-link" routerLink="/createcampaign">Create campaign</a>
       </li>
     </ul>
-        <app-logout></app-logout>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <div ngbDropdown>
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="fas fa-user" *ngIf='userName'></span> <span class="label-title">Signed-in as:</span> {{userName}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" (click)="logOut()">Sign-out</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Reset password</a>
+        </div>
+      </div>
+      </li>
+    </ul>
   </div>
 </nav>

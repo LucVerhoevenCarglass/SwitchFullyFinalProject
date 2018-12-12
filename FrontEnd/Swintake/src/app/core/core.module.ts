@@ -5,14 +5,9 @@ import { CampaignService } from './campaigns/campaign.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './authentication/auth.service';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatListModule} from '@angular/material/list';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule, MatExpansionModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
-//import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [],
@@ -22,14 +17,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatListModule
-  //  MomentModule
+    BrowserAnimationsModule
   ],
   exports:[
     CommonModule,
@@ -37,17 +25,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatListModule
+    BrowserAnimationsModule
   ],
   providers:[
     CampaignService,
-    UserService
+    UserService,
+    AuthService
   ]
 
 })

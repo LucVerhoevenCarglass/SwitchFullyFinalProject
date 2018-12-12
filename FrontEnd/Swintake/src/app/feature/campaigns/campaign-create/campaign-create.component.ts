@@ -51,12 +51,8 @@ export class CampaignCreateComponent implements OnInit {
   }
 
   create() {
-   // if (this.isValid())
-   // {
-      this.campaignService.addCampaign(this.createNewCampaignForm.value)
-      .subscribe();
-  //  }
-
+    this.campaignService.addCampaign(this.createNewCampaignForm.value)
+        .subscribe();
   }
 
   cancel(){

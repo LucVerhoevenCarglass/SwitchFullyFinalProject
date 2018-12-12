@@ -26,13 +26,4 @@ export class UserService {
     return this.currentUserTokenSubject.value;
   }
   
-  // authenticate(email: string, password: string) {
-  //   return this.http.post(this.userUrl, JSON.stringify({email, password}))
-  //   .map(res => res.json())
-  //   .map(res => {
-  //     localStorage.setItem('auth_token', res.auth_token);
-  //     this.logged
-  //   }
-  //     )
-  // }
 }

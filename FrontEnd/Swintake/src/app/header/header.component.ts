@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { AuthService } from 'src/app/core/authentication/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,22 @@ import { Component, OnInit, HostListener, Inject } from '@angular/core';
 })
 
 export class HeaderComponent {
-constructor(){}
+  userName: string;
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.getCurrentUserName();
+  }
+
+  logOut() {
+    this.authService.logout();
+    window.location.href = '/login';
+  }
+
+  getCurrentUserName() {
+    this.authService.getCurrentUser().subscribe(options => {
+      this.userName = options['firstName'];
+    });
+  }
+
 }

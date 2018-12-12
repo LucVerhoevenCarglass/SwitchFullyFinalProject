@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     <section class="box-section-shadow box-light-background sub-section">
-      <form [formGroup] = "userForm" (ngSubmit) = "authenticate()">
+      <form [formGroup] = "userForm" (ngSubmit) = "login()">
         <div class="form-group">
           <label for="emailInputText" class="label-title">Email</label>
           <input formControlName = "email" type="text" class="form-control" id="emailInput" />
@@ -11,6 +11,7 @@
           <input formControlName = "password" type="password" class="form-control" id="passwordInput" />
         </div>
         <button type = "submit">knop</button>
+      <button (click) = "getCurrentUser()">current user test</button>
       </form>
     </section>
     <div class="sub-section-complete"></div>
