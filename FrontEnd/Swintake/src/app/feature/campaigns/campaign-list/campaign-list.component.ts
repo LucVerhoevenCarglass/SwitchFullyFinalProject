@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Campaign } from '../../../core/campaigns/campaign';
-import { CampaignService } from '../../../core/campaigns/campaign.service';
+import { Campaign } from '../../../core/campaigns/classes/campaign';
+import { CampaignService } from '../../../core/campaigns/services/campaign.service';
 //import { Observable } from 'rxjs';
 
 @Component({

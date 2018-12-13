@@ -10,6 +10,4 @@ fdescribe('workspace-project App', () => {
     loginPage.login(loginPage.user)
     .expectIfUserIsLoggedIn('Niels');
   });
-
-  // it('should create an new campaign')
 });

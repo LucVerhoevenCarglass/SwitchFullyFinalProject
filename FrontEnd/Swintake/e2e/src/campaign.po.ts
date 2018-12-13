@@ -1,5 +1,5 @@
 import {browser, by} from 'protractor';
-import { Campaign } from 'src/app/core/campaigns/campaign';
+import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 
 export class CampaignPage{
     navigateTo(){
@@ -19,6 +19,5 @@ export class CampaignPage{
         browser.findElement(by.id('inputStartDate')).sendKeys(campaign.startDate.toDateString());
         browser.findElement(by.id('inputClassStartDate')).sendKeys(campaign.classStartDate.toDateString());
         browser.findElement(by.id('CampaignCreateButton')).click();
-        return this;
     }
 }
