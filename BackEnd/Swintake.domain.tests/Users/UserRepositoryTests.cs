@@ -36,7 +36,11 @@ namespace Swintake.domain.tests.Users
 
                 //then
 
-                Assert.Equal(user, foundUser);
+                Assert.Equal(user.Id, foundUser.Id);
+                Assert.Equal(user.Email, foundUser.Email);
+                Assert.Equal(user.FirstName, foundUser.FirstName);
+                Assert.Equal(user.UserSecurity.AppliedSalt, foundUser.UserSecurity.AppliedSalt);
+                Assert.Equal(user.UserSecurity.PasswordHashedAndSalted, foundUser.UserSecurity.PasswordHashedAndSalted);
             }
         }
 

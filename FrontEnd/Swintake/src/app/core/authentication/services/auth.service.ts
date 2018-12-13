@@ -4,10 +4,11 @@ import { map } from 'rxjs/operators'
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { UserAuth } from '../classes/userAuth';
 import { LoggedInUser } from '../classes/loggedInUser';
+import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+//const httpOptions = {
+//  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+//};
 
 @Injectable()
 
@@ -16,7 +17,7 @@ export class AuthService {
   private tokenInfoSubject: BehaviorSubject<UserAuth>;
   public tokenInfo: Observable<UserAuth>;
 
-  private userUrl = 'http://localhost:56258/api/Users/';
+  private userUrl = ApiUrl.urlUsers;
   
   constructor(private http: HttpClient) {
     this.tokenInfoSubject = new BehaviorSubject<UserAuth>(JSON.parse(sessionStorage.getItem('tokenInfo')));
