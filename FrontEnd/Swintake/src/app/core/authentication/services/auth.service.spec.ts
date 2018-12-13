@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../classes/user';
 import { of } from 'rxjs'
 import { LoggedInUser } from '../classes/loggedInUser';
+import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
 fdescribe('AuthService', () => {
   let httpClient: HttpClient;
@@ -20,7 +21,7 @@ fdescribe('AuthService', () => {
       Password: 'Passwoord123'
     };
     spyOn(httpClient, 'post').and.callFake((url: string) => {
-      expect(url).toBe('http://localhost:56258/api/Users/authenticate');
+      expect(url).toBe(`${ApiUrl.urlUsers}authenticate`);
       return of("testToken");
     });
 
@@ -34,7 +35,7 @@ fdescribe('AuthService', () => {
       firstName: 'Caroline'
     };
     spyOn(httpClient, 'get').and.callFake((url :string) => {
-      expect(url).toBe('http://localhost:56258/api/Users/current');
+      expect(url).toBe(`${ApiUrl.urlUsers}current`);
       return of(user);
     });
 
