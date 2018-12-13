@@ -24,6 +24,9 @@ using Swintake.api.Helpers.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Swintake.services.Candidates;
+using Swintake.api.Helpers.Candidates;
+using Swintake.domain.Candidates;
 
 namespace Swintake.api
 {
@@ -102,6 +105,9 @@ namespace Swintake.api
             services.AddScoped<IRepository<Campaign>, CampaignRepository>();
             services.AddScoped<ICampaignService, CampaignService>();
             services.AddTransient<CampaignMapper>();
+            services.AddScoped<IRepository<Candidate>, CandidateRepository>();
+            services.AddScoped<ICandidateService, CandidateService>();
+            services.AddTransient<CandidateMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();
