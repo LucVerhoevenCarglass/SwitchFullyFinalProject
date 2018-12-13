@@ -7,14 +7,15 @@ import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './core/authentication/authInterceptor';
+import { AuthInterceptor } from './core/authentication/helpers/authInterceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
   ],
   
   imports: [
@@ -24,9 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FeatureModule,
     SharedModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
   ],
-
   providers:[
     { provide: HTTP_INTERCEPTORS, 
       useClass: AuthInterceptor, 

@@ -19,5 +19,6 @@ export class CampaignPage{
         browser.findElement(by.id('inputStartDate')).sendKeys(campaign.startDate.toDateString());
         browser.findElement(by.id('inputClassStartDate')).sendKeys(campaign.classStartDate.toDateString());
         browser.findElement(by.id('CampaignCreateButton')).click();
+        return this;
     }
 }

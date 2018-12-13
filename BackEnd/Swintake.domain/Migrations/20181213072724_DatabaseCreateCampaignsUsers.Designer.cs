@@ -10,8 +10,8 @@ using Swintake.domain.Data;
 namespace Swintake.domain.Migrations
 {
     [DbContext(typeof(SwintakeContext))]
-    [Migration("20181207125929_CreatingCampaignTable")]
-    partial class CreatingCampaignTable
+    [Migration("20181213072724_DatabaseCreateCampaignsUsers")]
+    partial class DatabaseCreateCampaignsUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,10 @@ namespace Swintake.domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Campaigns");
+
+                    b.HasData(
+                        new { Id = new Guid("4d816abf-d7dd-4c5e-bef6-a1b2356194f1"), ClassStartDate = new DateTime(2018, 12, 13, 8, 27, 23, 903, DateTimeKind.Local), Client = "ClientSwinTake", Comment = "CommentSwinTake", Name = "TestCampaignSwinTake", StartDate = new DateTime(2018, 12, 13, 8, 27, 23, 905, DateTimeKind.Local), Status = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Swintake.domain.Users.User", b =>
@@ -57,8 +61,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("d9910976-4e52-4202-bcef-40034a0fca63"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("1dc4fe36-8cda-4469-ac06-6fea5af718bd"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -82,8 +86,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("d9910976-4e52-4202-bcef-40034a0fca63"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" },
-                                new { UserId = new Guid("1dc4fe36-8cda-4469-ac06-6fea5af718bd"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });

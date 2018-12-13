@@ -1,7 +1,5 @@
 import {browser, by} from 'protractor';
-import { User } from 'src/app/core/users/user';
-import { LoggedInUser } from 'src/app/core/authentication/loggedInUser';
-
+import { User } from 'src/app/core/authentication/classes/user';
 
 export class LoginPage{
     navigateTo(){

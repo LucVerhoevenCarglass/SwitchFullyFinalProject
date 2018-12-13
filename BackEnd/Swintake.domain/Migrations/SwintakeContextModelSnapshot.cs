@@ -41,7 +41,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Campaigns");
 
                     b.HasData(
-                        new { Id = new Guid("9083d1b4-57c4-43c1-bdd3-6b4be15e7a33"), ClassStartDate = new DateTime(2018, 12, 7, 14, 56, 46, 159, DateTimeKind.Local), Client = "ClientSwinTake", Comment = "CommentSwinTake", Name = "TestCampaignSwinTake", StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Status = 1 }
+                        new { Id = new Guid("4d816abf-d7dd-4c5e-bef6-a1b2356194f1"), ClassStartDate = new DateTime(2018, 12, 13, 8, 27, 23, 903, DateTimeKind.Local), Client = "ClientSwinTake", Comment = "CommentSwinTake", Name = "TestCampaignSwinTake", StartDate = new DateTime(2018, 12, 13, 8, 27, 23, 905, DateTimeKind.Local), Status = 1 }
                     );
                 });
 
@@ -59,8 +59,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("1106146d-4be5-40fc-a35f-e75468b0b6f5"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("2355d27e-9105-4e85-ad4a-3916192e962c"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -84,8 +84,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("1106146d-4be5-40fc-a35f-e75468b0b6f5"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" },
-                                new { UserId = new Guid("2355d27e-9105-4e85-ad4a-3916192e962c"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });
