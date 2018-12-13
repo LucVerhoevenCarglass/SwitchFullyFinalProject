@@ -10,8 +10,8 @@ using Swintake.domain.Data;
 namespace Swintake.domain.Migrations
 {
     [DbContext(typeof(SwintakeContext))]
-    [Migration("20181207103257_addNewUsers")]
-    partial class addNewUsers
+    [Migration("20181213072724_DatabaseCreateCampaignsUsers")]
+    partial class DatabaseCreateCampaignsUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,32 @@ namespace Swintake.domain.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Swintake.domain.Campaigns.Campaign", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ClassStartDate");
+
+                    b.Property<string>("Client");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Campaigns");
+
+                    b.HasData(
+                        new { Id = new Guid("4d816abf-d7dd-4c5e-bef6-a1b2356194f1"), ClassStartDate = new DateTime(2018, 12, 13, 8, 27, 23, 903, DateTimeKind.Local), Client = "ClientSwinTake", Comment = "CommentSwinTake", Name = "TestCampaignSwinTake", StartDate = new DateTime(2018, 12, 13, 8, 27, 23, 905, DateTimeKind.Local), Status = 1 }
+                    );
+                });
 
             modelBuilder.Entity("Swintake.domain.Users.User", b =>
                 {
@@ -35,7 +61,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("88878a2c-04d6-43b9-b22b-650ea27d39c6"), Email = "reinout@switchfully.com", FirstName = "Reinout" }
+                        new { Id = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -59,7 +86,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("88878a2c-04d6-43b9-b22b-650ea27d39c6"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=" }
+                                new { UserId = new Guid("9d8b8fdf-1018-438d-80c8-67a986b89acc"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("ac82a251-24f0-4ac0-975e-c463e6e90c6f"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });

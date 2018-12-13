@@ -1,10 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-
 import { CampaignService } from './campaign.service';
 import { HttpClient } from '@angular/common/http';
-import { Campaign } from '../campaigns/campaign';
+import { Campaign } from '../classes/campaign';
 import { of } from 'rxjs'
-import { ApiUrl } from '../CommonUrl/CommonUrl';
+import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
 fdescribe('CampaignService', () => {
   let httpClient: HttpClient;

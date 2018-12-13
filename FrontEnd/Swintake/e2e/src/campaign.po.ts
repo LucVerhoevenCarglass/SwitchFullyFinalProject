@@ -1,5 +1,5 @@
 import {browser, by} from 'protractor';
-import { Campaign } from 'src/app/core/campaigns/campaign';
+import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 
 export class CampaignPage{
     navigateTo(){

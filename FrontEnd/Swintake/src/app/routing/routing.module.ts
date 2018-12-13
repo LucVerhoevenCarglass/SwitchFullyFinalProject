@@ -4,7 +4,7 @@ import { LoginComponent } from '../feature/login/login.component';
 import { JobApplicationsComponent } from '../feature/job-applications/job-applications.component';
 import { CampaignCreateComponent } from '../feature/campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from '../feature/campaigns/campaign-list/campaign-list.component';
-import { AuthGuard } from '../core/authentication/auth.guard';
+import { AuthGuard } from '../core/authentication/helpers/auth.guard';
 
 const routes: Routes=[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
