@@ -9,17 +9,13 @@ namespace Swintake.domain.Campaigns
 {
     public class CampaignRepository : IRepository<Campaign>
     {
-        // fields en constructor
         private readonly SwintakeContext _context;
-
-        //protected CampaignRepository() { }
 
         public CampaignRepository(SwintakeContext context)
         {
             _context = context;
         }
 
-        // methodes
         public Campaign Get(Guid entityId)
         {
             return _context.Campaigns.SingleOrDefault(campaign => campaign.Id == entityId);
@@ -28,14 +24,6 @@ namespace Swintake.domain.Campaigns
         public IList<Campaign> GetAll()
         {
             return _context.Campaigns.AsNoTracking().ToList();
-
-            //list to catch campaigns
-            //List<Campaign> campaigns = new List<Campaign>();
-            //foreach (var campaign in _context.Campaigns)
-            //{
-            //    campaigns.Add(campaign);
-            //}
-            //return campaigns;
         }
 
         public Campaign Save(Campaign campaign)
