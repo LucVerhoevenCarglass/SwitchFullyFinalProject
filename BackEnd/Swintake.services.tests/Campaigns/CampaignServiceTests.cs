@@ -48,7 +48,6 @@ namespace Swintake.services.tests.Campaigns
         public void CreateCampaign_HappyPath()
         {
             //given
-            _campaignRepository.Save(TestCampaign);
             Campaign createdCampaign = _campaignService.AddCampaign(TestCampaign);
             Assert.NotNull(createdCampaign);
             Assert.NotEqual(createdCampaign.Id, Guid.Empty);
