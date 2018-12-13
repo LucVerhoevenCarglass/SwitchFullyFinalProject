@@ -27,15 +27,15 @@ namespace Swintake.domain.Campaigns
 
         public IList<Campaign> GetAll()
         {
-            //return _context.Campaigns.ToList();
+            return _context.Campaigns.AsNoTracking().ToList();
 
             //list to catch campaigns
-            List<Campaign> campaigns = new List<Campaign>();
-            foreach (var campaign in _context.Campaigns)
-            {
-                campaigns.Add(campaign);
-            }
-            return campaigns;
+            //List<Campaign> campaigns = new List<Campaign>();
+            //foreach (var campaign in _context.Campaigns)
+            //{
+            //    campaigns.Add(campaign);
+            //}
+            //return campaigns;
         }
 
         public Campaign Save(Campaign campaign)

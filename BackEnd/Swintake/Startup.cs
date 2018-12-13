@@ -96,7 +96,7 @@ namespace Swintake.api
             services.AddSingleton<Hasher>();
             services.AddSingleton<Salter>();
             services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
-            services.AddSingleton<SwintakeContext>();
+            services.AddScoped<SwintakeContext>();
             services.Configure<Secrets>(Configuration);
             services.AddSingleton<UserMapper>();
             services.AddScoped<IRepository<Campaign>, CampaignRepository>();

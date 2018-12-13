@@ -1,7 +1,9 @@
 import { LoginPage } from './login.po';
+import { CampaignPage } from './campaign.po';
 
 fdescribe('workspace-project App', () => {
   let loginPage: LoginPage = new LoginPage();
+  let campaignPage: CampaignPage = new CampaignPage();
 
  // beforeAll(() => loginPage.navigateTo());
 
@@ -10,4 +12,12 @@ fdescribe('workspace-project App', () => {
     loginPage.login(loginPage.user)
     .expectIfUserIsLoggedIn('Niels');
   });
+
+   it('should add new created campaing into list', () => {
+    campaignPage.navigateTo();
+    campaignPage.navigateCreateCampaign();
+
+    campaignPage.AddNewCampaign(campaignPage.campaign)
+                .expectifCampaignHasbeenAddedToList(campaignPage.campaign.name);
+   });
 });

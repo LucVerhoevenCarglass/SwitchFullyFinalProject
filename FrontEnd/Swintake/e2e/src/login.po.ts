@@ -1,5 +1,6 @@
-import {browser, by} from 'protractor';
+import {browser, by, ElementFinder, element} from 'protractor';
 import { User } from 'src/app/core/authentication/classes/user';
+import { protractor } from 'protractor/built/ptor';
 
 export class LoginPage{
     navigateTo(){
@@ -20,7 +21,7 @@ export class LoginPage{
 
     expectIfUserIsLoggedIn(firstName: string)
     {
-        expect(browser.findElement(by.id('loggedInUser')).getText()).toContain(firstName);
+        expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('navbar')),firstName),5000)).toBeTruthy();
         return this;
     }
 }
