@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="box-shadow box-light-background parent-section">
+    <div class="container">
+      <header>
+        <h1>Create a new candidate</h1>
+        <hr>
+      </header>
+      <form [formGroup]="createNewCandidateForm" (ngSubmit)="isValid() && create()">
+        <div class="form-group">
+          <label for="inputFirstNameText" class="label-title">First Name:</label>
+          <input formControlName="firstName" type="text" class="form-control" id="inputFirstNameText" [ngClass]="{'is-invalid': submitted && i.firstName.errors}">
+          <div *ngIf="submitted && i.firstName.errors" class="invalid-feedback">
+            <div *ngIf="i.firstName.errors">First Name Required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputLastNameText" class="label-title">Last Name:</label>
+          <input formControlName="lastName" type="text" class="form-control" id="inputLastNameText" [ngClass]="{'is-invalid': submitted && i.lastName.errors}">
+          <div *ngIf="submitted && i.lastName.errors" class="invalid-feedback">
+            <div *ngIf="i.lastName.errors">Last Name Required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputEmailText" class="label-title">E-mail</label>
+          <input formControlName="email" type="text" class="form-control" id="inputEmailText" [ngClass]="{'is-invalid': submitted && i.email.errors}">
+          <div *ngIf="submitted && i.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.email">Email not correct format</div>
+            <div *ngIf="f.email.errors.required">Email required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPhoneNumberText" class="label-title">Phone Number</label>
+          <input formControlName="phoneNumber" type="text" class="form-control" id="inputPhoneNumberText" [ngClass]="{'is-invalid': submitted && i.phoneNumber.errors}">
+          <div *ngIf="submitted && i.phoneNumber.errors" class="invalid-feedback">
+            <div *ngIf="i.phoneNumber.errors">Phone Number Required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputGitHubText" class="label-title">Github Username</label>
+          <input formControlName="gitHubUserName" type="text" class="form-control" id="inputGitHubText">
+        </div>
+        <div class="form-group">
+          <label for="inputLinkedInText" class="label-title">LinkedIn Username</label>
+          <input formControlName="linkedIn" type="text" class="form-control" id="inputLinkedInText">
+        </div>
+        <div class="form-group">
+          <label for="inputCommentText" class="label-title">Comment:</label>
+          <input formControlName="comment" type="text" class="form-control" id="inputCommentText">
+        </div>
+        <button id="CandidateCreateButton" type="submit">Create</button>
+        <button type="reset" (click)="cancel()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
