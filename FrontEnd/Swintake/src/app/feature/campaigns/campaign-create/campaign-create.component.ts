@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CampaignService } from '../../../core/campaigns/services/campaign.service'
 import { Campaign } from 'src/app/core/campaigns/classes/campaign';
-import { DateValidator } from './dateValidator';
 import { Router } from '@angular/router';
 import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -40,12 +38,12 @@ export class CampaignCreateComponent implements OnInit {
   create() {
           this.campaignService.addCampaign(this.createNewCampaignForm.value)
               .subscribe(data => {
-                this._router.navigateByUrl('/listcampaigns');
+                this._router.navigateByUrl('/campaigns');
               }, error => {console.log(error)});
   }
 
   cancel(){
-    this._router.navigateByUrl('/listcampaigns');  }
+    this._router.navigateByUrl('/campaigns');  }
 
   get i(){
     return this.createNewCampaignForm.controls;
