@@ -14,5 +14,6 @@ namespace Swintake.api.Helpers.Candidates
         public string PhoneNumber { get; set; }
         public string GitHubUsername { get; set; }
         public string LinkedIn { get; set; }
+        public string Comment { get; set; }
     }
 }
