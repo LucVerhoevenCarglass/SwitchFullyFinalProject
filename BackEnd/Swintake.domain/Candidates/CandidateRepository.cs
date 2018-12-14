@@ -23,7 +23,14 @@ namespace Swintake.domain.Candidates
 
         public IList<Candidate> GetAll()
         {
-            throw new NotImplementedException();
+            var candidateList = new List<Candidate>();
+
+            foreach (var candidate in _context.Candidates)
+            {
+                candidateList.Add(candidate);
+            }
+
+            return candidateList;
         }
 
         public Candidate Save(Candidate candidate)

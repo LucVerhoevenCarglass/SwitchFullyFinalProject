@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Candidates;
+using Swintake.domain.Candidates;
 using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
+using System.Collections.Generic;
 
 namespace Swintake.api.Controllers
 {
@@ -13,7 +15,7 @@ namespace Swintake.api.Controllers
         private readonly CandidateMapper _candidateMapper;
         private readonly ICandidateService _candidateService;
 
-        public CandidatesController(CandidateMapper candidateMapper, ICandidateService candidateService)
+        public CandidatesController(ICandidateService candidateService, CandidateMapper candidateMapper)
         {
             _candidateMapper = candidateMapper;
             _candidateService = candidateService;
@@ -48,6 +50,33 @@ namespace Swintake.api.Controllers
             {
                 var candidate = _candidateService.GetCandidateById(id);
                 return _candidateMapper.ToDto(candidate);
+            }
+            catch (EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<List<CandidateDto>> GetAll()
+        {
+            try
+            {
+                var candidatesDomain = _candidateService.GetAllCandidates();
+
+                var candidatesDto = new List<CandidateDto>();
+
+                foreach (var candidate in candidatesDomain)
+                {
+                    var candidateDto = _candidateMapper.ToDto(candidate);
+                    candidatesDto.Add(candidateDto);
+                }
+
+                return candidatesDto;
             }
             catch (EntityNotValidException ex)
             {

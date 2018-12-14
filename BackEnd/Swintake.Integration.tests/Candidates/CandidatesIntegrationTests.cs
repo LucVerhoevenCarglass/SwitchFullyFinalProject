@@ -89,5 +89,41 @@ namespace Swintake.Integration.tests.Candidates
                 Assert.Equal("BadRequest", response.StatusCode.ToString());
             }
         }
+
+        [Fact]
+        public async Task GivenHappyPath_WhenGetAllCandidates_ThenCandidatesAreReturned()
+        {
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>()
+                .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
+                    .Build()));
+
+            using (server)
+            {
+                var client = server.CreateClient();
+
+                var context = server.Host.Services.GetService<SwintakeContext>();
+
+                var DTOCreated = new CandidateDto(
+                    Guid.NewGuid().ToString(),
+                    "Janneke",
+                    "Janssens",
+                    "janneke.janssens@gmail.com",
+                    "0470000000",
+                    "janneke",
+                    "janneke",
+                    "jannekeComment");
+
+                var content = JsonConvert.SerializeObject(DTOCreated);
+                var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+                var response = await client.GetAsync("api/candidates");
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal("OK", response.StatusCode.ToString());
+            }
+        }
     }
 }

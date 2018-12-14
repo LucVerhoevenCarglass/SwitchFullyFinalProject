@@ -67,5 +67,15 @@ namespace Swintake.services.tests.Candidates
             Exception ex = Assert.Throws<EntityNotValidException>(() => _candidateService.AddCandidate(jannekeNotValid));
             Assert.Contains("some fields of candidate are invalid", ex.Message);
         }
+
+        [Fact]
+        public void GivenMockDatabaseWith2Objects_GetAllCandidates__ReturnListOfTwoObjects()
+        {
+            _candidateRepository.GetAll().Returns(new List<Candidate>() { janneke, mieke });
+
+            var result = _candidateService.GetAllCandidates().Count();
+
+            Assert.Equal(2, result);
+        }
     }
 }

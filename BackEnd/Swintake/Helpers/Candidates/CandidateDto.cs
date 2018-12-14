@@ -15,5 +15,19 @@ namespace Swintake.api.Helpers.Candidates
         public string GitHubUsername { get; set; }
         public string LinkedIn { get; set; }
         public string Comment { get; set; }
+
+        public CandidateDto() { }
+
+        public CandidateDto(string id, string firstName, string lastName, string email, string phoneNumber, string gitHubUsername, string linkedIn, string comment)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            GitHubUsername = gitHubUsername;
+            LinkedIn = linkedIn;
+            Comment = comment;
+        }
     }
 }

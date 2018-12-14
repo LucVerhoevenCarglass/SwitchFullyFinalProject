@@ -88,7 +88,6 @@ namespace Swintake.Integration.tests.Campaigns
             }
         }
 
-
         [Fact]
         public async Task GivenHappyPath_WhenGetAllCampaigns_ThenCampaignsAreReturned()
         {
@@ -123,6 +122,5 @@ namespace Swintake.Integration.tests.Campaigns
                 Assert.Equal("OK", response.StatusCode.ToString());
             }
         }
-
     }
 }
