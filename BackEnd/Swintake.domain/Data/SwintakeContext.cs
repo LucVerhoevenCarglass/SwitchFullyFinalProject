@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Swintake.domain.Campaigns;
 using Swintake.domain.Candidates;
+using Swintake.domain.JobApplications;
 using Swintake.domain.Users;
 
 namespace Swintake.domain.Data
@@ -13,6 +14,7 @@ namespace Swintake.domain.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
 
         public SwintakeContext(ILoggerFactory loggerFactory)
         {
@@ -55,6 +57,24 @@ namespace Swintake.domain.Data
             modelBuilder.Entity<Candidate>()
                 .ToTable("Candidates")
                 .HasKey(candidate => candidate.Id);
+
+            modelBuilder.Entity<JobApplication>()
+                        .ToTable("JobApplications")
+                        .HasKey(jobapp => jobapp.Id);
+
+            modelBuilder.Entity<JobApplication>()
+                        .HasOne(jobapp => jobapp.Candidate)
+                        .WithMany()
+                        .HasForeignKey(jobapp => jobapp.CandiDateId)
+                        .IsRequired()
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<JobApplication>()
+                        .HasOne(jobapp => jobapp.Campaign)
+                        .WithMany()
+                        .HasForeignKey(jobapp => jobapp.CampaignId)
+                        .IsRequired()
+                        .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
 
