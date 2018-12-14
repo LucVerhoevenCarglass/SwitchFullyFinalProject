@@ -9,15 +9,20 @@ namespace Swintake.domain.tests.Candidates
 {
     public class CandidatesRepositoryTests
     {
+        private DbContextOptions<SwintakeContext> _options;
+
+        public CandidatesRepositoryTests()
+        {
+            //given 
+            _options = new DbContextOptionsBuilder<SwintakeContext>()
+                .UseInMemoryDatabase("swintake" + Guid.NewGuid().ToString("n"))
+                .Options;
+        }
+
         [Fact]
         public void GivenANewCandidate_WhenSaveNewCandidate_ThenNewCandidateIsSaved()
         {
-            //given 
-            var options = new DbContextOptionsBuilder<SwintakeContext>()
-            .UseInMemoryDatabase("swintake" + Guid.NewGuid().ToString("n"))
-            .Options;
-
-            using (var context = new SwintakeContext(options))
+            using (var context = new SwintakeContext(_options))
             {
                 var janneke = new CandidateBuilder()
                         .WithId(Guid.NewGuid())
@@ -40,5 +45,45 @@ namespace Swintake.domain.tests.Candidates
             }
         }
 
+
+        [Fact]
+        public void GivenExistingCandidateId_WhenSearchId_ThenReturnCandidate()
+        {
+            using (var context = new SwintakeContext(_options))
+            {
+                var guidId = Guid.NewGuid();
+                var janneke = new CandidateBuilder()
+                    .WithId(guidId)
+                    .WithFirstName("Janneke")
+                    .WithLastName("Janssens")
+                    .WithEmail("janneke.janssens@gmail.com")
+                    .WithPhoneNumber("0470000000")
+                    .WithGitHubUsername("janneke")
+                    .WithLinkedIn("janneke")
+                    .Build();
+
+                IRepository<Candidate> candidateRepository = new CandidateRepository(context);
+
+                //when
+                candidateRepository.Save(janneke);
+                Candidate searchCandidate = candidateRepository.Get(guidId);
+
+                //then
+                Assert.Equal(janneke.Id.ToString(), searchCandidate.Id.ToString());
+            }
+        }
+
+        [Fact]
+        public void GivenNonExistingCandidateId_WhenSearchId_ThenReturnNull()
+        {
+            using (var context = new SwintakeContext(_options))
+            {
+                IRepository<Candidate> candidateRepository = new CandidateRepository(context);
+                Candidate searchCandidate = candidateRepository.Get(Guid.NewGuid());
+
+                //then
+                Assert.Null(searchCandidate);
+            }
+        }
     }
 }

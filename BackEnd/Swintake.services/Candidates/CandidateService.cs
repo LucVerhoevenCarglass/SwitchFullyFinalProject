@@ -43,9 +43,14 @@ namespace Swintake.services.Candidates
             throw new NotImplementedException();
         }
 
-        public Candidate GetCandidateByID(string id)
+        public Candidate GetCandidateById(string id)
         {
-            throw new NotImplementedException();
+           Candidate getCandidate = _candidateRepository.Get(Guid.Parse(id));
+           if (getCandidate == null)
+           {
+                throw new EntityNotValidException("Id not Found", id);
+           }
+           return getCandidate;
         }
 
         public bool IsEmailValid(string email)

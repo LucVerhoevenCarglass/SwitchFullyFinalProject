@@ -9,6 +9,6 @@ namespace Swintake.services.Candidates
     {
         Candidate AddCandidate(Candidate candidate);
         IEnumerable<Candidate> GetAllCandidates();
-        Candidate GetCandidateByID(string id);
+        Candidate GetCandidateById(string id);
     }
 }
