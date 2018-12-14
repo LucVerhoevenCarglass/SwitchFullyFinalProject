@@ -48,10 +48,6 @@ export class CampaignCreateComponent implements OnInit {
            this.classStartDate.hasError('required') ? 'Is Required' : '';
   }
 
- // create() {
- //   this.campaignService.addCampaign(this.createNewCampaignForm.value)
- //       .subscribe();
-
   create() {
           this.campaignService.addCampaign(this.createNewCampaignForm.value)
               .subscribe()
@@ -71,7 +67,7 @@ export class CampaignCreateComponent implements OnInit {
     this.submitted=true;
     if(this.createNewCampaignForm.invalid)
     {
-      return false;;
+      return false;
     }
    return true;
   }
