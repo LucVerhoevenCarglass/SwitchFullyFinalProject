@@ -24,8 +24,8 @@
           <label for="inputEmailText" class="label-title">E-mail</label>
           <input formControlName="email" type="text" class="form-control" id="inputEmailText" [ngClass]="{'is-invalid': submitted && i.email.errors}">
           <div *ngIf="submitted && i.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.email">Email not correct format</div>
-            <div *ngIf="f.email.errors.required">Email required</div>
+            <div *ngIf="i.email.errors.email">Email not correct format</div>
+            <div *ngIf="i.email.errors.required">Email required</div>
           </div>
         </div>
         <div class="form-group">

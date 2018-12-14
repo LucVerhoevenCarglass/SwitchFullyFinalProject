@@ -4,7 +4,7 @@ import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 
 export class CampaignPage{
     navigateTo(){
-        return browser.get('/listcampaigns');
+        return browser.get('/campaigns');
     }
     campaign: Campaign = {
         name: 'User',

@@ -17,21 +17,26 @@ namespace Swintake.Integration.tests.Candidates
 {
     public class CandidatesIntegrationTests
     {
-        [Fact]
-        public async Task GivenNewCandidateJson_WhenCreatingNewCandidate_ThenCandidateObjectIsSavedAndReturned()
+    private TestServer _server;
+
+        public CandidatesIntegrationTests()
         {
-            var server = new TestServer(new WebHostBuilder()
+            _server = new TestServer(new WebHostBuilder()
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
                     .AddEnvironmentVariables()
                     .Build()));
+        }
 
-            using (server)
+        [Fact]
+        public async Task GivenNewCandidateJson_WhenCreatingNewCandidate_ThenCandidateObjectIsSavedAndReturned()
+        {
+            using (_server)
             {
-                var client = server.CreateClient();
+                var client = _server.CreateClient();
 
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var context = _server.Host.Services.GetService<SwintakeContext>();
 
                 var user = new UserBuilder()
                         .WithEmail("user@switchfully.com")
@@ -79,18 +84,11 @@ namespace Swintake.Integration.tests.Candidates
         [Fact]
         public async Task GivenNewCandidateJsonWithoutName_WhenCreatingNewCandidate_ThenReturnBadRequest()
         {
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<TestStartup>()
-                .UseConfiguration(new ConfigurationBuilder()
-                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
-                    .AddEnvironmentVariables()
-                    .Build()));
 
-            using (server)
+            using (_server)
             {
-                var client = server.CreateClient();
-
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var client = _server.CreateClient();
+                var context = _server.Host.Services.GetService<SwintakeContext>();
 
                 var user = new UserBuilder()
                         .WithEmail("user@switchfully.com")

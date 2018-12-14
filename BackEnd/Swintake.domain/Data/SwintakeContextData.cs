@@ -26,6 +26,7 @@ namespace Swintake.domain.Data
             .WithEmail("gwen.jamroziak@cegeka.com")
             .WithGitHubUsername("gwenjamroziak")
             .WithLinkedIn("gwenjamroziak")
+            .WithComment("")
             .Build();
     }
 

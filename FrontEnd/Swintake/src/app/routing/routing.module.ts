@@ -5,15 +5,20 @@ import { JobApplicationsComponent } from '../feature/job-applications/job-applic
 import { CampaignCreateComponent } from '../feature/campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from '../feature/campaigns/campaign-list/campaign-list.component';
 import { AuthGuard } from '../core/authentication/helpers/auth.guard';
-import { CandidateCreateComponent } from '../feature/candidates/candidate-create/candidate-create/candidate-create.component';
+import { CandidateDetailComponent } from '../feature/candidates/candidate-detail/candidate-detail.component';
+import { CandidateCreateComponent } from '../feature/candidates/candidate-create/candidate-create.component';
+import { CandidateListComponent } from '../feature/candidates/candidate-list/candidate-list/candidate-list.component';
+
 
 const routes: Routes=[
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'listcampaigns', component: CampaignListComponent, canActivate: [AuthGuard]},
+  {path: 'campaigns', component: CampaignListComponent, canActivate: [AuthGuard]},
   {path: 'jobapplications', component: JobApplicationsComponent, canActivate: [AuthGuard]},
   {path: 'createcampaign', component: CampaignCreateComponent, canActivate: [AuthGuard]},
-  {path: 'createcandidate', component: CandidateCreateComponent, canActivate:[AuthGuard]}
+  {path: 'candidates/:id', component: CandidateDetailComponent, canActivate: [AuthGuard] },
+  {path: 'createcandidate', component: CandidateCreateComponent, canActivate:[AuthGuard]},
+  {path: 'candidates', component: CandidateListComponent, canActivate:[AuthGuard]}
 
 ];
 
