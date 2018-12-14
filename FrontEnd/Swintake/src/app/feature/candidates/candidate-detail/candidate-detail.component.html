@@ -23,12 +23,16 @@
               <td>{{candidate.phoneNumber}}</td>
             </tr>
             <tr>
+               <th>Github:</th>
+               <td><a href="{{candidate.gitHubUserName}}">{{candidate.gitHubUserName}}</a></td>
+            </tr>
+            <tr>
               <th>LinkedIn:</th>
               <td><a href="{{candidate.linkedIn}}">{{candidate.linkedIn}}</a></td>
             </tr>
             <tr>
               <th>Comment:</th>
-              <td>{{candidate.comment}}</td>
+              <td> <textarea wrap="hard">{{candidate.comment}}</textarea></td>
             </tr>
       </table>
     </div>

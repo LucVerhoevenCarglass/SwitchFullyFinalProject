@@ -13,7 +13,7 @@ export class CandidateService {
   
   constructor(private http: HttpClient) { }
 
-  addCandidate(candidate: Candidate): Observable<Candidate>{
+  addCandidate(candidate: Candidate): Observable<Candidate> {
     delete candidate.id;
     return this.http.post<Candidate>(ApiUrl.urlCandidates, candidate, httpOptions);
   }
@@ -22,4 +22,8 @@ export class CandidateService {
     return this.http.get<Candidate>(`${ApiUrl.urlCandidates}id:string?id=${id}`);
   }
   
+
+  getCandidates(): Observable<Candidate[]> {
+    return this.http.get<Candidate[]>(ApiUrl.urlCandidates);
+  }
 }

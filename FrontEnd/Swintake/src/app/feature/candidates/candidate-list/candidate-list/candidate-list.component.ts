@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Candidate } from '../../../../core/candidates/classes/candidate';
+import { CandidateService } from '../../../../core/candidates/services/candidate.service';
 
 @Component({
   selector: 'app-candidate-list',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CandidateListComponent implements OnInit {
 
-  constructor() { }
+  candidates: Candidate[] = [];
+
+  constructor(private candidateService: CandidateService) { }
 
   ngOnInit() {
+    this.getAllCandidates();
+  }
+
+  getAllCandidates(): void {
+    this.candidateService.getCandidates()
+      .subscribe(candidates => this.candidates = candidates);
   }
 
 }
