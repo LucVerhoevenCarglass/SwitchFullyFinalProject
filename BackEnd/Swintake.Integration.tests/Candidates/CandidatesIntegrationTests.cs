@@ -139,5 +139,55 @@ namespace Swintake.Integration.tests.Candidates
             }
         }
 
+        [Fact]
+        public async Task GivenGetCandidate_WhenPassingExistingId_ThenReturnCandidate()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+
+                var newDTOCreated = new CandidateDto()
+                {
+                    FirstName = "Joske",
+                    LastName = "Parker",
+                    Email = "totallynotspiderman@gmail.com",
+                    PhoneNumber = "0470000000",
+                    GitHubUsername = "youarespiderman",
+                    LinkedIn = "peterparker"
+                };
+
+                var content = JsonConvert.SerializeObject(newDTOCreated);
+                var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("api/Candidates", stringContent);
+                response.EnsureSuccessStatusCode();
+                var creatingResponseString = await response.Content.ReadAsStringAsync();
+                var createdCandidate = JsonConvert.DeserializeObject<CandidateDto>(creatingResponseString);
+
+
+                var getResponse = await client.GetAsync("/api/Candidates/" + createdCandidate.Id);
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                var foundCandidate = JsonConvert.DeserializeObject<CandidateDto>(responseString);
+
+
+                Assert.Equal(newDTOCreated.FirstName, foundCandidate.FirstName);
+            }
+
+        }
+
+        [Fact]
+        public async Task GivenGetCandidate_WhenPassingNonExistingId_ThenReturnNull()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+
+                var getResponse = await client.GetAsync("/api/Candidates/" + Guid.NewGuid().ToString());
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                Assert.Contains(" Id not Found", responseString);
+            }
+
+        }
+
+
     }
 }
