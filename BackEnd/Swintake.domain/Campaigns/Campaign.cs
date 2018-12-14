@@ -19,7 +19,6 @@ namespace Swintake.domain.Campaigns
         [MaxLength(500)]
         public string Comment { get; set; }
 
-        // constructors
         private Campaign() : base(Guid.Empty) { }
 
         public Campaign(CampaignBuilder campaignBuilder) : base(campaignBuilder.Id)
@@ -32,7 +31,6 @@ namespace Swintake.domain.Campaigns
             this.Comment = campaignBuilder.Comment;
         }
 
-        // class in class
         public class CampaignBuilder : Builder<Campaign>
         {
             public Guid Id { get; set; }
@@ -66,7 +64,7 @@ namespace Swintake.domain.Campaigns
                 return this;
             }
 
-            public CampaignBuilder WithStatus(CampaignStatus campaignStatus) // CampaignStatus campaignStatus = CampaignStatus.Active
+            public CampaignBuilder WithStatus(CampaignStatus campaignStatus)
             {
                 Status = campaignStatus;
                 return this;

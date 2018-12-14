@@ -3,31 +3,30 @@ using Swintake.domain.Users;
 using System;
 using System.Collections.Generic;
 using Swintake.domain.Campaigns;
+using Swintake.domain.Candidates;
 
 namespace Swintake.domain.Data
 {
     class SwintakeContextData
     {
-        //internal User reinout = new UserBuilder()
-        //    .WithEmail("reinout@switchfully.com")
-        //    .WithFirstName("Reinout")
-        //    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-        //    .Build();
-       
-        //internal User niels = new UserBuilder()
-        //    .WithEmail("niels@switchfully.com")
-        //    .WithFirstName("Niels")
-        //    .WithUserSecurity(new UserSecurity("TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=", "rODZhnBsLGRP908sBZiXzg=="))
-        //    .Build();
-
-        internal Campaign campain1 = new Campaign.CampaignBuilder()
+       internal Campaign dotNetClass = new Campaign.CampaignBuilder()
             .WithId(Guid.NewGuid())
-            .WithClient("ClientSwinTake")
+            .WithName("Java academy 2019")
+            .WithClient("CM")
             .WithClassStartDate(DateTime.Now)
             .WithStartDate(DateTime.Now)
-            .WithComment("CommentSwinTake")
-            .WithName("TestCampaignSwinTake")
+            .WithComment("cm comment")
             .WithStatus(CampaignStatus.Active).Build();
+
+        internal Candidate gwen = new CandidateBuilder()
+            .WithId(Guid.NewGuid())
+            .WithFirstName("Gween")
+            .WithLastName("Jamroziak")
+            .WithPhoneNumber("0472697959")
+            .WithEmail("gwen.jamroziak@cegeka.com")
+            .WithGitHubUsername("gwenjamroziak")
+            .WithLinkedIn("gwenjamroziak")
+            .Build();
     }
 
     public partial class SwintakeContext
@@ -35,6 +34,7 @@ namespace Swintake.domain.Data
         protected void SeedData(ModelBuilder modelbuilder)
         {
             var seedData = new SwintakeContextData();
+
             var idReinout = Guid.NewGuid();
             modelbuilder.Entity<User>(u =>
             {
@@ -69,7 +69,8 @@ namespace Swintake.domain.Data
                 });   
             });
 
-            modelbuilder.Entity<Campaign>(camp => { camp.HasData(seedData.campain1); });
+            modelbuilder.Entity<Campaign>(camp => { camp.HasData(seedData.dotNetClass); });
+            modelbuilder.Entity<Candidate>(cand => { cand.HasData(seedData.gwen); });
         }
     }
 }
