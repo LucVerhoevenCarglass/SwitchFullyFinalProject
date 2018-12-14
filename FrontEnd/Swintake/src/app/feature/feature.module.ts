@@ -10,6 +10,7 @@ import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.c
 import { NgbdModalContent } from '../feature/login/login.component';
 import { CandidateCreateComponent } from './candidates/candidate-create/candidate-create.component';
 import { CandidateListComponent } from './candidates/candidate-list/candidate-list/candidate-list.component';
+import { CandidateDetailComponent } from './candidates/candidate-detail/candidate-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CandidateListComponent } from './candidates/candidate-list/candidate-li
     CampaignListComponent, 
     NgbdModalContent, 
     CandidateCreateComponent, 
-    CandidateListComponent
+    CandidateListComponent,
+    CandidateDetailComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [
