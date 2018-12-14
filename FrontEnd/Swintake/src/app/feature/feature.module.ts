@@ -19,7 +19,8 @@ import { CandidateListComponent } from './candidates/candidate-list/candidate-li
     CampaignCreateComponent, 
     CampaignListComponent, 
     NgbdModalContent, 
-    CandidateCreateComponent, CandidateListComponent
+    CandidateCreateComponent, 
+    CandidateListComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [
