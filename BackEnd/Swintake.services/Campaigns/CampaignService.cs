@@ -49,7 +49,12 @@ namespace Swintake.services.Campaigns
 
         public Campaign GetCampaignByID(string id)
         {
-            return _campaignRepository.Get(new Guid(id));
+            var campaign = _campaignRepository.Get(new Guid(id));
+            if(campaign == null)
+            {
+                throw new EntityNotFoundException("Id not Found", "campaign", new Guid(id));
+            }
+            return campaign;
         }
     }
 }

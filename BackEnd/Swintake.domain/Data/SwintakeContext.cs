@@ -65,7 +65,7 @@ namespace Swintake.domain.Data
             modelBuilder.Entity<JobApplication>()
                         .HasOne(jobapp => jobapp.Candidate)
                         .WithMany()
-                        .HasForeignKey(jobapp => jobapp.CandiDateId)
+                        .HasForeignKey(jobapp => jobapp.CandidateId)
                         .IsRequired()
                         .OnDelete(DeleteBehavior.Restrict);
 
