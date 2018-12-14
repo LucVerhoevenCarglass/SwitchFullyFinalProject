@@ -31,8 +31,7 @@ namespace Swintake.services.Campaigns
                 || string.IsNullOrWhiteSpace(campaign.Name)
                 || string.IsNullOrWhiteSpace(campaign.Client)
                 || campaign.Status != CampaignStatus.Active
-                || campaign.StartDate < DateTime.Today
-                || campaign.ClassStartDate < DateTime.Today)
+                || campaign.ClassStartDate < campaign.StartDate)
             {
                 throw new EntityNotValidException("some fields of campaign are invalid", campaign);
             }

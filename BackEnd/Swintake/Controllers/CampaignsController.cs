@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Campaigns;
+using Swintake.api.Helpers.Candidates;
 using Swintake.domain.Campaigns;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.Campaigns;
+using System;
+using System.Collections.Generic;
 
 namespace Swintake.api.Controllers
 {
@@ -24,15 +27,26 @@ namespace Swintake.api.Controllers
         [HttpPost]
         public ActionResult<CampaignDto> CreateCampaign([FromBody] CreateCampaignDto createCampaignDto)
         {
-            var newCampaign = _campaignMapper.ToDto(
-                     _campaignService.AddCampaign(
-                        _campaignMapper.ToNewDomain(createCampaignDto)));
+            try
+            {
+                var newCampaign = _campaignMapper.ToDto(
+                         _campaignService.AddCampaign(
+                            _campaignMapper.ToNewDomain(createCampaignDto)));
 
-            return Created($"api/campaign/{newCampaign.Id}", newCampaign);
+                return Created($"api/campaign/{newCampaign.Id}", newCampaign);
+            }
+            catch(EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-       // GET: api/Campaign
-       [HttpGet]
+        // GET: api/Campaign
+        [HttpGet]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
             //var allCompaigns = _campaignService.GetCampaigns()
@@ -45,7 +59,7 @@ namespace Swintake.api.Controllers
 
             //from domain to dto
             List<CampaignDto> campaignDtos = new List<CampaignDto>();
-          
+
             foreach (Campaign campaign in campaigns)
             {
                 //convert each campaign to dto
@@ -53,7 +67,7 @@ namespace Swintake.api.Controllers
                 //add to to list
                 campaignDtos.Add(campaignDto);
             }
-            
+
             //return dto result
             return Ok(campaignDtos);
         }
@@ -83,5 +97,6 @@ namespace Swintake.api.Controllers
         //public void Delete(int id)
         //{
         //}
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Swintake.infrastructure.builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Swintake.domain.Campaigns
@@ -8,14 +9,16 @@ namespace Swintake.domain.Campaigns
     public class Campaign : Entity
     {
         // fields
+        [MaxLength(60)]
         public string Name { get; set; }
+        [MaxLength(60)]
         public string Client { get; set; }
         public CampaignStatus Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ClassStartDate { get; set; }
+        [MaxLength(500)]
         public string Comment { get; set; }
 
-        // constructors
         private Campaign() : base(Guid.Empty) { }
 
         public Campaign(CampaignBuilder campaignBuilder) : base(campaignBuilder.Id)
@@ -28,7 +31,6 @@ namespace Swintake.domain.Campaigns
             this.Comment = campaignBuilder.Comment;
         }
 
-        // class in class
         public class CampaignBuilder : Builder<Campaign>
         {
             public Guid Id { get; set; }
@@ -62,7 +64,7 @@ namespace Swintake.domain.Campaigns
                 return this;
             }
 
-            public CampaignBuilder WithStatus(CampaignStatus campaignStatus) // CampaignStatus campaignStatus = CampaignStatus.Active
+            public CampaignBuilder WithStatus(CampaignStatus campaignStatus)
             {
                 Status = campaignStatus;
                 return this;

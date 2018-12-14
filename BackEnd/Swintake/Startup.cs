@@ -24,6 +24,9 @@ using Swintake.api.Helpers.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Swintake.domain.Candidates;
+using Swintake.services.Candidates;
+using Swintake.api.Helpers.Candidates;
 
 namespace Swintake.api
 {
@@ -92,16 +95,19 @@ namespace Swintake.api
         protected virtual void ConfigureSwintakeServices(IServiceCollection services)
         {
             services.AddSingleton(ConfigureDbContext());
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<Hasher>();
             services.AddSingleton<Salter>();
-            services.AddSingleton<IUserAuthenticationService, UserAuthenticationService>();
-            services.AddSingleton<SwintakeContext>();
+            services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+            services.AddScoped<SwintakeContext>();
             services.Configure<Secrets>(Configuration);
-            services.AddSingleton<UserMapper>();
+            services.AddScoped<UserMapper>();
             services.AddScoped<IRepository<Campaign>, CampaignRepository>();
             services.AddScoped<ICampaignService, CampaignService>();
-            services.AddTransient<CampaignMapper>();
+            services.AddScoped<CampaignMapper>();
+            services.AddScoped<IRepository<Candidate>, CandidateRepository>();
+            services.AddScoped<ICandidateService, CandidateService>();
+            services.AddScoped<CandidateMapper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();

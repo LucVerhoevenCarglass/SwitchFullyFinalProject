@@ -5,6 +5,7 @@ import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 import { DateValidator } from './dateValidator';
 import { Router } from '@angular/router';
 import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -17,11 +18,7 @@ export class CampaignCreateComponent implements OnInit {
     campaign: Campaign = new Campaign();
     submitted = false;
     createNewCampaignForm:FormGroup;
-    name = new FormControl('', [Validators.required ]);
-    client = new FormControl('', [Validators.required ]);
-    startDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
-    classStartDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
-    comment = new FormControl('');
+    errorMessageForClassStartDate: string;
 
   constructor(
     private campaignService: CampaignService,
@@ -31,47 +28,48 @@ export class CampaignCreateComponent implements OnInit {
     ngOnInit() {
       this.campaign.name="new Campaign";
       this.createNewCampaignForm = this.formbuilder.group({
-        name: this.name,
-        client: this.client,
-        startDate: this.startDate,
-        classStartDate: this.classStartDate,
-        comment: this.comment,
+        name: ['', Validators.required],
+        client: ['', Validators.required],
+        startDate: ['', Validators.required],
+        classStartDate: ['', Validators.required],
+        comment: ['']
       });
+      
   }
-
-  getErrorMessage() {
-    return this.name.hasError('required') ? 'Is Required' : 
-           this.client.hasError('required') ? 'Is Required' : 
-           this.startDate.hasError('required') ? 'Is Required' : 
-           this.classStartDate.hasError('required') ? 'Is Required' : '';
-  }
-
- // create() {
- //   this.campaignService.addCampaign(this.createNewCampaignForm.value)
- //       .subscribe();
 
   create() {
           this.campaignService.addCampaign(this.createNewCampaignForm.value)
-              .subscribe()
-          this._router.navigateByUrl('/listcampaigns');
+              .subscribe(data => {
+                this._router.navigateByUrl('/listcampaigns');
+              }, error => {console.log(error)});
   }
 
   cancel(){
-    this.createNewCampaignForm;
-  }
+    this._router.navigateByUrl('/listcampaigns');  }
 
-  get i()
-  {
+  get i(){
     return this.createNewCampaignForm.controls;
   }
 
   isValid(): boolean{
     this.submitted=true;
-    if(this.createNewCampaignForm.invalid)
+    this.errorMessageForClassStartDate = this.compareTwoDates();
+    if(this.createNewCampaignForm.invalid || this.errorMessageForClassStartDate != null)
     {
-      return false;;
+      return false;
     }
    return true;
+  }
+
+  compareTwoDates(){
+    let dateStartClassCampaign = new Date(this.i.classStartDate.value).toISOString().slice(0,10);
+    let dateStartCampaign = new Date(this.i.startDate.value).toISOString().slice(0,10);
+console.log(dateStartCampaign);
+console.log(dateStartClassCampaign);
+    if(dateStartClassCampaign <  dateStartCampaign){
+      return `The class startDate can't start before the campaing start date`;
+    }
+    return null;
   }
 
 }

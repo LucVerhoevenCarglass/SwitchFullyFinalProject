@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Swintake.domain.Campaigns;
+using Swintake.domain.Candidates;
 using Swintake.domain.Users;
 
 namespace Swintake.domain.Data
@@ -11,6 +12,7 @@ namespace Swintake.domain.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Candidate> Candidates { get; set; }
 
         public SwintakeContext(ILoggerFactory loggerFactory)
         {
@@ -50,14 +52,14 @@ namespace Swintake.domain.Data
                 .ToTable("Campaigns")
                 .HasKey(campaign => campaign.Id);
 
+            modelBuilder.Entity<Candidate>()
+                .ToTable("Candidates")
+                .HasKey(candidate => candidate.Id);
+
             base.OnModelCreating(modelBuilder);
 
             SeedData(modelBuilder);
-        }
-
-       
-
-
+        }   
     }
 
 }

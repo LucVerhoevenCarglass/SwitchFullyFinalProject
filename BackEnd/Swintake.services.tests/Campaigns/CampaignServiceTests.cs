@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using NSubstitute;
@@ -32,24 +33,45 @@ namespace Swintake.services.tests.Campaigns
             .WithName("TestCampaignSwinTake")
             .WithStatus(CampaignStatus.Active).Build();
 
+        internal Campaign TestCampaign1 = new Campaign.CampaignBuilder()
+            .WithId(Guid.NewGuid())
+            .WithClient("Client SwinTake")
+            .WithClassStartDate(DateTime.Today)
+            .WithStartDate(DateTime.Today)
+            .WithComment("Comment SwinTake")
+            .WithName("TestCampaign SwinTake")
+            .WithStatus(CampaignStatus.Active).Build();
+
+
+
         [Fact]
         public void CreateCampaign_HappyPath()
         {
             //given
-            _campaignRepository.Save(TestCampaign);
-            Campaign createdCompaign = _campaignService.AddCampaign(TestCampaign);
-            Assert.NotNull(createdCompaign);
-            Assert.NotEqual(createdCompaign.Id, Guid.Empty);
+            Campaign createdCampaign = _campaignService.AddCampaign(TestCampaign);
+            Assert.NotNull(createdCampaign);
+            Assert.NotEqual(createdCampaign.Id, Guid.Empty);
         }
 
         [Fact]
-        public void CreateCampaign_givenCompaignThatIsNotValidForCreation_thenThrowException()
+        public void CreateCampaign_GivenCAmpaignThatIsNotValidForCreation_ThenThrowException()
         {
             Campaign testCampaign2 = CloneObject(TestCampaign);
             testCampaign2.Name = string.Empty;
             Exception ex = Assert.Throws<EntityNotValidException>(() => _campaignService.AddCampaign(testCampaign2));
             Assert.Contains("some fields of campaign are invalid", ex.Message);
         }
+
+        [Fact]
+        public void GivenMockDatabaseWith2Objects_GetAllCampaigns__ReturnListOfTwoObjects()
+        {
+            _campaignRepository.GetAll().Returns(new List<Campaign>() { TestCampaign, TestCampaign1 });
+
+            var result = _campaignService.GetAllCampaigns().Count();
+
+            Assert.Equal(2, result);
+        }
+
 
         private T CloneObject<T>(T obj)
         {
