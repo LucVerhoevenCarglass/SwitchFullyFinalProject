@@ -13,11 +13,11 @@ fdescribe('workspace-project App', () => {
     .expectIfUserIsLoggedIn('Niels');
   });
 
-  //  it('should add new created campaing into list', () => {
-  //   campaignPage.navigateTo();
-  //   campaignPage.navigateCreateCampaign();
+    it('should add new created campaing into list', () => {
+     campaignPage.navigateTo();
+     campaignPage.navigateCreateCampaign();
 
-  //   campaignPage.AddNewCampaign(campaignPage.campaign)
-  //               .expectifCampaignHasbeenAddedToList(campaignPage.campaign.name);
-  //  });
+     campaignPage.AddNewCampaign(campaignPage.campaign)
+                 .expectifCampaignHasbeenAddedToList(campaignPage.campaign.name);
+    });
 });

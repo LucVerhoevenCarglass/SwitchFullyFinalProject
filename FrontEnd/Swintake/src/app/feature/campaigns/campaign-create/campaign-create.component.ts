@@ -22,6 +22,7 @@ export class CampaignCreateComponent implements OnInit {
     startDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
     classStartDate = new FormControl('', [Validators.required, DateValidator.dateBeforeToday ]);
     comment = new FormControl('');
+    today: Date;
 
   constructor(
     private campaignService: CampaignService,
@@ -37,6 +38,7 @@ export class CampaignCreateComponent implements OnInit {
         classStartDate: this.classStartDate,
         comment: this.comment,
       });
+      this.today = new Date();
   }
 
   getErrorMessage() {
