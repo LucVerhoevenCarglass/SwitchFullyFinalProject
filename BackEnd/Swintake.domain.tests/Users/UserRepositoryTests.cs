@@ -31,11 +31,9 @@ namespace Swintake.domain.tests.Users
                 IUserRepository userRepository = new UserRepository(context);
 
                 //when
-
                 var foundUser = userRepository.FindByEmail("user@switchfully.com");
 
                 //then
-
                 Assert.Equal(user.Id, foundUser.Id);
                 Assert.Equal(user.Email, foundUser.Email);
                 Assert.Equal(user.FirstName, foundUser.FirstName);
@@ -57,11 +55,9 @@ namespace Swintake.domain.tests.Users
                 IUserRepository userRepository = new UserRepository(context);
 
                 //when
-
                 var foundUser = userRepository.FindByEmail("user1@switchfully.com");
 
                 //then
-
                 Assert.Null(foundUser);
             }
         }

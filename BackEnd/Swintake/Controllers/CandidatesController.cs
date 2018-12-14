@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Candidates;
 using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Swintake.api.Controllers
@@ -20,28 +20,17 @@ namespace Swintake.api.Controllers
             _candidateMapper = candidateMapper;
             _candidateService = candidateService;
         }
-        
+
         // POST: api/Campaign
         [HttpPost]
         [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
         {
-            try
-            {
-                var newcandidate = _candidateMapper.ToDto(
-                         _candidateService.AddCandidate(
-                            _candidateMapper.ToDomain(candidateDto)));
+            var newcandidate = _candidateMapper.ToDto(
+                     _candidateService.AddCandidate(
+                        _candidateMapper.ToDomain(candidateDto)));
 
-                return Created($"api/candidate/{newcandidate.Id}", newcandidate);
-            }
-            catch (EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Created($"api/candidate/{newcandidate.Id}", newcandidate);
         }
 
         [HttpGet("{id}")]

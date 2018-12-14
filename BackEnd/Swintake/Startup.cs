@@ -27,6 +27,9 @@ using System.Text;
 using Swintake.domain.Candidates;
 using Swintake.services.Candidates;
 using Swintake.api.Helpers.Candidates;
+using Swintake.domain.JobApplications;
+using Swintake.services.JobApplications;
+using Swintake.api.Helpers.JobApplications;
 
 namespace Swintake.api
 {
@@ -108,6 +111,10 @@ namespace Swintake.api
             services.AddScoped<IRepository<Candidate>, CandidateRepository>();
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<CandidateMapper>();
+            services.AddScoped<IRepository<JobApplication>, JobApplicationRepository>();
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<JobApplicationMapper>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwagger();

@@ -2,6 +2,7 @@
 using Swintake.domain.Candidates;
 using Swintake.domain.Data;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -47,7 +48,6 @@ namespace Swintake.domain.tests.Candidates
             }
         }
 
-
         [Fact]
         public void GivenExistingCandidateId_WhenSearchId_ThenReturnCandidate()
         {
@@ -85,6 +85,33 @@ namespace Swintake.domain.tests.Candidates
 
                 //then
                 Assert.Null(searchCandidate);
+            }
+        }
+
+        [Fact]
+        public void GivenExistingCandidates_WhenGetAll_ThenReturnAllCandidates()
+        {
+            using (var context = new SwintakeContext(_options))
+            {
+                var guidId = Guid.NewGuid();
+                var janneke = new CandidateBuilder()
+                    .WithId(guidId)
+                    .WithFirstName("Janneke")
+                    .WithLastName("Janssens")
+                    .WithEmail("janneke.janssens@gmail.com")
+                    .WithPhoneNumber("0470000000")
+                    .WithGitHubUsername("janneke")
+                    .WithLinkedIn("janneke")
+                    .Build();
+
+                IRepository<Candidate> candidateRepository = new CandidateRepository(context);
+
+                //when
+                candidateRepository.Save(janneke);
+                IList<Candidate> searchCandidate = candidateRepository.GetAll();
+
+                //then
+                Assert.Equal(1, searchCandidate.Count);
             }
         }
     }

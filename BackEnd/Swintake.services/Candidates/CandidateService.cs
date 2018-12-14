@@ -8,7 +8,6 @@ namespace Swintake.services.Candidates
 {
     public class CandidateService : ICandidateService
     {
-
         private readonly IRepository<Candidate> _candidateRepository;
 
         public CandidateService(IRepository<Candidate> candidateRepository)
@@ -40,7 +39,7 @@ namespace Swintake.services.Candidates
 
         public IEnumerable<Candidate> GetAllCandidates()
         {
-            throw new NotImplementedException();
+            return _candidateRepository.GetAll();
         }
 
         public Candidate GetCandidateById(string id)
@@ -48,7 +47,7 @@ namespace Swintake.services.Candidates
            Candidate getCandidate = _candidateRepository.Get(Guid.Parse(id));
            if (getCandidate == null)
            {
-                throw new EntityNotValidException("Id not Found", id);
+                throw new EntityNotFoundException("Id not Found", "candidate", new Guid(id));
            }
            return getCandidate;
         }

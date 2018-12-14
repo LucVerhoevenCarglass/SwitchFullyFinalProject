@@ -33,8 +33,7 @@ namespace Swintake.api.Helpers.Candidates
                 PhoneNumber = domainObject.PhoneNumber,
                 GitHubUsername = domainObject.GitHubUsername,
                 LinkedIn = domainObject.LinkedIn,
-                Comment = domainObject.LinkedIn
-
+                Comment = domainObject.Comment
             };
 
             return dtoCandidate;

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Campaigns;
-using Swintake.api.Helpers.Candidates;
 using Swintake.domain.Campaigns;
-using Swintake.infrastructure.Exceptions;
 using Swintake.services.Campaigns;
-using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace Swintake.api.Controllers
@@ -30,22 +27,11 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<CampaignDto> CreateCampaign([FromBody] CreateCampaignDto createCampaignDto)
         {
-            try
-            {
-                var newCampaign = _campaignMapper.ToDto(
-                         _campaignService.AddCampaign(
-                            _campaignMapper.ToNewDomain(createCampaignDto)));
+            var newCampaign = _campaignMapper.ToDto(
+                     _campaignService.AddCampaign(
+                        _campaignMapper.ToNewDomain(createCampaignDto)));
 
-                return Created($"api/campaign/{newCampaign.Id}", newCampaign);
-            }
-            catch(EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Created($"api/campaign/{newCampaign.Id}", newCampaign);
         }
 
         // GET: api/Campaign
