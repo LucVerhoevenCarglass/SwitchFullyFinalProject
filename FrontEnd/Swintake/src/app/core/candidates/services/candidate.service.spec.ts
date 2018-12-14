@@ -1,12 +1,36 @@
-import { TestBed } from '@angular/core/testing';
-
 import { CandidateService } from './candidate.service';
+import { HttpClient } from '@angular/common/http';
+import { Candidate } from '../classes/candidate';
+import { of } from 'rxjs'
+import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
-describe('CandidateService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+fdescribe('CandidateService', () => {
+  let httpClient: HttpClient;
+  let candidateService: CandidateService;
 
-  it('should be created', () => {
-    const service: CandidateService = TestBed.get(CandidateService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    httpClient = ({ get: null, post: null } as unknown) as HttpClient;
+    candidateService = new CandidateService(httpClient);
+  });
+
+  it('should return new candidate', () => {
+
+    let candidate: Candidate = {
+      firstName: 'Peter',
+      lastName: 'Parker',
+      email: 'totallynotspiderman@gmail.com',
+      phoneNumber: '0470000000',
+      gitHubUserName: 'noYOUarespiderman',
+      linkedIn: 'pp',
+      comment: 'great candidate'
+    };
+    spyOn(httpClient, 'post').and.callFake((url: string) => {
+      expect(url).toBe(ApiUrl.urlCandidates);
+      return of(candidate);
+    });
+
+    candidateService.addCandidate(candidate)
+      .subscribe((result: Candidate) =>
+        expect(result).toEqual(candidate));
   });
 });
