@@ -10,30 +10,48 @@ using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Swintake.api.Helpers.Campaigns;
+using System.Net.Http.Headers;
+using Swintake.domain.Users;
+using Swintake.api.Helpers.Users;
 
 namespace Swintake.Integration.tests.Campaigns
 {
     public class CampaignsIntegrationTests
     {
-        private TestServer _server;
-        public CampaignsIntegrationTests()
+        [Fact]
+        public async Task GivenNewCampaignJson_WhenCreatingNewCampaign_ThenCampaignObjectIsSavedAndReturned()
         {
-            _server = new TestServer(new WebHostBuilder()
+            var server = new TestServer(new WebHostBuilder()
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
                     .AddEnvironmentVariables()
                     .Build()));
-        }
 
-        [Fact]
-        public async Task GivenNewCampaignJson_WhenCreatingNewCampaign_ThenCampaignObjectIsSavedAndReturned()
-        {
-            using (_server)
+            using (server)
             {
-                var client = _server.CreateClient();
+                var client = server.CreateClient();
+                var context = server.Host.Services.GetService<SwintakeContext>();
 
-                var context = _server.Host.Services.GetService<SwintakeContext>();
+                var user = new UserBuilder()
+                        .WithEmail("user@switchfully.com")
+                        .WithFirstName("User")
+                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+                        .Build();
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
+
+                var contentUser = JsonConvert.SerializeObject(userDTO);
+                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
+
+                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
+                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
+                var responseBearer1 = responseStringToken.Substring(1);
+                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
@@ -60,15 +78,42 @@ namespace Swintake.Integration.tests.Campaigns
         [Fact]
         public async Task GivenNewCampaignJsonWithoutName_WhenCreatingNewCampaign_ThenReturnBadRequest()
         {
-            using (_server)
-            {
-                var client = _server.CreateClient();
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>()
+                .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
+                    .Build()));
 
-                var context = _server.Host.Services.GetService<SwintakeContext>();
+            using (server)
+            {
+                var client = server.CreateClient();
+
+                var context = server.Host.Services.GetService<SwintakeContext>();
+
+                var user = new UserBuilder()
+                    .WithEmail("user@switchfully.com")
+                    .WithFirstName("User")
+                    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+                    .Build();
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
+
+                var contentUser = JsonConvert.SerializeObject(userDTO);
+                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
+
+                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
+                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
+                var responseBearer1 = responseStringToken.Substring(1);
+                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
-                   // Name = "testCampaign",
+                    // Name = "testCampaign",
                     Client = "testClient",
                     ClassStartDate = DateTime.Today.AddDays(5),
                     StartDate = DateTime.Today.AddDays(5),
@@ -85,15 +130,42 @@ namespace Swintake.Integration.tests.Campaigns
             }
         }
 
+
         [Fact]
         public async Task GivenHappyPath_WhenGetAllCampaigns_ThenCampaignsAreReturned()
         {
-            using (_server)
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<TestStartup>()
+                .UseConfiguration(new ConfigurationBuilder()
+                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
+                    .AddEnvironmentVariables()
+                    .Build()));
+
+            using (server)
             {
-                var client = _server.CreateClient();
+                var client = server.CreateClient();
 
-                var context = _server.Host.Services.GetService<SwintakeContext>();
+                var context = server.Host.Services.GetService<SwintakeContext>();
 
+                var user = new UserBuilder()
+                        .WithEmail("user@switchfully.com")
+                        .WithFirstName("User")
+                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+                        .Build();
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
+
+                var contentUser = JsonConvert.SerializeObject(userDTO);
+                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
+
+                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
+                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
+                var responseBearer1 = responseStringToken.Substring(1);
+                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
                 var newDTOCreated = new CreateCampaignDto()
                 {
                     Name = "testCampaign",
