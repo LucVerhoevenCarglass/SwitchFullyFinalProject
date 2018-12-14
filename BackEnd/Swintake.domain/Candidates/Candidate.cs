@@ -1,18 +1,26 @@
 ﻿using Swintake.infrastructure.builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Swintake.domain.Candidates
 {
     public class Candidate : Entity
     {
+        [MaxLength(60)]
         public string FirstName { get; private set; }
+        [MaxLength(60)]
         public string LastName { get; private set; }
+        [MaxLength(100)]
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
+        [MaxLength(100)]
         public string GitHubUsername { get; private set; }
+        [MaxLength(200)]
         public string LinkedIn { get; private set; }
+        [MaxLength(500)]
+        public string Comment { get; private set; }
 
         private Candidate() { }
 
@@ -24,6 +32,7 @@ namespace Swintake.domain.Candidates
             PhoneNumber = candidateBuilder.PhoneNumber;
             GitHubUsername = candidateBuilder.GitHubUsername;
             LinkedIn = candidateBuilder.LinkedIn;
+            Comment = candidateBuilder.Comment;
         }
     }
 
@@ -36,6 +45,7 @@ namespace Swintake.domain.Candidates
         public string PhoneNumber { get; set; }
         public string GitHubUsername { get; set; }
         public string LinkedIn { get; set; }
+        public string Comment { get; set; }
 
         public static CandidateBuilder NewCandidate()
         {
@@ -81,6 +91,12 @@ namespace Swintake.domain.Candidates
         public CandidateBuilder WithLinkedIn(string linkedIn)
         {
             LinkedIn = linkedIn;
+            return this;
+        }
+
+        public CandidateBuilder WithComment(string comment)
+        {
+            Comment = comment;
             return this;
         }
 

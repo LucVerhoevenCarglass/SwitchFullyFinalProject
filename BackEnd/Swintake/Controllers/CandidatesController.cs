@@ -41,6 +41,24 @@ namespace Swintake.api.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<CandidateDto> GetById(string id)
+        {
+            try
+            {
+                var candidate = _candidateService.GetCandidateById(id);
+                return _candidateMapper.ToDto(candidate);
+            }
+            catch (EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }

@@ -2,16 +2,14 @@
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using Swintake.api.Helpers.Users;
 using Swintake.domain.Data;
-using Swintake.domain.Users;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
-using Swintake.api.Helpers.Campaigns;
 using System;
+using Swintake.api.Helpers.Campaigns;
 
 namespace Swintake.Integration.tests.Campaigns
 {

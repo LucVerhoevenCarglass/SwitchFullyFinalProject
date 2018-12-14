@@ -1,17 +1,22 @@
 ﻿using Swintake.infrastructure.builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Swintake.domain.Campaigns
 {
     public class Campaign : Entity
     {
+        // fields
+        [MaxLength(60)]
         public string Name { get; set; }
+        [MaxLength(60)]
         public string Client { get; set; }
         public CampaignStatus Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ClassStartDate { get; set; }
+        [MaxLength(500)]
         public string Comment { get; set; }
 
         private Campaign() : base(Guid.Empty) { }
