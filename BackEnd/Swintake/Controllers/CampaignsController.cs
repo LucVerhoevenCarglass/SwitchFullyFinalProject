@@ -6,6 +6,8 @@ using Swintake.infrastructure.Exceptions;
 using Swintake.services.Campaigns;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Swintake.api.Controllers
 {
@@ -25,6 +27,7 @@ namespace Swintake.api.Controllers
 
         // POST: api/Campaign
         [HttpPost]
+        [Authorize]
         public ActionResult<CampaignDto> CreateCampaign([FromBody] CreateCampaignDto createCampaignDto)
         {
             try
@@ -47,6 +50,7 @@ namespace Swintake.api.Controllers
 
         // GET: api/Campaign
         [HttpGet]
+        [Authorize]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
             //var allCompaigns = _campaignService.GetCampaigns()
@@ -74,6 +78,7 @@ namespace Swintake.api.Controllers
 
         // GET: api/Campaign/5
         [HttpGet("{id}", Name = "Get")]
+        [Authorize]
         public ActionResult<CampaignDto> Get(string id)
         {
             var campaign = _campaignService.GetCampaignByID(id);

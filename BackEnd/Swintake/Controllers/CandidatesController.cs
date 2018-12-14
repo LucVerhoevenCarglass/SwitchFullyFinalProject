@@ -3,6 +3,8 @@ using Swintake.api.Helpers.Candidates;
 using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Swintake.api.Controllers
 {
@@ -21,6 +23,7 @@ namespace Swintake.api.Controllers
         
         // POST: api/Campaign
         [HttpPost]
+        [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
         {
             try
@@ -42,6 +45,7 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<CandidateDto> GetById(string id)
         {
             try
