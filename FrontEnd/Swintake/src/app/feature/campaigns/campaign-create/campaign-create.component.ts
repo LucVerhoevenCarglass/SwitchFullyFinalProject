@@ -40,12 +40,12 @@ export class CampaignCreateComponent implements OnInit {
   create() {
           this.campaignService.addCampaign(this.createNewCampaignForm.value)
               .subscribe(data => {
-                this._router.navigateByUrl('/listcampaigns');
+                this._router.navigateByUrl('/campaigns');
               }, error => {console.log(error)});
   }
 
   cancel(){
-    this._router.navigateByUrl('/listcampaigns');  }
+    this._router.navigateByUrl('/campaigns');  }
 
   get i(){
     return this.createNewCampaignForm.controls;
