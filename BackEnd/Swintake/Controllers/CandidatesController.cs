@@ -5,6 +5,7 @@ using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Swintake.api.Controllers
 {
@@ -20,9 +21,10 @@ namespace Swintake.api.Controllers
             _candidateMapper = candidateMapper;
             _candidateService = candidateService;
         }
-        
+
         // POST: api/Campaign
         [HttpPost]
+        [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
         {
             try
@@ -44,6 +46,7 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<CandidateDto> GetById(string id)
         {
             try
@@ -62,6 +65,7 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<List<CandidateDto>> GetAll()
         {
             try
@@ -87,7 +91,6 @@ namespace Swintake.api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
 
     }
 }
