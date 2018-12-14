@@ -16,6 +16,7 @@ namespace Swintake.api.Helpers.Candidates
                                     .WithPhoneNumber(dtoObject.PhoneNumber)
                                     .WithGitHubUsername(dtoObject.GitHubUsername)
                                     .WithLinkedIn(dtoObject.LinkedIn)
+                                    .WithComment(dtoObject.Comment)
                                     .Build();
 
             return domainCandidate;
@@ -31,7 +32,9 @@ namespace Swintake.api.Helpers.Candidates
                 Email = domainObject.Email,
                 PhoneNumber = domainObject.PhoneNumber,
                 GitHubUsername = domainObject.GitHubUsername,
-                LinkedIn = domainObject.LinkedIn
+                LinkedIn = domainObject.LinkedIn,
+                Comment = domainObject.LinkedIn
+
             };
 
             return dtoCandidate;

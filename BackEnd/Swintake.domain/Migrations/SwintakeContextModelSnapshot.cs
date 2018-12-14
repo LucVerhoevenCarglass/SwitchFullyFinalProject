@@ -26,11 +26,14 @@ namespace Swintake.domain.Migrations
 
                     b.Property<DateTime>("ClassStartDate");
 
-                    b.Property<string>("Client");
+                    b.Property<string>("Client")
+                        .HasMaxLength(60);
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .HasMaxLength(500);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(60);
 
                     b.Property<DateTime>("StartDate");
 
@@ -41,7 +44,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Campaigns");
 
                     b.HasData(
-                        new { Id = new Guid("7c221b99-908a-4b26-868f-0228f3da0568"), ClassStartDate = new DateTime(2018, 12, 13, 10, 21, 48, 356, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 13, 10, 21, 48, 358, DateTimeKind.Local), Status = 1 }
+                        new { Id = new Guid("f9df7441-24ed-45a7-9e11-8c77a76e9b44"), ClassStartDate = new DateTime(2018, 12, 14, 10, 10, 48, 784, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 14, 10, 10, 48, 789, DateTimeKind.Local), Status = 1 }
                     );
                 });
 
@@ -50,15 +53,20 @@ namespace Swintake.domain.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(60);
 
-                    b.Property<string>("GitHubUsername");
+                    b.Property<string>("GitHubUsername")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasMaxLength(60);
 
-                    b.Property<string>("LinkedIn");
+                    b.Property<string>("LinkedIn")
+                        .HasMaxLength(200);
 
                     b.Property<string>("PhoneNumber");
 
@@ -67,7 +75,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Candidates");
 
                     b.HasData(
-                        new { Id = new Guid("44356fa8-3995-459f-927a-976e1dfee43d"), Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
+                        new { Id = new Guid("992324fe-4b56-447a-9681-c57549e8a0a1"), Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
                     );
                 });
 
@@ -85,8 +93,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("92869497-6e3b-42d6-b904-6b2362d9c957"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("db84d51c-840a-4c5b-8ce1-2a2821e5565c"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("d6d54e38-19c6-4dcf-a0a2-48ccd5754453"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("352c319a-7e37-4dfb-a635-bc43b365170a"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -110,8 +118,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("92869497-6e3b-42d6-b904-6b2362d9c957"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                                new { UserId = new Guid("db84d51c-840a-4c5b-8ce1-2a2821e5565c"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("d6d54e38-19c6-4dcf-a0a2-48ccd5754453"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("352c319a-7e37-4dfb-a635-bc43b365170a"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });
