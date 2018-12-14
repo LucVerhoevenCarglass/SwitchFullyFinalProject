@@ -18,6 +18,34 @@ namespace Swintake.Integration.tests.Campaigns
 {
     public class CampaignsIntegrationTests
     {
+        private async Task<HttpClient> InitClient(TestServer server)
+        {
+            var client = server.CreateClient();
+            var context = server.Host.Services.GetService<SwintakeContext>();
+
+            var user = new UserBuilder()
+                    .WithEmail("user@switchfully.com")
+                    .WithFirstName("User")
+                    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+                    .Build();
+
+            context.Users.Add(user);
+            context.SaveChanges();
+
+            var userDto = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
+
+            var contentUser = JsonConvert.SerializeObject(userDto);
+            var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
+
+            var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
+            var responseStringToken = await responseToken.Content.ReadAsStringAsync();
+            var responseBearer1 = responseStringToken.Substring(1);
+            var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
+            return client;
+        }
+
+
         [Fact]
         public async Task GivenNewCampaignJson_WhenCreatingNewCampaign_ThenCampaignObjectIsSavedAndReturned()
         {
@@ -30,28 +58,8 @@ namespace Swintake.Integration.tests.Campaigns
 
             using (server)
             {
-                var client = server.CreateClient();
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var client = await InitClient(server);
 
-                var user = new UserBuilder()
-                        .WithEmail("user@switchfully.com")
-                        .WithFirstName("User")
-                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                        .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
@@ -87,29 +95,8 @@ namespace Swintake.Integration.tests.Campaigns
 
             using (server)
             {
-                var client = server.CreateClient();
-
-                var context = server.Host.Services.GetService<SwintakeContext>();
-
-                var user = new UserBuilder()
-                    .WithEmail("user@switchfully.com")
-                    .WithFirstName("User")
-                    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                    .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
+                var client = await InitClient(server);
+ 
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
@@ -143,29 +130,7 @@ namespace Swintake.Integration.tests.Campaigns
 
             using (server)
             {
-                var client = server.CreateClient();
-
-                var context = server.Host.Services.GetService<SwintakeContext>();
-
-                var user = new UserBuilder()
-                        .WithEmail("user@switchfully.com")
-                        .WithFirstName("User")
-                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                        .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
+                var client = await InitClient(server);
                 var newDTOCreated = new CreateCampaignDto()
                 {
                     Name = "testCampaign",
