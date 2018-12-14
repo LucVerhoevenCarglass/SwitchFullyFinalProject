@@ -4,7 +4,7 @@ using Swintake.api.Helpers.Candidates;
 using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
-
+using System.Collections.Generic;
 
 namespace Swintake.api.Controllers
 {
@@ -50,6 +50,19 @@ namespace Swintake.api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        public ActionResult<List<CandidateDto>> GetAll()
+        {
+            var candidatesDomain = _candidateService.GetAllCandidates();
+            var candidatesDto = new List<CandidateDto>();
+            foreach (var candidate in candidatesDomain)
+            {
+                var candidateDto = _candidateMapper.ToDto(candidate);
+                candidatesDto.Add(candidateDto);
+            }
+            return candidatesDto;
         }
 
 
