@@ -34,7 +34,6 @@ namespace Swintake.api.Helpers.Candidates
                 GitHubUsername = domainObject.GitHubUsername,
                 LinkedIn = domainObject.LinkedIn,
                 Comment = domainObject.Comment
-
             };
 
             return dtoCandidate;
