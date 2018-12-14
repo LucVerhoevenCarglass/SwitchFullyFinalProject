@@ -9,6 +9,7 @@ import { CampaignCreateComponent } from './campaigns/campaign-create/campaign-cr
 import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
 import { NgbdModalContent } from '../feature/login/login.component';
 import { CandidateCreateComponent } from './candidates/candidate-create/candidate-create/candidate-create.component';
+import { CandidateDetailComponent } from './candidates/candidate-detail/candidate-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CandidateCreateComponent } from './candidates/candidate-create/candidat
     CampaignCreateComponent, 
     CampaignListComponent, 
     NgbdModalContent, 
-    CandidateCreateComponent
+    CandidateCreateComponent, CandidateDetailComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [

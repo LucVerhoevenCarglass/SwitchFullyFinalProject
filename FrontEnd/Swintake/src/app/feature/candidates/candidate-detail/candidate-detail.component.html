@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="box-shadow box-light-background parent-section">
+    <div class="container">
+      <header>
+        <h1>Candidate Detail </h1>
+        <hr>
+      </header>
+      <table id="CandidateTanme" class="table table-bordred table-striped">
+          <tr>
+              <th>FirstName: </th>
+              <td>{{candidate.firstName}}</td>
+            </tr>
+            <tr>
+              <th>LastName: </th>
+              <td>{{candidate.lastName}}</td>
+            </tr>
+            <tr>
+              <th>Email:</th>
+              <td><a href="mailto:{{candidate.email}}">{{candidate.email}}</a></td>
+            </tr>
+            <tr>
+              <th>Phone:</th>
+              <td>{{candidate.phoneNumber}}</td>
+            </tr>
+            <tr>
+              <th>LinkedIn:</th>
+              <td><a href="{{candidate.linkedIn}}">{{candidate.linkedIn}}</a></td>
+            </tr>
+            <tr>
+              <th>Comment:</th>
+              <td>{{candidate.comment}}</td>
+            </tr>
+      </table>
+    </div>
+  </div>

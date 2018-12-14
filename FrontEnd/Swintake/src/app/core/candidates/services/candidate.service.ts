@@ -10,11 +10,16 @@ const httpOptions = {
 
 @Injectable()
 export class CandidateService {
-
+  
   constructor(private http: HttpClient) { }
 
   addCandidate(candidate: Candidate): Observable<Candidate>{
     delete candidate.id;
     return this.http.post<Candidate>(ApiUrl.urlCandidates, candidate, httpOptions);
   }
+
+  getCandidateById(id: string): Observable<Candidate> {
+    return this.http.get<Candidate>(`${ApiUrl.urlCandidates}id:string?id=${id}`);
+  }
+  
 }
