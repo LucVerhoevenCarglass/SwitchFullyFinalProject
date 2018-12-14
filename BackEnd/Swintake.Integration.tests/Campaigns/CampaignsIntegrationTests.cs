@@ -15,21 +15,25 @@ namespace Swintake.Integration.tests.Campaigns
 {
     public class CampaignsIntegrationTests
     {
-        [Fact]
-        public async Task GivenNewCampaignJson_WhenCreatingNewCampaign_ThenCampaignObjectIsSavedAndReturned()
+        private TestServer _server;
+        public CampaignsIntegrationTests()
         {
-            var server = new TestServer(new WebHostBuilder()
+            _server = new TestServer(new WebHostBuilder()
                 .UseStartup<TestStartup>()
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
                     .AddEnvironmentVariables()
                     .Build()));
+        }
 
-            using (server)
+        [Fact]
+        public async Task GivenNewCampaignJson_WhenCreatingNewCampaign_ThenCampaignObjectIsSavedAndReturned()
+        {
+            using (_server)
             {
-                var client = server.CreateClient();
+                var client = _server.CreateClient();
 
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var context = _server.Host.Services.GetService<SwintakeContext>();
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
@@ -56,18 +60,11 @@ namespace Swintake.Integration.tests.Campaigns
         [Fact]
         public async Task GivenNewCampaignJsonWithoutName_WhenCreatingNewCampaign_ThenReturnBadRequest()
         {
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<TestStartup>()
-                .UseConfiguration(new ConfigurationBuilder()
-                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
-                    .AddEnvironmentVariables()
-                    .Build()));
-
-            using (server)
+            using (_server)
             {
-                var client = server.CreateClient();
+                var client = _server.CreateClient();
 
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var context = _server.Host.Services.GetService<SwintakeContext>();
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
@@ -88,22 +85,14 @@ namespace Swintake.Integration.tests.Campaigns
             }
         }
 
-
         [Fact]
         public async Task GivenHappyPath_WhenGetAllCampaigns_ThenCampaignsAreReturned()
         {
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<TestStartup>()
-                .UseConfiguration(new ConfigurationBuilder()
-                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
-                    .AddEnvironmentVariables()
-                    .Build()));
-
-            using (server)
+            using (_server)
             {
-                var client = server.CreateClient();
+                var client = _server.CreateClient();
 
-                var context = server.Host.Services.GetService<SwintakeContext>();
+                var context = _server.Host.Services.GetService<SwintakeContext>();
 
                 var newDTOCreated = new CreateCampaignDto()
                 {
