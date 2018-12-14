@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/authentication/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router'
 import { first } from 'rxjs/operators'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { formDirectiveProvider } from '@angular/forms/src/directives/reactive_directives/form_group_directive';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -91,6 +92,9 @@ export class LoginComponent implements OnInit {
     modalRef.componentInstance.header = header;
     modalRef.componentInstance.message = message;
     this.userForm.reset();
+    Object.keys(this.userForm.controls).forEach(key => {
+      this.userForm.controls[key].setErrors(null)
+    });
     this.isSubmitted = false;
   }
 

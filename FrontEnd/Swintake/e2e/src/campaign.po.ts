@@ -13,8 +13,6 @@ export class CampaignPage{
         classStartDate: new Date()
     };
 
- 
-
     navigateCreateCampaign(){
     
         browser.findElement(by.id('CreateButtonCampaign')).click();
