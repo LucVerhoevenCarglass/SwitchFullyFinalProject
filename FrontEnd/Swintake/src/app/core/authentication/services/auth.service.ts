@@ -6,9 +6,9 @@ import { UserAuth } from '../classes/userAuth';
 import { LoggedInUser } from '../classes/loggedInUser';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
-//const httpOptions = {
+// const httpOptions = {
 //  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-//};
+// };
 
 @Injectable()
 
