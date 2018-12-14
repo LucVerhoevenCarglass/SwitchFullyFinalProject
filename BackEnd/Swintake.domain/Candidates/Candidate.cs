@@ -14,6 +14,7 @@ namespace Swintake.domain.Candidates
         public string LastName { get; private set; }
         [MaxLength(100)]
         public string Email { get; private set; }
+        [MaxLength(20)]
         public string PhoneNumber { get; private set; }
         [MaxLength(100)]
         public string GitHubUsername { get; private set; }

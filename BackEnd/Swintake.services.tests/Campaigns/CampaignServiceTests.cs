@@ -42,8 +42,6 @@ namespace Swintake.services.tests.Campaigns
             .WithName("TestCampaign SwinTake")
             .WithStatus(CampaignStatus.Active).Build();
 
-
-
         [Fact]
         public void CreateCampaign_HappyPath()
         {
@@ -71,7 +69,6 @@ namespace Swintake.services.tests.Campaigns
 
             Assert.Equal(2, result);
         }
-
 
         private T CloneObject<T>(T obj)
         {
