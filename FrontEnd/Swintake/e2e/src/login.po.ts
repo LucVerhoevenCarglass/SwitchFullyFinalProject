@@ -1,6 +1,7 @@
 import {browser, by, ElementFinder, element} from 'protractor';
 import { User } from 'src/app/core/authentication/classes/user';
 import { protractor } from 'protractor/built/ptor';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 export class LoginPage{
     navigateTo(){

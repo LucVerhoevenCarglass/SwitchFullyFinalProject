@@ -20,4 +20,8 @@ fdescribe('workspace-project App', () => {
      campaignPage.AddNewCampaign(campaignPage.campaign)
                  .expectifCampaignHasbeenAddedToList(campaignPage.campaign.name);
     });
+
+    it('should logOut the user', () => {
+      loginPage.logout().expectIfUserIsNotLoggedIn('Niels');
+    });
 });
