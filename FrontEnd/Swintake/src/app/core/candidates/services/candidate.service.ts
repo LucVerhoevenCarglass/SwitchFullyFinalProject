@@ -9,6 +9,7 @@ const httpOptions = {
 };
 
 @Injectable()
+
 export class CandidateService {
   
   constructor(private http: HttpClient) { }
@@ -22,7 +23,6 @@ export class CandidateService {
     return this.http.get<Candidate>(`${ApiUrl.urlCandidates}id:string?id=${id}`);
   }
   
-
   getCandidates(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(ApiUrl.urlCandidates);
   }

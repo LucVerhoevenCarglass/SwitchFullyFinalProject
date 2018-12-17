@@ -8,12 +8,13 @@ fdescribe('CandidateService', () => {
   let httpClient: HttpClient;
   let candidateService: CandidateService;
 
-  beforeEach(() => {
+  beforeEach(() => 
+  {
     httpClient = ({ get: null, post: null } as unknown) as HttpClient;
     candidateService = new CandidateService(httpClient);
   });
 
-  it('should return new candidate', () => {
+  fit('should return new candidate', () => {
 
     let candidate: Candidate = {
       firstName: 'Peter',
@@ -33,4 +34,43 @@ fdescribe('CandidateService', () => {
       .subscribe((result: Candidate) =>
         expect(result).toEqual(candidate));
   });
+  
+  fit('should return list of candidates', () => 
+  {
+    spyOn(httpClient, 'get').and.callFake((url: string) => {
+      expect(url).toBe(ApiUrl.urlCandidates);
+      return of(createFakeCandidates());
+    });
+
+    candidateService.getCandidates()
+    .subscribe((result: Candidate[]) =>
+    expect(result.length).toEqual(2));
+  });
+
 });
+
+  function createFakeCandidates(): Candidate[] 
+  {
+    return [
+      {
+          id: '1',
+          firstName: 'UserFN1',
+          lastName: 'UserLN1',
+          email: 'User@email.one',
+          phoneNumber: '0470000000',
+          gitHubUserName: 'username1',
+          linkedIn: 'username1',
+          comment: 'comment1'
+      },
+      {
+        id: '2',
+        firstName: 'UserFN2',
+        lastName: 'UserLN2',
+        email: 'User@email.two',
+        phoneNumber: '0470000000',
+        gitHubUserName: 'username2',
+        linkedIn: 'username2',
+        comment: 'comment2'
+      }
+    ]
+}
