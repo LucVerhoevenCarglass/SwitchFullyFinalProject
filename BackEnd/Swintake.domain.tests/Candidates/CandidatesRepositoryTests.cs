@@ -20,6 +20,8 @@ namespace Swintake.domain.tests.Candidates
                 .Options;
         }
 
+
+
         [Fact]
         public void GivenANewCandidate_WhenSaveNewCandidate_ThenNewCandidateIsSaved()
         {

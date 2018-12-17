@@ -20,7 +20,7 @@ namespace Swintake.api.tests.Candidates
         {
             candidateServiceStub = Substitute.For<ICandidateService>();
             candidateMapperStub = Substitute.For<CandidateMapper>();
-            _candidatesController = new CandidatesController(candidateServiceStub, candidateMapperStub);
+            _candidatesController = new CandidatesController(candidateMapperStub, candidateServiceStub);
         }
 
         [Fact]

@@ -29,35 +29,40 @@ namespace Swintake.Integration.tests.Candidates
                     .Build()));
         }
 
+        private async Task<HttpClient> InitClient(TestServer server)
+        {
+            var client = server.CreateClient();
+            var context = server.Host.Services.GetService<SwintakeContext>();
+
+            var user = new UserBuilder()
+                .WithEmail("user@switchfully.com")
+                .WithFirstName("User")
+                .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
+                .Build();
+
+            context.Users.Add(user);
+            context.SaveChanges();
+
+            var userDto = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
+
+            var contentUser = JsonConvert.SerializeObject(userDto);
+            var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
+
+            var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
+            var responseStringToken = await responseToken.Content.ReadAsStringAsync();
+            var responseBearer1 = responseStringToken.Substring(1);
+            var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
+            return client;
+        }
+
         [Fact]
         public async Task GivenNewCandidateJson_WhenCreatingNewCandidate_ThenCandidateObjectIsSavedAndReturned()
         {
             using (_server)
             {
-                var client = _server.CreateClient();
-
-                var context = _server.Host.Services.GetService<SwintakeContext>();
-
-                var user = new UserBuilder()
-                        .WithEmail("user@switchfully.com")
-                        .WithFirstName("User")
-                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                        .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
-
+                var client = await InitClient(_server);
+ 
                 var newDTOCreated = new CandidateDto()
                 {
                     FirstName = "Peter",
@@ -87,29 +92,7 @@ namespace Swintake.Integration.tests.Candidates
 
             using (_server)
             {
-                var client = _server.CreateClient();
-                var context = _server.Host.Services.GetService<SwintakeContext>();
-
-                var user = new UserBuilder()
-                        .WithEmail("user@switchfully.com")
-                        .WithFirstName("User")
-                        .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                        .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
-
+                var client = await InitClient(_server);
                 var newDTOCreated = new CandidateDto()
                 {
                     FirstName = "",
@@ -133,39 +116,9 @@ namespace Swintake.Integration.tests.Candidates
         [Fact]
         public async Task GivenHappyPath_WhenGetAllCandidates_ThenCandidatesAreReturned()
         {
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<TestStartup>()
-                .UseConfiguration(new ConfigurationBuilder()
-                    .AddUserSecrets("ecafb124-3b88-4041-ac3d-6bf9172b7efa")
-                    .AddEnvironmentVariables()
-                    .Build()));
-
-            using (server)
+            using (_server)
             {
-                var client = server.CreateClient();
-
-                var context = server.Host.Services.GetService<SwintakeContext>();
-
-                var user = new UserBuilder()
-                    .WithEmail("user@switchfully.com")
-                    .WithFirstName("User")
-                    .WithUserSecurity(new UserSecurity("WO8nNwTcrxigARQfBn4nYRh8X16ExDQJ8jNuECJT8fE=", "F1e3n6zNR75LhUd5K73T/g=="))
-                    .Build();
-
-                context.Users.Add(user);
-                context.SaveChanges();
-
-                var userDTO = new UserDTO { Email = "user@switchfully.com", Password = "ILoveNiels" };
-
-                var contentUser = JsonConvert.SerializeObject(userDTO);
-                var stringContentUser = new StringContent(contentUser, Encoding.UTF8, "application/json");
-
-                var responseToken = await client.PostAsync("api/users/authenticate", stringContentUser);
-                var responseStringToken = await responseToken.Content.ReadAsStringAsync();
-                var responseBearer1 = responseStringToken.Substring(1);
-                var responseBearer2 = responseBearer1.Substring(0, responseBearer1.Length - 1);
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + responseBearer2);
-
+                var client = await InitClient(_server);
                 var DTOCreated = new CandidateDto(
                     Guid.NewGuid().ToString(),
                     "Janneke",
@@ -185,6 +138,57 @@ namespace Swintake.Integration.tests.Candidates
                 Assert.Equal("OK", response.StatusCode.ToString());
             }
         }
+
+        [Fact]
+        public async Task GivenGetCandidate_WhenPassingExistingId_ThenReturnCandidate()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+
+                var newDTOCreated = new CandidateDto()
+                {
+                    FirstName = "Joske",
+                    LastName = "Parker",
+                    Email = "totallynotspiderman@gmail.com",
+                    PhoneNumber = "0470000000",
+                    GitHubUsername = "youarespiderman",
+                    LinkedIn = "peterparker"
+                };
+
+                var content = JsonConvert.SerializeObject(newDTOCreated);
+                var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("api/Candidates", stringContent);
+                response.EnsureSuccessStatusCode();
+                var creatingResponseString = await response.Content.ReadAsStringAsync();
+                var createdCandidate = JsonConvert.DeserializeObject<CandidateDto>(creatingResponseString);
+
+
+                var getResponse = await client.GetAsync("/api/Candidates/" + createdCandidate.Id);
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                var foundCandidate = JsonConvert.DeserializeObject<CandidateDto>(responseString);
+
+
+                Assert.Equal(newDTOCreated.FirstName, foundCandidate.FirstName);
+            }
+
+        }
+
+        [Fact]
+        public async Task GivenGetCandidate_WhenPassingNonExistingId_ThenReturnNull()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+
+                var getResponse = await client.GetAsync("/api/Candidates/" + Guid.NewGuid().ToString());
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                Assert.Contains("Id not Found", responseString);
+                Assert.Equal("BadRequest", getResponse.StatusCode.ToString());
+            }
+
+        }
+
 
     }
 }

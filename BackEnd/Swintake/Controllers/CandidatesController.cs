@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Candidates;
-using Swintake.domain.Candidates;
 using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Swintake.api.Controllers
 {
@@ -16,7 +15,7 @@ namespace Swintake.api.Controllers
         private readonly CandidateMapper _candidateMapper;
         private readonly ICandidateService _candidateService;
 
-        public CandidatesController(ICandidateService candidateService, CandidateMapper candidateMapper)
+        public CandidatesController(CandidateMapper candidateMapper, ICandidateService candidateService)
         {
             _candidateMapper = candidateMapper;
             _candidateService = candidateService;
@@ -27,22 +26,11 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
         {
-            try
-            {
-                var newcandidate = _candidateMapper.ToDto(
-                         _candidateService.AddCandidate(
-                            _candidateMapper.ToDomain(candidateDto)));
+            var newcandidate = _candidateMapper.ToDto(
+                     _candidateService.AddCandidate(
+                        _candidateMapper.ToDomain(candidateDto)));
 
-                return Created($"api/candidate/{newcandidate.Id}", newcandidate);
-            }
-            catch (EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Created($"api/candidate/{newcandidate.Id}", newcandidate);
         }
 
         [HttpGet("{id}")]
@@ -65,32 +53,18 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult<List<CandidateDto>> GetAll()
         {
-            try
+            var candidatesDomain = _candidateService.GetAllCandidates();
+            var candidatesDto = new List<CandidateDto>();
+            foreach (var candidate in candidatesDomain)
             {
-                var candidatesDomain = _candidateService.GetAllCandidates();
-
-                var candidatesDto = new List<CandidateDto>();
-
-                foreach (var candidate in candidatesDomain)
-                {
-                    var candidateDto = _candidateMapper.ToDto(candidate);
-                    candidatesDto.Add(candidateDto);
-                }
-
-                return candidatesDto;
+                var candidateDto = _candidateMapper.ToDto(candidate);
+                candidatesDto.Add(candidateDto);
             }
-            catch (EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return candidatesDto;
         }
+
 
     }
 }

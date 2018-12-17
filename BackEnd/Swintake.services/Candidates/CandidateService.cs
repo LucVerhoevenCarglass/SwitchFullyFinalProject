@@ -47,7 +47,7 @@ namespace Swintake.services.Candidates
            Candidate getCandidate = _candidateRepository.Get(Guid.Parse(id));
            if (getCandidate == null)
            {
-                throw new EntityNotValidException("Id not Found", id);
+                throw new EntityNotFoundException("Id not Found", "candidate", new Guid(id));
            }
            return getCandidate;
         }

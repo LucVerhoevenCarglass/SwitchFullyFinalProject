@@ -7,7 +7,7 @@ export class CandidatePage{
     }
 
     candidate: Candidate = {
-        firstName: 'Peter',
+        firstName: 'Petar',
         lastName: 'Parker',
         email: 'totallynotspiderman@gmail.com',
         phoneNumber: '0470000000',
@@ -28,6 +28,13 @@ export class CandidatePage{
         browser.findElement(by.id('inputGitHubText')).sendKeys(candidate.gitHubUserName);
         browser.findElement(by.id('inputLinkedInText')).sendKeys(candidate.linkedIn);
         browser.findElement(by.id('inputCommentText')).sendKeys(candidate.comment);
+        browser.findElement(by.id('CandidateCreateButton')).click();
         return this;
+      }
+
+      expectifCandidateHasbeenAddedToList(candidateName: string)
+      {
+          expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('listcandidates')),candidateName),5000)).toBeTruthy();
+          return this;
       }
 }

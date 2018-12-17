@@ -20,7 +20,7 @@ export class CandidateService {
   }
 
   getCandidateById(id: string): Observable<Candidate> {
-    return this.http.get<Candidate>(`${ApiUrl.urlCandidates}id:string?id=${id}`);
+    return this.http.get<Candidate>(`${ApiUrl.urlCandidates}${id}`);
   }
   
   getCandidates(): Observable<Candidate[]> {

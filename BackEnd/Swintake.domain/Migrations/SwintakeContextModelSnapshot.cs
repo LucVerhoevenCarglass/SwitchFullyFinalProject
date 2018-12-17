@@ -44,7 +44,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Campaigns");
 
                     b.HasData(
-                        new { Id = new Guid("ae833db4-61ac-4461-b0fe-b1f77b2f60af"), ClassStartDate = new DateTime(2018, 12, 14, 14, 52, 33, 424, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 14, 14, 52, 33, 426, DateTimeKind.Local), Status = 1 }
+                        new { Id = new Guid("623a2cf0-fb14-4d72-8f85-cb880f8444f4"), ClassStartDate = new DateTime(2018, 12, 14, 15, 0, 23, 699, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 14, 15, 0, 23, 701, DateTimeKind.Local), Status = 1 }
                     );
                 });
 
@@ -78,7 +78,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Candidates");
 
                     b.HasData(
-                        new { Id = new Guid("c617423f-398a-443d-b599-98041acf5246"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
+                        new { Id = new Guid("fe8706d4-228d-4198-b2d9-c1357429c3b8"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
                     );
                 });
 
@@ -90,8 +90,6 @@ namespace Swintake.domain.Migrations
                     b.Property<Guid>("CampaignId");
 
                     b.Property<Guid>("CandiDateId");
-
-                    b.Property<DateTime>("CreationTime");
 
                     b.Property<int>("Status");
 
@@ -118,8 +116,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("e323746a-1209-4e40-928f-9e9a5ed441e6"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("8d5a1d5d-3485-49ca-9a9d-0d150d549ec2"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("6ea4d9e1-8014-417c-ad3a-f7c7a76902f9"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("d4f24e23-efc6-4712-9020-fde8794905d3"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -156,8 +154,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("e323746a-1209-4e40-928f-9e9a5ed441e6"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                                new { UserId = new Guid("8d5a1d5d-3485-49ca-9a9d-0d150d549ec2"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("6ea4d9e1-8014-417c-ad3a-f7c7a76902f9"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("d4f24e23-efc6-4712-9020-fde8794905d3"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });

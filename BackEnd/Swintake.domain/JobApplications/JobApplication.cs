@@ -10,19 +10,17 @@ namespace Swintake.domain.JobApplications
    public class JobApplication: Entity
     {
         public Candidate Candidate { get; set; }
-        public Guid CandiDateId { get; set; }
+        public Guid CandidateId { get; set; }
         public Campaign Campaign { get; set; }
         public Guid CampaignId { get; set; }
-        public DateTime CreationTime { get; set; }
         public StatusJobApplication Status { get; set; }
 
         private JobApplication(){}
 
         public JobApplication(JobApplicationBuilder jobApplicationBuilder)
         {
-            CandiDateId = jobApplicationBuilder.CandiDateId;
+            CandidateId = jobApplicationBuilder.CandiDateId;
             CampaignId = jobApplicationBuilder.CampaignId;
-            CreationTime = jobApplicationBuilder.CreationTime;
             Status = jobApplicationBuilder.Status;
         }
 
@@ -33,7 +31,6 @@ namespace Swintake.domain.JobApplications
         public Guid Id { get; set; }
         public Guid CandiDateId { get; set; }
         public Guid CampaignId { get; set; }
-        public DateTime CreationTime { get; set; }
         public StatusJobApplication Status { get; set; }
 
         public static JobApplicationBuilder NewJobApplication()
@@ -59,13 +56,7 @@ namespace Swintake.domain.JobApplications
             return this;
         }
 
-        public JobApplicationBuilder WithCreationTime(DateTime creationTime)
-        {
-            CreationTime = creationTime;
-            return this;
-        }
-
-        public JobApplicationBuilder WithStatus(StatusJobApplication status)
+       public JobApplicationBuilder WithStatus(StatusJobApplication status)
         {
             Status = status;
             return this;
