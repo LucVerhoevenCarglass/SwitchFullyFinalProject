@@ -33,4 +33,27 @@ fdescribe('CandidateService', () => {
       .subscribe((result: Candidate) =>
         expect(result).toEqual(candidate));
   });
+
+  it('should return candidate when get by Id', () => {
+
+    let candidate: Candidate = {
+      id: 'FE8706D4-228D-4198-B2D9-C1357429C3B8',
+      firstName: 'Peter',
+      lastName: 'Parker',
+      email: 'totallynotspiderman@gmail.com',
+      phoneNumber: '0470000000',
+      gitHubUserName: 'noYOUarespiderman',
+      linkedIn: 'pp',
+      comment: 'great candidate'
+    };
+    spyOn(httpClient, 'get').and.callFake((url: string) => {
+      expect(url).toBe(`${ApiUrl.urlCandidates}${candidate.id}`);
+      return of(candidate);
+    });
+
+    candidateService.getCandidateById(candidate.id)
+      .subscribe((result: Candidate) =>
+        expect(result).toEqual(candidate));
+  });
+
 });

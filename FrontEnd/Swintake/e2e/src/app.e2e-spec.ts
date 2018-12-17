@@ -30,5 +30,12 @@ fdescribe('workspace-project App', () => {
       candidatePage.addNewCandidate(candidatePage.candidate)
                   .expectifCandidateHasbeenAddedToList(candidatePage.candidate.firstName);
    });
+
+   
+  it('should show detail when click on element in list', () => {
+    candidatePage.navigateTo();
+    candidatePage.performClickOnFirstElementInList();
+    candidatePage.expectifCandidateSelected(candidatePage.candidate.firstName);
+  });
  
 });

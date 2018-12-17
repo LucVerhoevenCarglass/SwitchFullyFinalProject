@@ -2,7 +2,7 @@ import {browser, by, protractor, element} from 'protractor';
 import {Candidate} from 'src/app/core/candidates/classes/candidate'
 
 export class CandidatePage{
-    navigateTo(){
+     navigateTo(){
         return browser.get('/candidates');
     }
 
@@ -20,6 +20,13 @@ export class CandidatePage{
           browser.findElement(by.id('CreateButtonCandidate')).click();
       }
 
+      performClickOnFirstElementInList() {
+        let firstelementInList = element.all(by.id("candidateFirstName")).first();
+        let firstNameList = firstelementInList.getText();
+        firstelementInList.click();  
+        return this;
+      }
+
       addNewCandidate(candidate: Candidate){
         browser.findElement(by.id('inputFirstNameText')).sendKeys(candidate.firstName);
         browser.findElement(by.id('inputLastNameText')).sendKeys(candidate.lastName);
@@ -30,6 +37,11 @@ export class CandidatePage{
         browser.findElement(by.id('inputCommentText')).sendKeys(candidate.comment);
         browser.findElement(by.id('CandidateCreateButton')).click();
         return this;
+      }
+
+      expectifCandidateSelected(candidateName: string){
+        expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('detailCandidateFirstname')),candidateName),5000)).toBeTruthy();
+        return this; 
       }
 
       expectifCandidateHasbeenAddedToList(candidateName: string)
