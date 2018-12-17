@@ -31,17 +31,14 @@ namespace SecuredWebApi.Services
         {
             // TODO: If/Else would be more elegant here. (would remove the 'return null' at the end)
             User foundUser = _userRepository.FindByEmail(providedEmail);
-            if(foundUser == null)
-            {
-                return null;
-            }
-
             if (IsSuccessfullyAuthenticated(providedPassword, foundUser.UserSecurity))
             {
                 return new JwtSecurityTokenHandler().CreateToken(CreateTokenDescription(foundUser)) as JwtSecurityToken;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         public User GetCurrentLoggedInUser(ClaimsPrincipal principleUser)

@@ -21,22 +21,16 @@ namespace Swintake.services.Candidates
             {
                 throw new EntityNotValidException("candidate is null", candidate);
             }
-            // TODO: Put this check inside of the Candidate itself (business logic inside of the domain model)
-            // You're asking if the candidate is valid (e.g. IsValidForCreation)
-            if (candidate.Id == null
-                || candidate.Id == Guid.Empty
-                || string.IsNullOrWhiteSpace(candidate.FirstName)
-                || string.IsNullOrWhiteSpace(candidate.LastName)
-                || string.IsNullOrWhiteSpace(candidate.Email)
-                || string.IsNullOrWhiteSpace(candidate.PhoneNumber)
-                || !IsEmailValid(candidate.Email)
-                )
+            
+            if (Candidate.IsNotValidForCreation(candidate))
             {
                 throw new EntityNotValidException("some fields of candidate are invalid", candidate);
             }
-
-            _candidateRepository.Save(candidate);
-            return candidate;
+            else
+            {
+                _candidateRepository.Save(candidate);
+                return candidate;
+            }
         }
 
         public IEnumerable<Candidate> GetAllCandidates()
@@ -52,12 +46,6 @@ namespace Swintake.services.Candidates
                 throw new EntityNotFoundException("Id not Found", "candidate", new Guid(id));
            }
            return getCandidate;
-        }
-
-        // TODO: Put this method inside of the Candidate itself (business logic inside of the domain model)
-        public bool IsEmailValid(string email)
-        {
-            return email.Contains('@');
         }
     }
 }

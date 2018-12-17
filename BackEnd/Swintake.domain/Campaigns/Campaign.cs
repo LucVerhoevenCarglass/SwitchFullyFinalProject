@@ -1,8 +1,6 @@
 ﻿using Swintake.infrastructure.builders;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Swintake.domain.Campaigns
 {
@@ -31,6 +29,16 @@ namespace Swintake.domain.Campaigns
             this.Comment = campaignBuilder.Comment;
         }
 
+        public static bool IsNotValidForCreation(Campaign campaign)
+        {
+            return (campaign.Id == null
+                || campaign.Id == Guid.Empty
+                || string.IsNullOrWhiteSpace(campaign.Name)
+                || string.IsNullOrWhiteSpace(campaign.Client)
+                || campaign.Status != CampaignStatus.Active
+                || campaign.ClassStartDate < campaign.StartDate);
+        }
+
         public class CampaignBuilder : Builder<Campaign>
         {
             public Guid Id { get; set; }
@@ -41,7 +49,7 @@ namespace Swintake.domain.Campaigns
             public DateTime ClassStartDate { get; set; }
             public string Comment { get; set; }
 
-            public static CampaignBuilder NewCampaign() 
+            public static CampaignBuilder NewCampaign()
             {
                 return new CampaignBuilder();
             }

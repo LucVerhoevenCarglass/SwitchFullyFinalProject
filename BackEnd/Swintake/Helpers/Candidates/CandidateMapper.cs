@@ -1,6 +1,7 @@
 ﻿using Swintake.domain.Candidates;
 using Swintake.infrastructure.Mappers;
 using System;
+using System.Collections.Generic;
 
 namespace Swintake.api.Helpers.Candidates
 {
@@ -37,6 +38,17 @@ namespace Swintake.api.Helpers.Candidates
             };
 
             return dtoCandidate;
+        }
+
+        public List<CandidateDto> ToDtoList(IEnumerable<Candidate> candidates)
+        {
+            var candidatesDto = new List<CandidateDto>();
+            foreach (var candidate in candidates)
+            {
+                var candidateDto = ToDto(candidate);
+                candidatesDto.Add(candidateDto);
+            }
+            return candidatesDto;
         }
     }
 }

@@ -54,8 +54,7 @@ namespace Swintake.api.Controllers
             var campaign = _campaignService.GetCampaignByID(id);
             if (campaign == null)
             {
-                // TODO: Also return which ID and for which Entity (makes it a more clear error message)
-                return BadRequest("Id not found");
+                return BadRequest($"Id {id} not found in campaigns");
             }
             var campaignToReturn = _campaignMapper.ToDto(campaign);
 

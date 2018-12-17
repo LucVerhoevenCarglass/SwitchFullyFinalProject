@@ -19,14 +19,6 @@ namespace Swintake.domain
 
         public void GenerateId()
         {
-            if (Id != Guid.Empty)
-            {
-                // TODO: Remove commented code (we have Version Control to restore a previous version)
-                //IllegalStateException
-                //throw new Exception("Generating an ID for a customer that already has " +
-                //                                "an ID (" + Id + ") is not allowed.");
-            }
-
             Id = Guid.NewGuid();
         }
     }
