@@ -41,13 +41,7 @@ namespace Swintake.api.Controllers
         {
             IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
 
-            // TODO: THIS (MAP MULTIPLE DTOS) CAN BE PLACED INSIDE OF THE CAMPAIGNMAPPER
-            List<CampaignDto> campaignDtos = new List<CampaignDto>();
-            foreach (Campaign campaign in campaigns)
-            {
-                CampaignDto campaignDto = _campaignMapper.ToDto(campaign);
-                campaignDtos.Add(campaignDto);
-            }
+            var campaignDtos = _campaignMapper.ToDtoList(campaigns);
 
             return Ok(campaignDtos);
         }
