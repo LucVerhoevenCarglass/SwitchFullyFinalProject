@@ -183,7 +183,8 @@ namespace Swintake.Integration.tests.Candidates
 
                 var getResponse = await client.GetAsync("/api/Candidates/" + Guid.NewGuid().ToString());
                 var responseString = await getResponse.Content.ReadAsStringAsync();
-                Assert.Contains(" Id not Found", responseString);
+                Assert.Contains("Id not Found", responseString);
+                Assert.Equal("BadRequest", getResponse.StatusCode.ToString());
             }
 
         }

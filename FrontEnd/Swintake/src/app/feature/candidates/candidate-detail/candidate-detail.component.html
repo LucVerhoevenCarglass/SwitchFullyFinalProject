@@ -5,7 +5,7 @@
         <h1>Candidate Detail </h1>
         <hr>
       </header>
-      <table id="CandidateTanme" class="table table-bordred table-striped">
+      <table id="CandidateTable" class="table table-bordred table-striped">
           <tr>
               <th>FirstName: </th>
               <td>{{candidate.firstName}}</td>
@@ -32,7 +32,8 @@
             </tr>
             <tr>
               <th>Comment:</th>
-              <td> <textarea wrap="hard">{{candidate.comment}}</textarea></td>
+              <td>{{candidate.comment}}</td>
+              <!-- <td> <textarea wrap="hard">{{candidate.comment}}</textarea></td> -->
             </tr>
       </table>
     </div>
