@@ -18,11 +18,6 @@ namespace SecuredWebApi.Services
         private readonly Salter _salter;
         private string secretKey{ get; }
 
-        // TODO: Remove if not used (sure looks unused)
-        public UserAuthenticationService()
-        {
-        }
-
         public UserAuthenticationService(IUserRepository userRepository, Hasher hasher, Salter salter, IOptions<Secrets> secrets)
         {
             _userRepository = userRepository;

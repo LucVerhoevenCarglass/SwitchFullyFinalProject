@@ -1,11 +1,10 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
-import { AuthService } from 'src/app/core/authentication/services/auth.service';
-import { Observable } from 'rxjs';
-import { map, first } from 'rxjs/operators';
-import { UserAuth } from '../core/authentication/classes/userAuth';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { first } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/authentication/services/auth.service';
 import { LoggedInUser } from '../core/authentication/classes/loggedInUser';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserAuth } from '../core/authentication/classes/userAuth';
 
 
 @Component({

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Swintake.domain.Campaigns;
 using Swintake.domain.Candidates;
+using Swintake.domain.JobApplications.SelectionSteps;
 
 namespace Swintake.domain.Data
 {
@@ -28,6 +29,7 @@ namespace Swintake.domain.Data
             .WithLinkedIn("gwenjamroziak")
             .WithComment("")
             .Build();
+
     }
 
     public partial class SwintakeContext
@@ -72,6 +74,7 @@ namespace Swintake.domain.Data
 
             modelbuilder.Entity<Campaign>(camp => { camp.HasData(seedData.dotNetClass); });
             modelbuilder.Entity<Candidate>(cand => { cand.HasData(seedData.gwen); });
+
         }
     }
 }

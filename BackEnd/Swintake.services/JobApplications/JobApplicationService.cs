@@ -30,15 +30,26 @@ namespace Swintake.services.JobApplications
             return _repository.Save(jobApplication);
         }
 
-        public JobApplication GetJobApplicationById(string id)
+        public JobApplication GetById(string id)
         {
-            JobApplication getJobApplication = _repository.Get(Guid.Parse(id));
-            if (getJobApplication == null)
+            JobApplication jobApplication = _repository.Get(Guid.Parse(id));
+            if (jobApplication == null)
             {
                 throw new EntityNotFoundException("Id not Found", "jobApplication", new Guid(id));
             }
-            return getJobApplication;
-
+            return jobApplication;
         }
+
+        public void RejectJob(JobApplication jobApplicationToReject)
+        {
+            jobApplicationToReject.SetNewStatus(StatusJobApplication.Rejected);
+            _repository.Update(jobApplicationToReject);         
+        }
+
+        public IEnumerable<JobApplication> GetJobApplications()
+        {
+            return _repository.GetAll();
+        }
+
     }
 }
