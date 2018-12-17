@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
 using Swintake.infrastructure.Exceptions;
@@ -28,9 +24,9 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
-            var newJobApplication = _jobApplicationMapper.ToDto(
-                _jobApplicationService.AddJobApplication(
-                    _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
+            var newJobApplication = _jobApplicationMapper.ToNewDomain(jobApplicationDto);
+            var two = _jobApplicationService.AddJobApplication(newJobApplication);
+            var three = _jobApplicationMapper.ToDto(two);
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
         }
@@ -52,6 +48,14 @@ namespace Swintake.api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult<JobApplicationDto> GetAll()
+        {
+            return null;
         }
     }
 }

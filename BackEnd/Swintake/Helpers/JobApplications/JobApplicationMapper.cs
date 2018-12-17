@@ -31,13 +31,12 @@ namespace Swintake.api.Helpers.JobApplications
 
         public override JobApplicationDto ToDto(JobApplication domainObject)
         {
-            return new JobApplicationDto
-            {
-                Id = domainObject.Id.ToString(),
-                CampaignId = domainObject.CampaignId.ToString(),
-                CandidateId = domainObject.CandidateId.ToString(),
-                Status = domainObject.Status.ToString()
-            };
+            return new JobApplicationDto(
+                 domainObject.Id.ToString(),
+                 domainObject.CampaignId.ToString(),
+                domainObject.CandidateId.ToString(),
+                domainObject.Status.ToString()
+                );
         }
 
     }

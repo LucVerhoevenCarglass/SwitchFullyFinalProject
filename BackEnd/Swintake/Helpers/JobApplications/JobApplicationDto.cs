@@ -12,5 +12,13 @@ namespace Swintake.api.Helpers.JobApplications
         public string CandidateId { get; set; }
         public string CampaignId { get; set; }
         public string Status { get; set; }
+
+        public JobApplicationDto(string id, string candidateId, string campaignId, string status)
+        {
+            Id = id;
+            CandidateId = candidateId;
+            CampaignId = campaignId;
+            Status = status;
+        }
     }
 }

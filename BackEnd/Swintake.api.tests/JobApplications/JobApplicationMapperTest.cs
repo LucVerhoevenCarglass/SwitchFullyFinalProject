@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Swintake.api.tests
 {
-   public class JobApplicationMapperTest
+    public class JobApplicationMapperTest
     {
         private readonly JobApplicationMapper _jobApplicationMapper;
         public JobApplicationMapperTest()
@@ -18,11 +18,11 @@ namespace Swintake.api.tests
         public void GivenJobApplicationDto_WhenMapTonewDomain_ThenStatusIsActiveAndIdGuidIsCreated()
         {
             //Given
-            var newJobApplicationDto = new CreateJobApplicationDto()
-            {
-                CampaignId = Guid.NewGuid().ToString(),
-                CandidateId = Guid.NewGuid().ToString(),
-            };
+            var newJobApplicationDto = new CreateJobApplicationDto(
+
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString()
+            );
 
             //When
             var newJobApplication = _jobApplicationMapper.ToNewDomain(newJobApplicationDto);
