@@ -1,0 +1,36 @@
+<form #DropngForm="ngForm" novalidate (ngSubmit)="onSubmit(campaign.id)">  
+    <div class="row">  
+        <div class="col-lg-4">  
+            <label>Campaign name:</label>  
+            <select required name="Campaign"  
+                    #refCampaign="ngModel"  
+                    class="form-control" [(ngModel)]="selectedCampaign">  
+                    
+                <!--<option value="undefined">Please select Value</option>-->  
+                <option *ngFor="let campaign of campaings"  
+                        [ngValue]="campaign.id">  
+                    {{campaign.name}}  
+                </option>  
+            </select>  
+            <br />  
+            <div *ngIf="!refCampaign.valid  && (refCampaign.dirty || refCampaign.touched)"  
+                 class="alert alert-danger">  
+                <div [hidden]="!refCampaign.errors.required">  
+                    Campaign name is required  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+    <div class="row">  
+        <div class="col-lg-4">  
+        </div>  
+    </div>  
+    <div class="row">  
+        <div class="col-lg-4">  
+            <button type="submit" class="btn btn-default"  
+                    [disabled]="!DropngForm.form.valid">  
+                Submit  
+            </button>  
+        </div>  
+    </div>  
+</form>  
