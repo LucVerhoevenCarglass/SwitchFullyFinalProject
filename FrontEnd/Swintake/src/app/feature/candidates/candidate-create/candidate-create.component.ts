@@ -35,8 +35,9 @@ export class CandidateCreateComponent implements OnInit {
 
   create(){
     this.candidateService.addCandidate(this.createNewCandidateForm.value)
-    .subscribe()
-    this._router.navigateByUrl('/candidates');
+    .subscribe(date => {
+      this._router.navigateByUrl('/candidates');
+    });
   }
 
   cancel(){
