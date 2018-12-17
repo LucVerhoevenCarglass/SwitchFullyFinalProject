@@ -19,12 +19,12 @@ namespace Swintake.services.Campaigns
         {
             if (campaign == null)
             {
-                throw new EntityNotValidException("campaign is null", campaign);
+                throw new EntityNotValidException("add campaign", campaign);
             }
 
             if (Campaign.IsNotValidForCreation(campaign))
             {
-                throw new EntityNotValidException("some fields of campaign are invalid", campaign);
+                throw new EntityNotValidException("add campaign", campaign);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace Swintake.services.Campaigns
             var campaign = _campaignRepository.Get(new Guid(id));
             if (campaign == null)
             {
-                throw new EntityNotFoundException("Id not Found", "campaign", new Guid(id));
+                throw new EntityNotFoundException("get campaign", "campaign", new Guid(id));
             }
             return campaign;
         }

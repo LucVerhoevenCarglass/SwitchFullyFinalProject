@@ -46,7 +46,7 @@ namespace Swintake.services.JobApplications
             JobApplication jobApplication = _repository.Get(Guid.Parse(id));
             if (jobApplication == null)
             {
-                throw new EntityNotFoundException("Id not Found", "jobApplication", new Guid(id));
+                throw new EntityNotFoundException("get job application", "job application", new Guid(id));
             }
             return jobApplication;
         }

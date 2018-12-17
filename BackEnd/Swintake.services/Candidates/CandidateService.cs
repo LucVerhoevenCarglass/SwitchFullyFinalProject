@@ -19,12 +19,12 @@ namespace Swintake.services.Candidates
         {
             if (candidate == null)
             {
-                throw new EntityNotValidException("candidate is null", candidate);
+                throw new EntityNotValidException("create a candidate", candidate);
             }
             
             if (Candidate.IsNotValidForCreation(candidate))
             {
-                throw new EntityNotValidException("some fields of candidate are invalid", candidate);
+                throw new EntityNotValidException("create a candidate", candidate);
             }
             else
             {
@@ -41,9 +41,10 @@ namespace Swintake.services.Candidates
         public Candidate GetCandidateById(string id)
         {
            Candidate getCandidate = _candidateRepository.Get(Guid.Parse(id));
-           if (getCandidate == null)
+
+            if (getCandidate == null)
            {
-                throw new EntityNotFoundException("Id not Found", "candidate", new Guid(id));
+                throw new EntityNotFoundException("get candidate by id", "candidate", new Guid(id));
            }
            return getCandidate;
         }

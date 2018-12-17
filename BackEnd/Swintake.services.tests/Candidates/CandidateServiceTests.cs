@@ -65,7 +65,7 @@ namespace Swintake.services.tests.Candidates
             .Build();
 
             Exception ex = Assert.Throws<EntityNotValidException>(() => _candidateService.AddCandidate(jannekeNotValid));
-            Assert.Contains("some fields of candidate are invalid", ex.Message);
+            Assert.Contains("candidate", ex.Message);
         }
 
         [Fact]
