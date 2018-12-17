@@ -51,15 +51,5 @@ namespace Swintake.services.JobApplications
             return _repository.GetAll();
         }
 
-        public JobApplication GetJobApplicationById(string id)
-        {
-            JobApplication getJobApplication = _repository.Get(Guid.Parse(id));
-            if (getJobApplication == null)
-            {
-                throw new EntityNotFoundException("Id not Found", "jobApplication", new Guid(id));
-            }
-            return getJobApplication;
-
-        }
     }
 }

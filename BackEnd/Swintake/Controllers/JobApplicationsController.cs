@@ -61,23 +61,6 @@ namespace Swintake.api.Controllers
             return Ok(allJobApps.ToList());
         }
 
-        [HttpGet("{id}")]
-        [Authorize]
-        public ActionResult<JobApplicationDto> GetById(string id)
-        {
-            try
-            {
-                var candidate = _jobApplicationService.GetCandidateById(id);
-                return _jobApplicationMapper.ToDto(candidate);
-            }
-            catch (EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+ 
     }
 }
