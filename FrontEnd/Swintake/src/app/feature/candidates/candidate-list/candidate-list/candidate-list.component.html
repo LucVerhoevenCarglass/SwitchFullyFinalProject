@@ -19,7 +19,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let candidate of candidates" routerLink = "/candidates/{{candidate.id}}">
-                  <td><a title="Detail">{{candidate.firstName}}</a></td>
+                  <td><a id="candidateFirstName" title="Detail">{{candidate.firstName}}</a></td>
                   <td><a title="Detail">{{candidate.lastName}}</a></td>
                   <td><a title="Detail">{{candidate.email}}</a></td>
                 </tr>
