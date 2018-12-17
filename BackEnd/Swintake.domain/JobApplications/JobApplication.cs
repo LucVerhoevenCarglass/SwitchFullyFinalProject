@@ -14,8 +14,15 @@ namespace Swintake.domain.JobApplications
         public Guid CandidateId { get; set; }
         public Campaign Campaign { get; set; }
         public Guid CampaignId { get; set; }
-        public ICollection<SelectionStep> SelectionSteps { get; set; }
+        public List<SelectionStep> SelectionSteps { get; set; }
+        public SelectionStep CurrentSelectionStep
+        {
+            get { return SelectionSteps[SelectionSteps.Count - 1]; }
+        }
+
+
         public StatusJobApplication Status { get; set; }
+
 
         private JobApplication(){}
 
@@ -24,13 +31,21 @@ namespace Swintake.domain.JobApplications
             CandidateId = jobApplicationBuilder.CandiDateId;
             CampaignId = jobApplicationBuilder.CampaignId;
             Status = jobApplicationBuilder.Status;
-            SelectionSteps = new List<SelectionStep>();
+            SelectionSteps = new List<SelectionStep>(){new CvScreening()};
         }
 
         public void SetNewStatus(StatusJobApplication newStatus)
         {
             Status = newStatus;
         }
+
+        public SelectionStep GotoNextSelectionStep()
+        {
+            var nextStep=CurrentSelectionStep.GoToNextState();
+            if (nextStep.GetType() == CurrentSelectionStep.GetType()) return null;
+            SelectionSteps.Add(nextStep);
+            return nextStep;
+        }       
     }
 
     public class JobApplicationBuilder : Builder<JobApplication>
@@ -45,11 +60,14 @@ namespace Swintake.domain.JobApplications
             return new JobApplicationBuilder();
         }
 
+
+
         public JobApplicationBuilder WithId(Guid id)
         {
             Id = id;
             return this;
         }
+
 
         public JobApplicationBuilder WithCandidateId(Guid candidateId)
         {

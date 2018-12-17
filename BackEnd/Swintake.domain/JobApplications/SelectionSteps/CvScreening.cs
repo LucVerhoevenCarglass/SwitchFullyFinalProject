@@ -8,8 +8,12 @@ namespace Swintake.domain.JobApplications.SelectionSteps
     {
         public CvScreening()
         {
-            Id= Guid.NewGuid();
             Description = "Register CV Screening";
+        }
+
+        public override SelectionStep GoToNextState()
+        {
+            return new PhoneScreening();         
         }
     }
 }

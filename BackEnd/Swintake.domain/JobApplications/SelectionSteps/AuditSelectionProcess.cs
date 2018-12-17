@@ -8,8 +8,12 @@ namespace Swintake.domain.JobApplications.SelectionSteps
     {
         public AuditSelectionProcess()
         {
-            Id= Guid.NewGuid();
             Description = "Audit Selection process";
+        }
+
+        public override SelectionStep GoToNextState()
+        {
+            return this;
         }
     }
 }
