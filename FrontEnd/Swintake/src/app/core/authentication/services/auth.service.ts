@@ -6,6 +6,7 @@ import { UserAuth } from '../classes/userAuth';
 import { LoggedInUser } from '../classes/loggedInUser';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
+// TODO: Remove
 // const httpOptions = {
 //  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 // };

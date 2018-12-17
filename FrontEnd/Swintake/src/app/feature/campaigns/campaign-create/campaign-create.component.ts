@@ -5,6 +5,7 @@ import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 import { Router } from '@angular/router';
 import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
 
+// TODO: Remove console.log() statements
 
 @Component({
   selector: 'app-campaign-create',
@@ -45,6 +46,7 @@ export class CampaignCreateComponent implements OnInit {
   cancel(){
     this._router.navigateByUrl('/campaigns');  }
 
+  // TODO: a method with the name i, nice... (joke, not nice!). Refactor :)
   get i(){
     return this.createNewCampaignForm.controls;
   }

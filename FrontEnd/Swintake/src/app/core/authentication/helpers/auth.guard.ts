@@ -19,6 +19,7 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ) {
+        // TODO: Unused code. Remove
         const currentUserToken = this.authService.tokenInfo;
         if (localStorage.getItem('tokenInfo')) {
             return true;

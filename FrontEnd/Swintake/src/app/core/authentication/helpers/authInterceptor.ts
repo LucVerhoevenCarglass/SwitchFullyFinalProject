@@ -7,6 +7,7 @@ import { AuthService } from "../services/auth.service";
 
 export class AuthInterceptor implements HttpInterceptor {
 
+    // TODO: Unused dependency, remove
     constructor(private authService: AuthService) { }
 
     intercept(req: HttpRequest<any>,
