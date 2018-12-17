@@ -41,7 +41,7 @@ namespace Swintake.api.Controllers
         {
             try
             {
-                var candidate = _jobApplicationService.GetCandidateById(id);
+                var candidate = _jobApplicationService.GetJobApplicationById(id);
                 return _jobApplicationMapper.ToDto(candidate);
             }
             catch (EntityNotValidException ex)
