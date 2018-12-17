@@ -18,6 +18,7 @@ namespace SecuredWebApi.Services
         private readonly Salter _salter;
         private string secretKey{ get; }
 
+        // TODO: Remove if not used (sure looks unused)
         public UserAuthenticationService()
         {
         }
@@ -27,11 +28,13 @@ namespace SecuredWebApi.Services
             _userRepository = userRepository;
             _hasher = hasher;
             _salter = salter;
+            // TODO: Added by me, but should still be refactored.
             secretKey = secrets.Value != null && secrets.Value.SuperStrongPassword != null ? secrets.Value.SuperStrongPassword : Environment.GetEnvironmentVariable("SuperStrongPassword", EnvironmentVariableTarget.Machine);
         }
 
         public JwtSecurityToken Authenticate(string providedEmail, string providedPassword)
         {
+            // TODO: If/Else would be more elegant here. (would remove the 'return null' at the end)
             User foundUser = _userRepository.FindByEmail(providedEmail);
             if(foundUser == null)
             {

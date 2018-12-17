@@ -8,7 +8,7 @@
       <table id="CandidateTable" class="table table-bordred table-striped">
           <tr>
               <th>FirstName: </th>
-              <td>{{candidate.firstName}}</td>
+              <td id="detailCandidateFirstname">{{candidate.firstName}}</td>
             </tr>
             <tr>
               <th>LastName: </th>
@@ -24,11 +24,11 @@
             </tr>
             <tr>
                <th>Github:</th>
-               <td><a href="{{candidate.gitHubUserName}}">{{candidate.gitHubUserName}}</a></td>
+               <td><a href="https://github.com/{{candidate.gitHubUserName}}">{{candidate.gitHubUserName}}</a></td>
             </tr>
             <tr>
               <th>LinkedIn:</th>
-              <td><a href="{{candidate.linkedIn}}">{{candidate.linkedIn}}</a></td>
+              <td><a href="https://linkedin.com/{{candidate.linkedIn}}">{{candidate.linkedIn}}</a></td>
             </tr>
             <tr>
               <th>Comment:</th>
@@ -36,5 +36,6 @@
               <!-- <td> <textarea wrap="hard">{{candidate.comment}}</textarea></td> -->
             </tr>
       </table>
+      <app-campaign-dropdown></app-campaign-dropdown>
     </div>
   </div>

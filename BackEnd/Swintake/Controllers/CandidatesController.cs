@@ -57,6 +57,7 @@ namespace Swintake.api.Controllers
         {
             var candidatesDomain = _candidateService.GetAllCandidates();
             var candidatesDto = new List<CandidateDto>();
+            // TODO: THIS (MAP MULTIPLE DTOS) CAN BE PLACED INSIDE OF THE CANDIDATESMAPPER
             foreach (var candidate in candidatesDomain)
             {
                 var candidateDto = _candidateMapper.ToDto(candidate);

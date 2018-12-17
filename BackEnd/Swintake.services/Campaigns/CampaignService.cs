@@ -17,6 +17,7 @@ namespace Swintake.services.Campaigns
             _campaignRepository = campaignRepository;
         }
 
+        // TODO: Remove comments like the one below.
         // methode
         public Campaign AddCampaign(Campaign campaign)
         {
@@ -26,6 +27,8 @@ namespace Swintake.services.Campaigns
                 throw new EntityNotValidException("campaign is null", campaign);
             }
 
+            // TODO: Put this check inside of the Campaign itself (business logic inside of the domain model)
+            // You're asking if the candidate is valid (e.g. IsValidForCreation)
             if (campaign.Id == null
                 || campaign.Id == Guid.Empty
                 || string.IsNullOrWhiteSpace(campaign.Name)
