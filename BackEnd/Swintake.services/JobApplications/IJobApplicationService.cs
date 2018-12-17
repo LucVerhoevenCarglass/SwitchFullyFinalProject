@@ -8,5 +8,6 @@ namespace Swintake.services.JobApplications
     public interface IJobApplicationService
     {
         JobApplication AddJobApplication(JobApplication jobApplication);
+        JobApplication GetJobApplicationById(string id);
     }
 }
