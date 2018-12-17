@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignService } from 'src/app/core/campaigns/services/campaign.service';
 import { Campaign } from 'src/app/core/campaigns/classes/campaign';
-import { Candidate } from 'src/app/core/candidates/classes/candidate';
-import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
-import { ActivatedRoute } from '@angular/router';
-import { JobapplicationService } from 'src/app/core/jobapplications/jobapplication.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
 
 @Component({
   selector: 'app-campaign-dropdown',
@@ -14,10 +12,10 @@ import { JobapplicationService } from 'src/app/core/jobapplications/jobapplicati
 export class CampaignDropdownComponent implements OnInit {
 
   campaings: Campaign[];
-  selectedCampaign: number;
-  candidateId: number;
+  selectedCampaign: string;
+  candidateId: string;
 
-  constructor(private campaignService: CampaignService, private route: ActivatedRoute, private jobApplicationService: JobapplicationService) 
+  constructor(private campaignService: CampaignService, private route: ActivatedRoute, private jobApplicationService: JobApplicationService, private _router: Router) 
   { 
     this.campaignService.getCampaigns().subscribe(data => this.campaings = data,
       error => console.log(error));
@@ -30,7 +28,12 @@ export class CampaignDropdownComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(campaignId: number){
-    this.jobApplicationService.createJobApplication(campaignId, this.candidateId);
-    
+  onSubmit(){
+    this.jobApplicationService.createJobApplication(this.selectedCampaign, this.candidateId)
+    .subscribe(data => {this._router.navigateByUrl('/jobapplications')});
+  }  
+
+  cancel(){
+    this._router.navigateByUrl(`/candidates/${this.candidateId}`);
+  }
 }
