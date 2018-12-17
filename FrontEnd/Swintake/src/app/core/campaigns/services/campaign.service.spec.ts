@@ -46,7 +46,6 @@ fdescribe('CampaignService', () => {
 
 });
 
-
   function createFakeCampaigns(): Campaign[] 
   {
     return [

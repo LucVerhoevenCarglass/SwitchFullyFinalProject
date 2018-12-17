@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.JobApplications;
 
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class JobApplicationsController : ControllerBase
     {
@@ -33,5 +35,33 @@ namespace Swintake.api.Controllers
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<JobApplicationDto> GetById(string id)
+        {
+            return _jobApplicationMapper.ToDto( _jobApplicationService.GetById(id));
+        }
+
+        [HttpPut]
+        [Route("reject id:string")]
+        public ActionResult RejectById(string id)
+        {
+            var jobApplicationToReject = _jobApplicationService.GetById(id);
+
+            _jobApplicationService.RejectJob(jobApplicationToReject);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<JobApplicationDto>> GetAll()
+        {
+            var allJobApps = _jobApplicationService.GetJobApplications()
+                  .Select(jobApp => _jobApplicationMapper.ToDto(jobApp));
+            return Ok(allJobApps.ToList());
+
+        }
+
+ 
     }
 }

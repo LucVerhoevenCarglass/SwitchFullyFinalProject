@@ -26,8 +26,30 @@ namespace Swintake.services.JobApplications
         {
             var foundcandidate = _candidateService.GetCandidateById(jobApplication.CandidateId.ToString());
             var foundCampaign = _campaignService.GetCampaignByID(jobApplication.CampaignId.ToString());
-            
+
             return _repository.Save(jobApplication);
         }
+
+        public JobApplication GetById(string id)
+        {
+            JobApplication jobApplication = _repository.Get(Guid.Parse(id));
+            if (jobApplication == null)
+            {
+                throw new EntityNotFoundException("Id not Found", "jobApplication", new Guid(id));
+            }
+            return jobApplication;
+        }
+
+        public void RejectJob(JobApplication jobApplicationToReject)
+        {
+            jobApplicationToReject.SetNewStatus(StatusJobApplication.Rejected);
+            _repository.Update(jobApplicationToReject);         
+        }
+
+        public IEnumerable<JobApplication> GetJobApplications()
+        {
+            return _repository.GetAll();
+        }
+
     }
 }
