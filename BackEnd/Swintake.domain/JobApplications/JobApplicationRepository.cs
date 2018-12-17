@@ -1,6 +1,7 @@
 ﻿using Swintake.domain.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Swintake.domain.JobApplications
@@ -16,7 +17,7 @@ namespace Swintake.domain.JobApplications
 
         public JobApplication Get(Guid entityId)
         {
-            throw new NotImplementedException();
+            return _context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == entityId);
         }
 
         public IList<JobApplication> GetAll()

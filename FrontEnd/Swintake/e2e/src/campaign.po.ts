@@ -3,22 +3,25 @@ import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 
 
 export class CampaignPage{
-    navigateTo(){
+    navigateTo()
+    {
         return browser.get('/campaigns');
     }
-    campaign: Campaign = {
+    campaign: Campaign = 
+    {
         name: 'User',
         client: 'Client',
         startDate: new Date(),
         classStartDate: new Date()
     };
 
-    navigateCreateCampaign(){
-    
+    navigateCreateCampaign()
+    {
         browser.findElement(by.id('CreateButtonCampaign')).click();
     }
 
-    AddNewCampaign(campaign: Campaign){
+    AddNewCampaign(campaign: Campaign)
+    {
         browser.findElement(by.id('inputNameText')).sendKeys(campaign.name);
         browser.findElement(by.id('inputClientText')).sendKeys(campaign.client);
         browser.findElement(by.id('inputStartDate')).sendKeys(campaign.startDate.getDate()+'-'+(campaign.startDate.getMonth()+1)+'-'+campaign.startDate.getFullYear());

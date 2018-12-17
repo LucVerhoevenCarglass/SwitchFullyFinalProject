@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.JobApplications;
 
 namespace Swintake.api.Controllers
@@ -32,6 +33,25 @@ namespace Swintake.api.Controllers
                     _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult<JobApplicationDto> GetById(string id)
+        {
+            try
+            {
+                var candidate = _jobApplicationService.GetJobApplicationById(id);
+                return _jobApplicationMapper.ToDto(candidate);
+            }
+            catch (EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
