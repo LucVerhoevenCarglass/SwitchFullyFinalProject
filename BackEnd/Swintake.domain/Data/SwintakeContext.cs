@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Swintake.domain.Campaigns;
 using Swintake.domain.Candidates;
 using Swintake.domain.JobApplications;
+using Swintake.domain.JobApplications.SelectionSteps;
 using Swintake.domain.Users;
 
 namespace Swintake.domain.Data
@@ -15,6 +16,8 @@ namespace Swintake.domain.Data
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
+
+        public DbSet<SelectionStep> SelectionSteps { get; set; }
 
         public SwintakeContext(ILoggerFactory loggerFactory)
         {
@@ -75,6 +78,27 @@ namespace Swintake.domain.Data
                         .HasForeignKey(jobapp => jobapp.CampaignId)
                         .IsRequired()
                         .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SelectionStep>()
+                .ToTable("SelectionStep");
+
+            modelBuilder.Entity<CvScreening>();
+            //    .ToTable("CvScreening");
+
+            modelBuilder.Entity<FinalDecision>();
+            //    .ToTable("FinalDecision");
+
+            modelBuilder.Entity<FirstInterview>();
+            //    .ToTable("FirstInterview");
+
+            modelBuilder.Entity<GroupInterview>();
+            //    .ToTable("GroupInterview");
+
+            modelBuilder.Entity<PhoneScreening>();
+            //    .ToTable("PhoneScreening");
+
+            modelBuilder.Entity<TestResult>();
+            //    .ToTable("TestResult");
 
             base.OnModelCreating(modelBuilder);
 

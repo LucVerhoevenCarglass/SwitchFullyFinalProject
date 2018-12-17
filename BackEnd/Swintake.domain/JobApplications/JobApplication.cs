@@ -4,6 +4,7 @@ using Swintake.infrastructure.builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Swintake.domain.JobApplications.SelectionSteps;
 
 namespace Swintake.domain.JobApplications
 {
@@ -13,6 +14,7 @@ namespace Swintake.domain.JobApplications
         public Guid CandidateId { get; set; }
         public Campaign Campaign { get; set; }
         public Guid CampaignId { get; set; }
+        public ICollection<SelectionStep> SelectionSteps { get; set; }
         public StatusJobApplication Status { get; set; }
 
         private JobApplication(){}
@@ -22,8 +24,13 @@ namespace Swintake.domain.JobApplications
             CandidateId = jobApplicationBuilder.CandiDateId;
             CampaignId = jobApplicationBuilder.CampaignId;
             Status = jobApplicationBuilder.Status;
+            SelectionSteps = new List<SelectionStep>();
         }
 
+        public void SetNewStatus(StatusJobApplication newStatus)
+        {
+            Status = newStatus;
+        }
     }
 
     public class JobApplicationBuilder : Builder<JobApplication>

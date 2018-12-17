@@ -1,7 +1,9 @@
 ﻿using Swintake.domain.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Swintake.domain.JobApplications
 {
@@ -14,14 +16,22 @@ namespace Swintake.domain.JobApplications
             _context = context;
         }
 
-        public JobApplication Get(Guid entityId)
+        public JobApplication Get(Guid id)
         {
-            throw new NotImplementedException();
+            return  _context.JobApplications
+                .Include(jp => jp.Campaign)
+                .Include(jp => jp.Candidate)
+                .Include(jp => jp.Status)
+                .SingleOrDefault(jobApp => jobApp.Id==id);
         }
 
         public IList<JobApplication> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.JobApplications
+                .Include(jp => jp.Campaign)
+                .Include(jp => jp.Candidate)
+                .Include(jp => jp.Status)
+                .ToList();
         }
 
         public JobApplication Save(JobApplication jobapplication)
@@ -31,8 +41,9 @@ namespace Swintake.domain.JobApplications
             return jobapplication;
         }
 
-        public JobApplication Update(JobApplication entity)
+        public JobApplication Update(JobApplication appToUpdate)
         {
+            
             throw new NotImplementedException();
         }
     }
