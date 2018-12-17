@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
+using Swintake.infrastructure.Exceptions;
 using Swintake.services.JobApplications;
 
 namespace Swintake.api.Controllers
@@ -58,6 +59,25 @@ namespace Swintake.api.Controllers
             var allJobApps = _jobApplicationService.GetJobApplications()
                   .Select(jobApp => _jobApplicationMapper.ToDto(jobApp));
             return Ok(allJobApps.ToList());
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult<JobApplicationDto> GetById(string id)
+        {
+            try
+            {
+                var candidate = _jobApplicationService.GetCandidateById(id);
+                return _jobApplicationMapper.ToDto(candidate);
+            }
+            catch (EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

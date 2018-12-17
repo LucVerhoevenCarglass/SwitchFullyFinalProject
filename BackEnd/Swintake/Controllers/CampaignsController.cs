@@ -39,26 +39,10 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
-            //var allCompaigns = _campaignService.GetCampaigns()
-            //    .Select(campaign => _campaignMapper.ToDto(campaign));
-            //return ok(allCompaigns.ToList());
-
-            //service gets domain items
-
             IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
 
-            //from domain to dto
-            List<CampaignDto> campaignDtos = new List<CampaignDto>();
+            var campaignDtos = _campaignMapper.ToDtoList(campaigns);
 
-            foreach (Campaign campaign in campaigns)
-            {
-                //convert each campaign to dto
-                CampaignDto campaignDto = _campaignMapper.ToDto(campaign);
-                //add to to list
-                campaignDtos.Add(campaignDto);
-            }
-
-            //return dto result
             return Ok(campaignDtos);
         }
 
@@ -70,24 +54,13 @@ namespace Swintake.api.Controllers
             var campaign = _campaignService.GetCampaignByID(id);
             if (campaign == null)
             {
+                // TODO: Also return which ID and for which Entity (makes it a more clear error message)
                 return BadRequest("Id not found");
             }
             var campaignToReturn = _campaignMapper.ToDto(campaign);
 
             return Ok(campaignToReturn);
         }
-
-        // PUT: api/Campaign/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        // DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
 
     }
 }

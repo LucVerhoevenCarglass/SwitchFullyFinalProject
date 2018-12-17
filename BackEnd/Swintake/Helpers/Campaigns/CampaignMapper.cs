@@ -2,8 +2,6 @@
 using Swintake.infrastructure.Mappers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Swintake.api.Helpers.Campaigns
 {
@@ -16,7 +14,7 @@ namespace Swintake.api.Helpers.Campaigns
                 .WithId(new Guid(dtoObject.Id))
                 .WithName(dtoObject.Name)
                 .WithClient(dtoObject.Client)
-                .WithStatus(dtoObject.Status) 
+                .WithStatus(dtoObject.Status)
                 .WithStartDate(dtoObject.StartDate)
                 .WithClassStartDate(dtoObject.ClassStartDate)
                 .WithComment(dtoObject.Comment)
@@ -48,6 +46,18 @@ namespace Swintake.api.Helpers.Campaigns
                 ClassStartDate = domainObject.ClassStartDate,
                 Comment = domainObject.Comment
             };
+        }
+
+        public List<CampaignDto> ToDtoList(IEnumerable<Campaign> campaigns)
+        {
+            List<CampaignDto> campaignDtos = new List<CampaignDto>();
+            foreach (Campaign campaign in campaigns)
+            {
+                CampaignDto campaignDto = ToDto(campaign);
+                campaignDtos.Add(campaignDto);
+            }
+
+            return campaignDtos;
         }
     }
 }
