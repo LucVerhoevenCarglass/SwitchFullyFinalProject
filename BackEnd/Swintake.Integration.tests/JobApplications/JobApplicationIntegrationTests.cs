@@ -19,7 +19,7 @@ namespace Swintake.Integration.tests
 {
   public class JobApplicationIntegrationTests
     {
-        private TestServer _server;
+        private readonly TestServer _server;
 
         public JobApplicationIntegrationTests()
         {
@@ -97,11 +97,10 @@ namespace Swintake.Integration.tests
                 var responseStringCampaign = await responseCampaign.Content.ReadAsStringAsync();
                 var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseStringCampaign);
 
-                var newJobApplicationCreatedDto = new CreateJobApplicationDto()
-                {
-                    CampaignId = createdCampaign.Id,
-                    CandidateId = createdCandidate.Id,
-                };
+                var newJobApplicationCreatedDto = new CreateJobApplicationDto(
+                     createdCandidate.Id,
+                     createdCampaign.Id
+               );
 
                 var contentJobApplication = JsonConvert.SerializeObject(newJobApplicationCreatedDto);
                 var stringContentJobApplication = new StringContent(contentJobApplication, Encoding.UTF8, "application/json");
@@ -150,11 +149,11 @@ namespace Swintake.Integration.tests
                 var responseStringCampaign = await responseCampaign.Content.ReadAsStringAsync();
                 var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseStringCampaign);
 
-                var newJobApplicationCreatedDto = new CreateJobApplicationDto()
-                {
-                    CampaignId = createdCampaign.Id,
-                    CandidateId = Guid.NewGuid().ToString(),
-                };
+                var newJobApplicationCreatedDto = new CreateJobApplicationDto(
+                
+                     createdCampaign.Id,
+                    Guid.NewGuid().ToString()
+                );
 
                 var contentJobApplication = JsonConvert.SerializeObject(newJobApplicationCreatedDto);
                 var stringContentJobApplication = new StringContent(contentJobApplication, Encoding.UTF8, "application/json");
@@ -204,11 +203,11 @@ namespace Swintake.Integration.tests
                 var responseStringCampaign = await responseCampaign.Content.ReadAsStringAsync();
                 var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseStringCampaign);
 
-                var newJobApplicationCreatedDto = new CreateJobApplicationDto()
-                {
-                    CampaignId = createdCampaign.Id,
-                    CandidateId = Guid.NewGuid().ToString(),
-                };
+                var newJobApplicationCreatedDto = new CreateJobApplicationDto(
+
+                     createdCampaign.Id,
+                     Guid.NewGuid().ToString()
+                );
 
                 var contentJobApplication = JsonConvert.SerializeObject(newJobApplicationCreatedDto);
                 var stringContentJobApplication = new StringContent(contentJobApplication, Encoding.UTF8, "application/json");

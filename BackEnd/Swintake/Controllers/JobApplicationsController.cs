@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
 using Swintake.infrastructure.Exceptions;
@@ -12,7 +8,6 @@ using Swintake.services.JobApplications;
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class JobApplicationsController : ControllerBase
     {
@@ -29,39 +24,38 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
-            var newJobApplication = _jobApplicationMapper.ToDto(
-                _jobApplicationService.AddJobApplication(
-                    _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
+            var newJobApplication = _jobApplicationMapper.ToNewDomain(jobApplicationDto);
+            var two = _jobApplicationService.AddJobApplication(newJobApplication);
+            var three = _jobApplicationMapper.ToDto(two);
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
-            return _jobApplicationMapper.ToDto( _jobApplicationService.GetById(id));
+            try
+            {
+                var candidate = _jobApplicationService.GetJobApplicationById(id);
+                return _jobApplicationMapper.ToDto(candidate);
+            }
+            catch (EntityNotValidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPut]
-        [Route("reject id:string")]
-        public ActionResult RejectById(string id)
-        {
-            var jobApplicationToReject = _jobApplicationService.GetById(id);
-
-            _jobApplicationService.RejectJob(jobApplicationToReject);
-
-            return Ok();
-        }
 
         [HttpGet]
-        public ActionResult<IEnumerable<JobApplicationDto>> GetAll()
+        [Authorize]
+        public ActionResult<JobApplicationDto> GetAll()
         {
-            var allJobApps = _jobApplicationService.GetJobApplications()
-                  .Select(jobApp => _jobApplicationMapper.ToDto(jobApp));
-            return Ok(allJobApps.ToList());
-
+            return null;
         }
-
- 
     }
 }
