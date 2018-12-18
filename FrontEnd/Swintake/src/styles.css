@@ -19,6 +19,7 @@ body {
   a:hover {
     color: #72a71f;
     text-decoration: underline;
+    cursor: pointer 
   }
   
   .thead-green {
@@ -77,7 +78,7 @@ body {
     color: #555555;
   }
   
-  .application-control-section {
+  .application-control-section, .create-job-application-section {
     border: 2px dashed #c0c9b1;
     padding: 1rem;
     overflow:hidden;
