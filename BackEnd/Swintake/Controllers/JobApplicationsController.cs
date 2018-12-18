@@ -26,7 +26,7 @@ namespace Swintake.api.Controllers
             var two = _jobApplicationService.AddJobApplication(newJobApplication);
             var three = _jobApplicationMapper.ToDto(two);
 
-            return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
+            return Created($"api/jobapplication/{newJobApplication.Id}", three);
         }
 
         [HttpGet("{id}")]

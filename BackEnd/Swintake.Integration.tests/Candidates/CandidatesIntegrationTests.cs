@@ -17,7 +17,7 @@ namespace Swintake.Integration.tests.Candidates
 {
     public class CandidatesIntegrationTests
     {
-        private TestServer _server;
+        private readonly TestServer _server;
 
         public CandidatesIntegrationTests()
         {
