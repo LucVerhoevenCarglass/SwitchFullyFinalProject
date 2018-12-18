@@ -24,7 +24,7 @@ namespace Swintake.domain.JobApplications
 
         private JobApplication(){}
 
-        public JobApplication(JobApplicationBuilder jobApplicationBuilder)
+        public JobApplication(JobApplicationBuilder jobApplicationBuilder) : base(jobApplicationBuilder.Id)
         {
             CandidateId = jobApplicationBuilder.CandiDateId;
             CampaignId = jobApplicationBuilder.CampaignId;
