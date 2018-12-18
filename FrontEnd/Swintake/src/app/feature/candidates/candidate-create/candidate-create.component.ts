@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Candidate } from 'src/app/core/candidates/classes/candidate';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { CandidateService } from 'src/app/core/candidates/services/candidate.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Candidate } from 'src/app/core/candidates/classes/candidate';
+import { CandidateService } from 'src/app/core/candidates/services/candidate.service';
 
 @Component({
   selector: 'app-candidate-create',

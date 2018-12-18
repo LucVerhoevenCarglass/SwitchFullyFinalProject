@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { CampaignService } from '../../../core/campaigns/services/campaign.service'
-import { Campaign } from 'src/app/core/campaigns/classes/campaign';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
-
-// TODO: Remove console.log() statements
+import { Campaign } from 'src/app/core/campaigns/classes/campaign';
+import { CampaignService } from '../../../core/campaigns/services/campaign.service';
 
 @Component({
   selector: 'app-campaign-create',
@@ -39,15 +36,15 @@ export class CampaignCreateComponent implements OnInit {
   create() {
           this.campaignService.addCampaign(this.createNewCampaignForm.value)
               .subscribe(data => {
-                this._router.navigateByUrl('/campaigns');
-              }, error => {console.log(error)});
+                this._router.navigateByUrl('/campaigns'),
+                error => console.log(error);
+              });
   }
 
   cancel(){
     this._router.navigateByUrl('/campaigns');  }
 
-  // TODO: a method with the name i, nice... (joke, not nice!). Refactor :)
-  get i(){
+  get formValues(){
     return this.createNewCampaignForm.controls;
   }
 
@@ -62,10 +59,8 @@ export class CampaignCreateComponent implements OnInit {
   }
 
   compareTwoDates(){
-    let dateStartClassCampaign = new Date(this.i.classStartDate.value).toISOString().slice(0,10);
-    let dateStartCampaign = new Date(this.i.startDate.value).toISOString().slice(0,10);
-console.log(dateStartCampaign);
-console.log(dateStartClassCampaign);
+    let dateStartClassCampaign = new Date(this.formValues.classStartDate.value).toISOString().slice(0,10);
+    let dateStartCampaign = new Date(this.formValues.startDate.value).toISOString().slice(0,10);
     if(dateStartClassCampaign <  dateStartCampaign){
       return `The class startDate can't start before the campaing start date`;
     }

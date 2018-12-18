@@ -3,6 +3,7 @@ using Swintake.domain.Data;
 using Swintake.domain.JobApplications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace Swintake.domain.tests.JobApplications
 {
    public class JobApplicationRepositoryTest
     {
-        private readonly DbContextOptions<SwintakeContext> _options;
+        private DbContextOptions<SwintakeContext> _options;
         private JobApplicationRepository _jobApplicationRepository;
 
         public JobApplicationRepositoryTest()
@@ -19,6 +20,7 @@ namespace Swintake.domain.tests.JobApplications
             _options = new DbContextOptionsBuilder<SwintakeContext>()
                 .UseInMemoryDatabase("swintake" + Guid.NewGuid().ToString("n"))
                 .Options;
+            
         }
 
         [Fact]
@@ -45,11 +47,11 @@ namespace Swintake.domain.tests.JobApplications
         }
 
         [Fact]
-        public void GivenExistingJobApplication_WhenRejectingJobApplication_ThenJobApplicationIsRemoved()
+        public void GivenJobapplication_WhenUpdate_ThenUpdateJobApplicationInContext()
         {
             using (var context = new SwintakeContext(_options))
             {
-                //Given
+ 
                 var newJobApplication = new JobApplicationBuilder()
                     .WithId(Guid.NewGuid())
                     .WithCandidateId(Guid.NewGuid())
@@ -60,11 +62,13 @@ namespace Swintake.domain.tests.JobApplications
                 _jobApplicationRepository = new JobApplicationRepository(context);
                 _jobApplicationRepository.Save(newJobApplication);
 
-                //When
-                newJobApplication.SetNewStatus(StatusJobApplication.Rejected);
+                newJobApplication.Status = StatusJobApplication.Hired;
+                _jobApplicationRepository.Update(newJobApplication);
 
-                //then
-                Assert.Equal(StatusJobApplication.Rejected, newJobApplication.Status);
+                var jobapplication =
+                    context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == newJobApplication.Id);
+
+                Assert.Equal(StatusJobApplication.Hired, jobapplication.Status);
             }
         }
     }

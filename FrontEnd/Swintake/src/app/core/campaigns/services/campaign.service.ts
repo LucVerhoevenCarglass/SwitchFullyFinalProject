@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Campaign } from '../classes/campaign';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
 const httpOptions = {

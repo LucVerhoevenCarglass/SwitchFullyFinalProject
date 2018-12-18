@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Swintake.domain.Migrations
 {
-    public partial class CreateDatabase_and_inheritanceSelectionStep : Migration
+    public partial class CreatingDatabaseAddingCurrenSelectionStep : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,6 +64,8 @@ namespace Swintake.domain.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     CandidateId = table.Column<Guid>(nullable: false),
                     CampaignId = table.Column<Guid>(nullable: false),
+                    CurrentSelectionStepJobApplicationId = table.Column<Guid>(nullable: true),
+                    CurrentSelectionStepDescription = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -106,20 +108,20 @@ namespace Swintake.domain.Migrations
             migrationBuilder.InsertData(
                 table: "Campaigns",
                 columns: new[] { "Id", "ClassStartDate", "Client", "Comment", "Name", "StartDate", "Status" },
-                values: new object[] { new Guid("2a003d3e-b669-46e7-9a88-26fbd8c751ad"), new DateTime(2018, 12, 17, 16, 16, 19, 588, DateTimeKind.Local), "CM", "cm comment", "Java academy 2019", new DateTime(2018, 12, 17, 16, 16, 19, 593, DateTimeKind.Local), 1 });
+                values: new object[] { new Guid("956faf4a-2925-49c2-a68b-34bdd8bead72"), new DateTime(2018, 12, 18, 12, 48, 4, 461, DateTimeKind.Local), "CM", "cm comment", "Java academy 2019", new DateTime(2018, 12, 18, 12, 48, 4, 466, DateTimeKind.Local), 1 });
 
             migrationBuilder.InsertData(
                 table: "Candidates",
                 columns: new[] { "Id", "Comment", "Email", "FirstName", "GitHubUsername", "LastName", "LinkedIn", "PhoneNumber" },
-                values: new object[] { new Guid("cb8bb97c-01f3-47ea-99c0-a7df14d6642c"), "", "gwen.jamroziak@cegeka.com", "Gween", "gwenjamroziak", "Jamroziak", "gwenjamroziak", "0472697959" });
+                values: new object[] { new Guid("7683a833-cbd1-47f2-9ee0-6eb6288bac26"), "", "gwen.jamroziak@cegeka.com", "Gween", "gwenjamroziak", "Jamroziak", "gwenjamroziak", "0472697959" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "AppliedSalt", "PasswordHashed" },
                 values: new object[,]
                 {
-                    { new Guid("03015410-002f-4375-9471-65b83a2f7aec"), "reinout@switchfully.com", "Reinout", "NgBFEGiYlnKAVlAkBj6Qkg==", "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                    { new Guid("7b20c2a2-d5b5-48eb-be89-67c66498214b"), "niels@switchfully.com", "Niels", "rODZhnBsLGRP908sBZiXzg==", "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                    { new Guid("7845252f-0010-4d38-99b4-e4a63038db1c"), "reinout@switchfully.com", "Reinout", "NgBFEGiYlnKAVlAkBj6Qkg==", "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                    { new Guid("2e5e828b-c8e5-4e13-b366-4f2562e38d00"), "niels@switchfully.com", "Niels", "rODZhnBsLGRP908sBZiXzg==", "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -131,24 +133,49 @@ namespace Swintake.domain.Migrations
                 name: "IX_JobApplications_CandidateId",
                 table: "JobApplications",
                 column: "CandidateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobApplications_CurrentSelectionStepJobApplicationId_CurrentSelectionStepDescription",
+                table: "JobApplications",
+                columns: new[] { "CurrentSelectionStepJobApplicationId", "CurrentSelectionStepDescription" });
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_JobApplications_SelectionStep_CurrentSelectionStepJobApplicationId_CurrentSelectionStepDescription",
+                table: "JobApplications",
+                columns: new[] { "CurrentSelectionStepJobApplicationId", "CurrentSelectionStepDescription" },
+                principalTable: "SelectionStep",
+                principalColumns: new[] { "JobApplicationId", "Description" },
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "SelectionStep");
+            migrationBuilder.DropForeignKey(
+                name: "FK_JobApplications_Campaigns_CampaignId",
+                table: "JobApplications");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_JobApplications_Candidates_CandidateId",
+                table: "JobApplications");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_JobApplications_SelectionStep_CurrentSelectionStepJobApplicationId_CurrentSelectionStepDescription",
+                table: "JobApplications");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "JobApplications");
 
             migrationBuilder.DropTable(
                 name: "Campaigns");
 
             migrationBuilder.DropTable(
                 name: "Candidates");
+
+            migrationBuilder.DropTable(
+                name: "SelectionStep");
+
+            migrationBuilder.DropTable(
+                name: "JobApplications");
         }
     }
 }
