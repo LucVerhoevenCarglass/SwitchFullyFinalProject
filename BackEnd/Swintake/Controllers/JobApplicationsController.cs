@@ -32,8 +32,8 @@ namespace Swintake.api.Controllers
         [HttpGet("{id}")]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
-            var candidate = _jobApplicationService.GetJobApplicationById(id);
-            return _jobApplicationMapper.ToDto(candidate);
+            var jobApplicationDto = _jobApplicationService.GetJobApplicationById(id);
+            return _jobApplicationMapper.ToDto(jobApplicationDto);
         }
 
         [HttpGet]
@@ -43,12 +43,11 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPut]
-        public ActionResult<JobApplicationDto> Reject([FromBody] JobApplicationDto jobApplicationDto)
+        [Route("nextStep/id:string")]
+        public ActionResult<JobApplicationDto> UpdateJobApplication(string id)
         {
-            var jobApplicationIdToReject = jobApplicationDto.Id;
-            var rejectedDomainJobApplication = _jobApplicationService.RejectJobApplication(jobApplicationIdToReject);
-            var jobApplicationToReturn =  _jobApplicationMapper.ToDto(rejectedDomainJobApplication);
-            return jobApplicationToReturn;
+           return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id)));
         }
+
     }
 }
