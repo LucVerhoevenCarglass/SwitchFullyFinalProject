@@ -8,6 +8,7 @@ using Swintake.services.JobApplications;
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class JobApplicationsController : ControllerBase
     {
