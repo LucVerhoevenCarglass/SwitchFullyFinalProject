@@ -8,6 +8,7 @@ import { AuthGuard } from '../core/authentication/helpers/auth.guard';
 import { CandidateDetailComponent } from '../feature/candidates/candidate-detail/candidate-detail.component';
 import { CandidateCreateComponent } from '../feature/candidates/candidate-create/candidate-create.component';
 import { CandidateListComponent } from '../feature/candidates/candidate-list/candidate-list/candidate-list.component';
+import { JobapplicationDetailComponent } from '../feature/job-applications/jobapplication-detail/jobapplication-detail.component';
 
 
 const routes: Routes=[
@@ -18,7 +19,8 @@ const routes: Routes=[
   {path: 'createcampaign', component: CampaignCreateComponent, canActivate: [AuthGuard]},
   {path: 'candidates/:id', component: CandidateDetailComponent, canActivate: [AuthGuard] },
   {path: 'createcandidate', component: CandidateCreateComponent, canActivate:[AuthGuard]},
-  {path: 'candidates', component: CandidateListComponent, canActivate:[AuthGuard]}
+  {path: 'candidates', component: CandidateListComponent, canActivate:[AuthGuard]},
+  {path: 'jobapplications/:id', component: JobapplicationDetailComponent, canActivate:[AuthGuard]}
 
 ];
 

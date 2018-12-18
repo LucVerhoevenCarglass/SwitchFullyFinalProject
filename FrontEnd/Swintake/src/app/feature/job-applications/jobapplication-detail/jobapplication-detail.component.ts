@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-jobapplication-detail',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobapplicationDetailComponent implements OnInit {
 
-  constructor() { }
+  jobapplicationId: string;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.jobapplicationId = this.route.snapshot.paramMap.get('id');
   }
 
 }

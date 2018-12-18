@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthGuard } from './authentication/helpers/auth.guard';
 import { CandidateService } from './candidates/services/candidate.service';
+import { JobApplicationService } from './jobapplications/services/jobapplication.service';
 
 @NgModule({
   declarations: [],
@@ -31,7 +32,8 @@ import { CandidateService } from './candidates/services/candidate.service';
     CampaignService,
     AuthService,
     AuthGuard,
-    CandidateService
+    CandidateService,
+    JobApplicationService
   ]
 
 })
