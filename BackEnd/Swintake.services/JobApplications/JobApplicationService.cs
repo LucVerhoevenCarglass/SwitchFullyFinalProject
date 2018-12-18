@@ -51,7 +51,7 @@ namespace Swintake.services.JobApplications
             return _repository.GetAll();
         }
 
-        public JobApplication GoToNextSelectionStepInSelectionProcess(string id, string comment)
+        public JobApplication GoToNextSelectionStepInSelectionProcess(string id, string comment = null)
         {
             JobApplication jobApplicationToUpdate = GetJobApplicationById(id);
             jobApplicationToUpdate.GotoNextSelectionStep(comment);

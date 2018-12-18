@@ -37,7 +37,7 @@ namespace Swintake.domain.JobApplications
             Status = newStatus;
         }
 
-        public SelectionStep GotoNextSelectionStep(string comment)
+        public SelectionStep GotoNextSelectionStep(string comment = "")
         {
             SelectionStep nextStep;
             if (CurrentSelectionStep == null)
