@@ -11,6 +11,7 @@ using Swintake.services.Campaigns;
 using Swintake.domain.Candidates;
 using static Swintake.domain.Campaigns.Campaign;
 using Swintake.domain.Campaigns;
+using Swintake.domain.JobApplications.SelectionSteps;
 using Swintake.infrastructure.Exceptions;
 
 namespace Swintake.services.tests.JobApplications
@@ -29,6 +30,7 @@ namespace Swintake.services.tests.JobApplications
             _campaignService = Substitute.For<ICampaignService>();
             _jobApplicationService = new JobApplicationService(_jobApplicationRepository, _candidateService, _campaignService);
         }
+
 
         [Fact]
         public void GivenNewJobApplicationWithExistingCampaignIdAnCandidateId_whenAddJobApplication_ThenCallToJobApplicationRepository()
@@ -154,6 +156,54 @@ namespace Swintake.services.tests.JobApplications
             _jobApplicationRepository.DidNotReceive().Save(newJobApplication);
             Assert.Throws<EntityNotFoundException>(act);
         }
+
+        [Fact]
+        public void GivenJobApplication_whenUpdateFirstTime_ThenSelectionStepChangedToNextLevelAndListWillReturnCount_1()
+        {
+            //given
+            var appId = Guid.NewGuid();
+            var newJobApplication = new JobApplicationBuilder()
+                .WithId(appId)
+                .WithCandidateId(Guid.NewGuid())
+                .WithCampaignId(Guid.NewGuid())
+                .WithStatus(StatusJobApplication.Active)
+                .Build();
+
+            //When
+            _jobApplicationRepository.Get(appId).Returns(newJobApplication);
+            var updatedJobApplication = _jobApplicationService.GoToNextSelectionStepInSelectionProcess(appId.ToString());
+            
+            //Then
+            Assert.Single(updatedJobApplication.SelectionSteps);
+        }
+
+        [Fact]
+        public void GivenJobApplication_whenEndOfSelectionProcess_ThenCountWillNotChange()
+        {
+            //given
+            var appId = Guid.NewGuid();
+            var newJobApplication = new JobApplicationBuilder()
+                .WithId(appId)
+                .WithCandidateId(Guid.NewGuid())
+                .WithCampaignId(Guid.NewGuid())
+                .WithStatus(StatusJobApplication.Active)
+                .Build();
+
+            //When
+            _jobApplicationRepository.Get(appId).Returns(newJobApplication);
+            var updatedJobApplication = _jobApplicationService.GoToNextSelectionStepInSelectionProcess(appId.ToString());
+            for (int i = 0; i < SelectionStep.CountofStepsInSelectionProcess + 1; i++)
+            {
+                _jobApplicationRepository.Get(appId).Returns(updatedJobApplication);
+                updatedJobApplication = _jobApplicationService.GoToNextSelectionStepInSelectionProcess(appId.ToString());
+            }
+
+            //Then
+            Assert.Equal(updatedJobApplication.SelectionSteps.Count,
+                _jobApplicationService.GoToNextSelectionStepInSelectionProcess(appId.ToString()).SelectionSteps.Count); 
+
+        }
+
 
         [Fact]
         public void GivenExistingJobApplication_WhenRejectJobApplication_ThenJobApplicationIsRemoved()

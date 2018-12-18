@@ -46,7 +46,11 @@ namespace Swintake.api.Controllers
         [Route("nextStep/{id}")]
         public ActionResult<JobApplicationDto> UpdateJobApplication(string id, [FromBody] string comment = null)
         {
-           return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id, comment)));
+            var jobapp = _jobApplicationService.GoToNextSelectionStepInSelectionProcess(id, comment);
+            var testjobappdto =_jobApplicationMapper.ToDto(jobapp);
+            return Ok(testjobappdto);
+
+           //return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id, comment)));
         }
 
         [HttpPut]
