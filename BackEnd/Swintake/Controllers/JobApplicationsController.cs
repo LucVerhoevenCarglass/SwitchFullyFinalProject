@@ -41,5 +41,14 @@ namespace Swintake.api.Controllers
         {
             return null;
         }
+
+        [HttpPut]
+        public ActionResult<JobApplicationDto> Reject([FromBody] JobApplicationDto jobApplicationDto)
+        {
+            var jobApplicationIdToReject = jobApplicationDto.Id;
+            var rejectedDomainJobApplication = _jobApplicationService.RejectJobApplication(jobApplicationIdToReject);
+            var jobApplicationToReturn =  _jobApplicationMapper.ToDto(rejectedDomainJobApplication);
+            return jobApplicationToReturn;
+        }
     }
 }

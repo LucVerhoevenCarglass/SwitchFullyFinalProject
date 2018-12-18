@@ -20,12 +20,6 @@ namespace Swintake.domain.JobApplications
         {
             var jobapplication = _context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == id);
             return jobapplication;
-
-            //return  _context.JobApplications
-            //    .Include(jp => jp.Campaign)
-            //    .Include(jp => jp.Candidate)
-            //    .Include(jp => jp.Status)
-            //    .SingleOrDefault(jobApp => jobApp.Id==id);
         }
 
         public IList<JobApplication> GetAll()
@@ -51,5 +45,6 @@ namespace Swintake.domain.JobApplications
             _context.SaveChanges();
             return jobAppToUpdate;
         }
+
     }
 }
