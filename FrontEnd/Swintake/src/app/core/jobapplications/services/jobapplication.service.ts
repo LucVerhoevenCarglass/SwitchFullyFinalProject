@@ -11,10 +11,14 @@ const httpOptions = {
 @Injectable()
 
 export class JobApplicationService {
-  
+
   constructor(private http: HttpClient) { }
-  
+
   createJobApplication(campaignId: string, candidateId: string): Observable<JobApplication> {
-      return this.http.post<JobApplication>(ApiUrl.urlJobApplications, {candidateId, campaignId}, httpOptions);
-    }
+    return this.http.post<JobApplication>(ApiUrl.urlJobApplications, { candidateId, campaignId }, httpOptions);
+  }
+ 
+  getJobApplicationById(id: string): Observable<JobApplication> {
+    return this.http.get<JobApplication>(`${ApiUrl.urlJobApplications}${id}`);
+  }
 }

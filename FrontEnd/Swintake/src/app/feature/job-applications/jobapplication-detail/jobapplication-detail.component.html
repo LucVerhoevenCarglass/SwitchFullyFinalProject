@@ -1,3 +1,20 @@
-<p>
-  jobapplication-detail works!
-</p>
+<div class="container">
+  <div class="box-shadow box-light-background parent-section">
+    <div class="container">
+      <header>
+        <h1>Job Application <small class="sub-title badge badge-dark">{{jobapplicationId}}</small></h1>
+        <hr>
+      </header>
+      <section name="candidate-campaign-readonly">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <app-detailcandidate></app-detailcandidate>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <app-detailcampaign></app-detailcampaign>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
