@@ -24,13 +24,21 @@ namespace Swintake.services.JobApplications
 
         public JobApplication AddJobApplication(JobApplication jobApplication)
         {
-            var foundcandidate = _candidateService.GetCandidateById(jobApplication.CandidateId.ToString());
-            var foundCampaign = _campaignService.GetCampaignByID(jobApplication.CampaignId.ToString());
-
-            return _repository.Save(jobApplication);
+            if (DoesCandidateAndCampaignOfThisJobApplicationExist(jobApplication))
+            {
+                return _repository.Save(jobApplication);
+            }
+            return null;
         }
 
-       public void RejectJob(JobApplication jobApplicationToReject)
+        private bool DoesCandidateAndCampaignOfThisJobApplicationExist(JobApplication jobApplication)
+        {
+            _candidateService.GetCandidateById(jobApplication.CandidateId.ToString());
+            _campaignService.GetCampaignByID(jobApplication.CampaignId.ToString());
+            return true;
+        }
+
+        public void RejectJob(JobApplication jobApplicationToReject)
         {
             jobApplicationToReject.SetNewStatus(StatusJobApplication.Rejected);
             _repository.Update(jobApplicationToReject);         
