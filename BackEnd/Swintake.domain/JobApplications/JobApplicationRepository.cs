@@ -37,7 +37,6 @@ namespace Swintake.domain.JobApplications
         public JobApplication Save(JobApplication jobapplication)
         {
             _context.JobApplications.Add(jobapplication);
-            _context.SelectionSteps.Add(jobapplication.CurrentSelectionStep);
             _context.SaveChanges();
             return jobapplication;
         }

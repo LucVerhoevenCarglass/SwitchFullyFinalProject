@@ -49,6 +49,14 @@ namespace Swintake.services.JobApplications
             return _repository.GetAll();
         }
 
+        public JobApplication GoToNextSelectionStepInSelectionProcess(string id)
+        {
+            JobApplication jobApplicationToUpdate = GetJobApplicationById(id);
+            jobApplicationToUpdate.GotoNextSelectionStep();
+            _repository.Update(jobApplicationToUpdate);
+            return jobApplicationToUpdate;
+        }
+
         public JobApplication GetJobApplicationById(string id)
         {
             JobApplication jobApplication = _repository.Get(Guid.Parse(id));

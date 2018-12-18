@@ -32,8 +32,8 @@ namespace Swintake.api.Controllers
         [HttpGet("{id}")]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
-            var candidate = _jobApplicationService.GetJobApplicationById(id);
-            return _jobApplicationMapper.ToDto(candidate);
+            var jobApplicationDto = _jobApplicationService.GetJobApplicationById(id);
+            return _jobApplicationMapper.ToDto(jobApplicationDto);
         }
 
         [HttpGet]
@@ -41,5 +41,13 @@ namespace Swintake.api.Controllers
         {
             return null;
         }
+
+        [HttpPut]
+        [Route("nextStep/id:string")]
+        public ActionResult<JobApplicationDto> UpdateJobApplication(string id)
+        {
+           return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id)));
+        }
+
     }
 }
