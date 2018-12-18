@@ -22,7 +22,6 @@ export class CandidatePage{
 
       performClickOnFirstElementInList() {
         let firstelementInList = element.all(by.id("candidateFirstName")).first();
-        let firstNameList = firstelementInList.getText();
         firstelementInList.click();  
         return this;
       }
