@@ -44,7 +44,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Campaigns");
 
                     b.HasData(
-                        new { Id = new Guid("2a003d3e-b669-46e7-9a88-26fbd8c751ad"), ClassStartDate = new DateTime(2018, 12, 17, 16, 16, 19, 588, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 17, 16, 16, 19, 593, DateTimeKind.Local), Status = 1 }
+                        new { Id = new Guid("956faf4a-2925-49c2-a68b-34bdd8bead72"), ClassStartDate = new DateTime(2018, 12, 18, 12, 48, 4, 461, DateTimeKind.Local), Client = "CM", Comment = "cm comment", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 18, 12, 48, 4, 466, DateTimeKind.Local), Status = 1 }
                     );
                 });
 
@@ -79,7 +79,7 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Candidates");
 
                     b.HasData(
-                        new { Id = new Guid("cb8bb97c-01f3-47ea-99c0-a7df14d6642c"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
+                        new { Id = new Guid("7683a833-cbd1-47f2-9ee0-6eb6288bac26"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gween", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472697959" }
                     );
                 });
 
@@ -92,6 +92,10 @@ namespace Swintake.domain.Migrations
 
                     b.Property<Guid>("CandidateId");
 
+                    b.Property<string>("CurrentSelectionStepDescription");
+
+                    b.Property<Guid?>("CurrentSelectionStepJobApplicationId");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
@@ -99,6 +103,8 @@ namespace Swintake.domain.Migrations
                     b.HasIndex("CampaignId");
 
                     b.HasIndex("CandidateId");
+
+                    b.HasIndex("CurrentSelectionStepJobApplicationId", "CurrentSelectionStepDescription");
 
                     b.ToTable("JobApplications");
                 });
@@ -137,8 +143,8 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("03015410-002f-4375-9471-65b83a2f7aec"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("7b20c2a2-d5b5-48eb-be89-67c66498214b"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("7845252f-0010-4d38-99b4-e4a63038db1c"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("2e5e828b-c8e5-4e13-b366-4f2562e38d00"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
                 });
 
@@ -213,6 +219,10 @@ namespace Swintake.domain.Migrations
                         .WithMany()
                         .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Swintake.domain.JobApplications.SelectionSteps.SelectionStep", "CurrentSelectionStep")
+                        .WithMany()
+                        .HasForeignKey("CurrentSelectionStepJobApplicationId", "CurrentSelectionStepDescription");
                 });
 
             modelBuilder.Entity("Swintake.domain.JobApplications.SelectionSteps.SelectionStep", b =>
@@ -243,8 +253,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("03015410-002f-4375-9471-65b83a2f7aec"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                                new { UserId = new Guid("7b20c2a2-d5b5-48eb-be89-67c66498214b"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("7845252f-0010-4d38-99b4-e4a63038db1c"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("2e5e828b-c8e5-4e13-b366-4f2562e38d00"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });

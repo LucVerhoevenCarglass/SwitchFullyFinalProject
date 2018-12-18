@@ -51,10 +51,10 @@ namespace Swintake.services.JobApplications
             return _repository.GetAll();
         }
 
-        public JobApplication GoToNextSelectionStepInSelectionProcess(string id)
+        public JobApplication GoToNextSelectionStepInSelectionProcess(string id, string comment)
         {
             JobApplication jobApplicationToUpdate = GetJobApplicationById(id);
-            jobApplicationToUpdate.GotoNextSelectionStep();
+            jobApplicationToUpdate.GotoNextSelectionStep(comment);
             _repository.Update(jobApplicationToUpdate);
             return jobApplicationToUpdate;
         }

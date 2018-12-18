@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Swintake.domain\Swintake.domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SelectionSteps\" />
-  </ItemGroup>
-
 </Project>
