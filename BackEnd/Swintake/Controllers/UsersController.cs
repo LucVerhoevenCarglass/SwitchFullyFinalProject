@@ -52,5 +52,4 @@ namespace Swintake.api.Controllers
         }
     }
 
-
 }

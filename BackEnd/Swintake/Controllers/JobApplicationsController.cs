@@ -6,6 +6,7 @@ using Swintake.services.JobApplications;
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class JobApplicationsController : ControllerBase
     {
@@ -19,7 +20,6 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
             var newJobApplication = _jobApplicationMapper.ToDto(
@@ -30,16 +30,13 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
             var candidate = _jobApplicationService.GetJobApplicationById(id);
             return _jobApplicationMapper.ToDto(candidate);
         }
 
-
         [HttpGet]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetAll()
         {
             return null;
