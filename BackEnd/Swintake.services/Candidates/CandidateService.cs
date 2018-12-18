@@ -19,24 +19,18 @@ namespace Swintake.services.Candidates
         {
             if (candidate == null)
             {
-                throw new EntityNotValidException("candidate is null", candidate);
+                throw new EntityNotValidException("create a candidate", candidate);
             }
-            // TODO: Put this check inside of the Candidate itself (business logic inside of the domain model)
-            // You're asking if the candidate is valid (e.g. IsValidForCreation)
-            if (candidate.Id == null
-                || candidate.Id == Guid.Empty
-                || string.IsNullOrWhiteSpace(candidate.FirstName)
-                || string.IsNullOrWhiteSpace(candidate.LastName)
-                || string.IsNullOrWhiteSpace(candidate.Email)
-                || string.IsNullOrWhiteSpace(candidate.PhoneNumber)
-                || !IsEmailValid(candidate.Email)
-                )
+            
+            if (Candidate.IsNotValidForCreation(candidate))
             {
-                throw new EntityNotValidException("some fields of candidate are invalid", candidate);
+                throw new EntityNotValidException("create a candidate", candidate);
             }
-
-            _candidateRepository.Save(candidate);
-            return candidate;
+            else
+            {
+                _candidateRepository.Save(candidate);
+                return candidate;
+            }
         }
 
         public IEnumerable<Candidate> GetAllCandidates()
@@ -47,17 +41,12 @@ namespace Swintake.services.Candidates
         public Candidate GetCandidateById(string id)
         {
            Candidate getCandidate = _candidateRepository.Get(Guid.Parse(id));
-           if (getCandidate == null)
+
+            if (getCandidate == null)
            {
-                throw new EntityNotFoundException("Id not Found", "candidate", new Guid(id));
+                throw new EntityNotFoundException("get candidate by id", "candidate", new Guid(id));
            }
            return getCandidate;
-        }
-
-        // TODO: Put this method inside of the Candidate itself (business logic inside of the domain model)
-        public bool IsEmailValid(string email)
-        {
-            return email.Contains('@');
         }
     }
 }

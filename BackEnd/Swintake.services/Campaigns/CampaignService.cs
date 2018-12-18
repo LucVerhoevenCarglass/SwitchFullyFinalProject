@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Swintake.domain;
+﻿using Swintake.domain;
 using Swintake.domain.Campaigns;
 using Swintake.infrastructure.Exceptions;
+using System;
+using System.Collections.Generic;
 
 namespace Swintake.services.Campaigns
 {
@@ -20,24 +19,18 @@ namespace Swintake.services.Campaigns
         {
             if (campaign == null)
             {
-                throw new EntityNotValidException("campaign is null", campaign);
+                throw new EntityNotValidException("add campaign", campaign);
             }
 
-            // TODO: Put this check inside of the Campaign itself (business logic inside of the domain model)
-            // You're asking if the candidate is valid (e.g. IsValidForCreation)
-            if (campaign.Id == null
-                || campaign.Id == Guid.Empty
-                || string.IsNullOrWhiteSpace(campaign.Name)
-                || string.IsNullOrWhiteSpace(campaign.Client)
-                || campaign.Status != CampaignStatus.Active
-                || campaign.ClassStartDate < campaign.StartDate)
+            if (Campaign.IsNotValidForCreation(campaign))
             {
-                throw new EntityNotValidException("some fields of campaign are invalid", campaign);
+                throw new EntityNotValidException("add campaign", campaign);
             }
-
-            _campaignRepository.Save(campaign);
-
-            return campaign;
+            else
+            {
+                _campaignRepository.Save(campaign);
+                return campaign;
+            }
         }
 
         public IEnumerable<Campaign> GetAllCampaigns()
@@ -48,9 +41,9 @@ namespace Swintake.services.Campaigns
         public Campaign GetCampaignByID(string id)
         {
             var campaign = _campaignRepository.Get(new Guid(id));
-            if(campaign == null)
+            if (campaign == null)
             {
-                throw new EntityNotFoundException("Id not Found", "campaign", new Guid(id));
+                throw new EntityNotFoundException("get campaign", "campaign", new Guid(id));
             }
             return campaign;
         }

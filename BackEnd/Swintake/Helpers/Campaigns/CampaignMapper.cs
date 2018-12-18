@@ -7,7 +7,6 @@ namespace Swintake.api.Helpers.Campaigns
 {
     public class CampaignMapper : Mapper<CampaignDto, Campaign>
     {
-        // methods
         public override Campaign ToDomain(CampaignDto dtoObject)
         {
             return Campaign.CampaignBuilder.NewCampaign()

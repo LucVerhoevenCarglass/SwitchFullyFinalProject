@@ -57,7 +57,7 @@ namespace Swintake.services.tests.Campaigns
             Campaign testCampaign2 = CloneObject(TestCampaign);
             testCampaign2.Name = string.Empty;
             Exception ex = Assert.Throws<EntityNotValidException>(() => _campaignService.AddCampaign(testCampaign2));
-            Assert.Contains("some fields of campaign are invalid", ex.Message);
+            Assert.Contains("campaign", ex.Message);
         }
 
         [Fact]

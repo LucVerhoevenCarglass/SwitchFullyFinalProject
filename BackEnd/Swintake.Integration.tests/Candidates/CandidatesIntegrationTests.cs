@@ -163,11 +163,9 @@ namespace Swintake.Integration.tests.Candidates
                 var creatingResponseString = await response.Content.ReadAsStringAsync();
                 var createdCandidate = JsonConvert.DeserializeObject<CandidateDto>(creatingResponseString);
 
-
                 var getResponse = await client.GetAsync("/api/Candidates/" + createdCandidate.Id);
                 var responseString = await getResponse.Content.ReadAsStringAsync();
                 var foundCandidate = JsonConvert.DeserializeObject<CandidateDto>(responseString);
-
 
                 Assert.Equal(newDTOCreated.FirstName, foundCandidate.FirstName);
             }
@@ -183,12 +181,8 @@ namespace Swintake.Integration.tests.Candidates
 
                 var getResponse = await client.GetAsync("/api/Candidates/" + Guid.NewGuid().ToString());
                 var responseString = await getResponse.Content.ReadAsStringAsync();
-                Assert.Contains("Id not Found", responseString);
-                Assert.Equal("BadRequest", getResponse.StatusCode.ToString());
+                Assert.Equal("NotFound", getResponse.StatusCode.ToString());
             }
-
         }
-
-
     }
 }

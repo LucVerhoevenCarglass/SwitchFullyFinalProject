@@ -8,8 +8,11 @@ namespace Swintake.domain.JobApplications.SelectionSteps
     {
         public TestResult()
         {
-            Id= Guid.NewGuid();
             Description = "Register TestResults";
+        }
+        public override SelectionStep GoToNextState()
+        {
+            return new FirstInterview();
         }
     }
 }

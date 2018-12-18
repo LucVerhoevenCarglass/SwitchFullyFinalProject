@@ -1,8 +1,6 @@
 ﻿using Swintake.infrastructure.builders;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Swintake.domain.Candidates
 {
@@ -34,6 +32,22 @@ namespace Swintake.domain.Candidates
             GitHubUsername = candidateBuilder.GitHubUsername;
             LinkedIn = candidateBuilder.LinkedIn;
             Comment = candidateBuilder.Comment;
+        }
+
+        public static bool IsNotValidForCreation(Candidate candidate)
+        {
+            return (candidate.Id == null
+                    || candidate.Id == Guid.Empty
+                    || string.IsNullOrWhiteSpace(candidate.FirstName)
+                    || string.IsNullOrWhiteSpace(candidate.LastName)
+                    || string.IsNullOrWhiteSpace(candidate.Email)
+                    || string.IsNullOrWhiteSpace(candidate.PhoneNumber)
+                    || !IsEmailValid(candidate.Email));
+        }
+
+        private static bool IsEmailValid(string email)
+        {
+            return email.Contains('@');
         }
     }
 
@@ -103,7 +117,7 @@ namespace Swintake.domain.Candidates
 
         public override Candidate Build()
         {
-           return new Candidate(this);
+            return new Candidate(this);
         }
     }
 }

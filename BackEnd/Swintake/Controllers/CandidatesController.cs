@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.Candidates;
-using Swintake.infrastructure.Exceptions;
 using Swintake.services.Candidates;
-using System;
 using System.Collections.Generic;
 
 namespace Swintake.api.Controllers
@@ -21,7 +19,6 @@ namespace Swintake.api.Controllers
             _candidateService = candidateService;
         }
 
-        // POST: api/Campaign
         [HttpPost]
         [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
@@ -37,35 +34,15 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<CandidateDto> GetById(string id)
         {
-            try
-            {
-                var candidate = _candidateService.GetCandidateById(id);
-                return _candidateMapper.ToDto(candidate);
-            }
-            catch (EntityNotValidException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var candidate = _candidateService.GetCandidateById(id);
+            return _candidateMapper.ToDto(candidate);
         }
 
         [HttpGet]
         public ActionResult<List<CandidateDto>> GetAll()
         {
-            var candidatesDomain = _candidateService.GetAllCandidates();
-            var candidatesDto = new List<CandidateDto>();
-            // TODO: THIS (MAP MULTIPLE DTOS) CAN BE PLACED INSIDE OF THE CANDIDATESMAPPER
-            foreach (var candidate in candidatesDomain)
-            {
-                var candidateDto = _candidateMapper.ToDto(candidate);
-                candidatesDto.Add(candidateDto);
-            }
-            return candidatesDto;
+            var candidates = _candidateService.GetAllCandidates();
+            return _candidateMapper.ToDtoList(candidates);
         }
-
-
     }
 }

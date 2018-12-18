@@ -8,8 +8,12 @@ namespace Swintake.domain.JobApplications.SelectionSteps
     {
         public GroupInterview()
         {
-            Id= Guid.NewGuid();
             Description = "Register Group interview";
+        }
+
+        public override SelectionStep GoToNextState()
+        {
+            return new FinalDecision();
         }
     }
 }
