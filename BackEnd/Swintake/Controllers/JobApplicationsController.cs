@@ -22,9 +22,9 @@ namespace Swintake.api.Controllers
         [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
-            var newJobApplication = _jobApplicationMapper.ToNewDomain(jobApplicationDto);
-            var two = _jobApplicationService.AddJobApplication(newJobApplication);
-            var three = _jobApplicationMapper.ToDto(two);
+            var newJobApplication = _jobApplicationMapper.ToDto(
+                _jobApplicationService.AddJobApplication(
+                    _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
         }
