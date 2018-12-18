@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { UserAuth } from '../classes/userAuth';
 import { LoggedInUser } from '../classes/loggedInUser';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
-
-// TODO: Remove
-// const httpOptions = {
-//  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
 
 @Injectable()
 

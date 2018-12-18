@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
-import { AuthService } from 'src/app/core/authentication/services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router'
-import { first } from 'rxjs/operators'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { formDirectiveProvider } from '@angular/forms/src/directives/reactive_directives/form_group_directive';
+import { first } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/authentication/services/auth.service';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -60,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  get f() {
+  get formValues() {
     return this.userForm.controls;
   }
 
