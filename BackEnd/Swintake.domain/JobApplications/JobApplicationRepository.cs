@@ -18,7 +18,10 @@ namespace Swintake.domain.JobApplications
 
         public JobApplication Get(Guid id)
         {
-            var jobapplication = _context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == id);
+            var jobapplication = _context.JobApplications
+                .Include(jobapp => jobapp.SelectionSteps)
+                .Include(jobapp => jobapp.CurrentSelectionStep)
+                .SingleOrDefault(jobapp => jobapp.Id == id);
             return jobapplication;
 
             //return  _context.JobApplications

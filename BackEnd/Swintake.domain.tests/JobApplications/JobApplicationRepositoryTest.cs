@@ -3,6 +3,7 @@ using Swintake.domain.Data;
 using Swintake.domain.JobApplications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -42,6 +43,32 @@ namespace Swintake.domain.tests.JobApplications
 
                 //Then
                 Assert.Contains(newJobApplication, context.JobApplications);
+            }
+        }
+
+        [Fact]
+        public void GivenJobapplication_WhenUpdate_ThenUpdateJobApplicationInContext()
+        {
+            using (var context = new SwintakeContext(_options))
+            {
+ 
+                var newJobApplication = new JobApplicationBuilder()
+                    .WithId(Guid.NewGuid())
+                    .WithCandidateId(Guid.NewGuid())
+                    .WithCampaignId(Guid.NewGuid())
+                    .WithStatus(StatusJobApplication.Active)
+                    .Build();
+
+                _jobApplicationRepository = new JobApplicationRepository(context);
+                _jobApplicationRepository.Save(newJobApplication);
+
+                newJobApplication.Status = StatusJobApplication.Hired;
+                _jobApplicationRepository.Update(newJobApplication);
+
+                var jobapplication =
+                    context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == newJobApplication.Id);
+
+                Assert.Equal(StatusJobApplication.Hired, jobapplication.Status);
             }
         }
     }

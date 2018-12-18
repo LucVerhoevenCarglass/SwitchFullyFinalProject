@@ -15,10 +15,10 @@ namespace Swintake.domain.JobApplications
         public Campaign Campaign { get; set; }
         public Guid CampaignId { get; set; }
         public List<SelectionStep> SelectionSteps { get; set; }
-        public SelectionStep CurrentSelectionStep
-        {
-            get{return SelectionSteps.Count == 0 ? null : SelectionSteps[SelectionSteps.Count - 1];}
-        }
+        public SelectionStep CurrentSelectionStep { get; set; }
+        //{
+        //    get{return (SelectionSteps==null || SelectionSteps.Count == 0) ? null : SelectionSteps[SelectionSteps.Count - 1];}
+        //}
 
 
         public StatusJobApplication Status { get; set; }
@@ -39,11 +39,12 @@ namespace Swintake.domain.JobApplications
             Status = newStatus;
         }
 
-        public SelectionStep GotoNextSelectionStep()
+        public SelectionStep GotoNextSelectionStep(string comment)
         {
             SelectionStep nextStep;
             if (CurrentSelectionStep == null)
             {
+                SelectionSteps = new List<SelectionStep>();
                 nextStep = new CvScreening();
             }
             else
@@ -57,7 +58,15 @@ namespace Swintake.domain.JobApplications
                     nextStep = CurrentSelectionStep.GoToNextState();
                 }     
             }
+
+            if (!string.IsNullOrWhiteSpace(comment))
+            {
+                nextStep.Comment = comment;
+            }
+
+            CurrentSelectionStep = nextStep;
             SelectionSteps.Add(nextStep);
+
             return nextStep;
         }
 
