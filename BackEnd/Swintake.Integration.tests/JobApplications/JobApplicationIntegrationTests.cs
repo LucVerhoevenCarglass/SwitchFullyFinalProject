@@ -204,7 +204,6 @@ namespace Swintake.Integration.tests
                 var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseStringCampaign);
 
                 var newJobApplicationCreatedDto = new CreateJobApplicationDto(
-
                      createdCampaign.Id,
                      Guid.NewGuid().ToString()
                 );
@@ -214,6 +213,77 @@ namespace Swintake.Integration.tests
                 var responseJobApplication = await client.PostAsync("api/jobapplications", stringContentJobApplication);
 
                 Assert.Equal("NotFound", responseJobApplication.StatusCode.ToString());
+            }
+        }
+
+        [Fact]
+        public async Task GivenGetJobApplication_WhenPassingExistingId_ThenReturnJobApplication()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+
+                var newDTOCreatedCandidate = new CandidateDto()
+                {
+                    FirstName = "Peter",
+                    LastName = "Parker",
+                    Email = "totallynotspiderman@gmail.com",
+                    PhoneNumber = "0470000000",
+                    GitHubUsername = "youarespiderman",
+                    LinkedIn = "peterparker"
+                };
+
+                var contentCandidate = JsonConvert.SerializeObject(newDTOCreatedCandidate);
+                var stringContentCandidate = new StringContent(contentCandidate, Encoding.UTF8, "application/json");
+                var responseCandidate = await client.PostAsync("api/Candidates", stringContentCandidate);
+                var responseStringCandidate = await responseCandidate.Content.ReadAsStringAsync();
+                var createdCandidate = JsonConvert.DeserializeObject<CandidateDto>(responseStringCandidate);
+
+                var newDTOCreatedCampaign = new CreateCampaignDto()
+                {
+                    Name = "testCampaign",
+                    Client = "testClient",
+                    ClassStartDate = DateTime.Today.AddDays(6),
+                    StartDate = DateTime.Today.AddDays(5),
+                    Comment = "testComment"
+                };
+
+                var contentCampaign = JsonConvert.SerializeObject(newDTOCreatedCampaign);
+                var stringContentCampaign = new StringContent(contentCampaign, Encoding.UTF8, "application/json");
+                var responseCampaign = await client.PostAsync("api/campaigns", stringContentCampaign);
+                var responseStringCampaign = await responseCampaign.Content.ReadAsStringAsync();
+                var createdCampaign = JsonConvert.DeserializeObject<CampaignDto>(responseStringCampaign);
+
+                var newJobApplicationCreatedDto = new CreateJobApplicationDto(
+                    createdCandidate.Id,
+                    createdCampaign.Id
+                );
+
+                var content = JsonConvert.SerializeObject(newJobApplicationCreatedDto);
+                var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("api/JobApplications", stringContent);
+                response.EnsureSuccessStatusCode();
+                var creatingResponseString = await response.Content.ReadAsStringAsync();
+                var createdJobApplication = JsonConvert.DeserializeObject<JobApplicationDto>(creatingResponseString);
+
+                var getResponse = await client.GetAsync("/api/JobApplications/" + createdJobApplication.Id);
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                var foundJobApplication = JsonConvert.DeserializeObject<JobApplicationDto>(responseString);
+
+                Assert.Equal(newJobApplicationCreatedDto.CampaignId, foundJobApplication.CampaignId);
+                Assert.Equal(newJobApplicationCreatedDto.CandidateId, foundJobApplication.CandidateId);
+            }
+        }
+
+        [Fact]
+        public async Task GivenGetJobApplication_WhenPassingNonExistingId_ThenReturnNull()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+                var getResponse = await client.GetAsync("/api/JobApplications/" + Guid.NewGuid().ToString());
+                var responseString = await getResponse.Content.ReadAsStringAsync();
+                Assert.Equal("NotFound", getResponse.StatusCode.ToString());
             }
         }
 
