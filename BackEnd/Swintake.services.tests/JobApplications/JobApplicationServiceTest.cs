@@ -22,7 +22,6 @@ namespace Swintake.services.tests.JobApplications
         private readonly ICandidateService _candidateService;
         private readonly ICampaignService _campaignService;
 
-
         public JobApplicationServiceTest()
         {
             _jobApplicationRepository = Substitute.For<IRepository<JobApplication>>();
@@ -35,7 +34,6 @@ namespace Swintake.services.tests.JobApplications
         public void GivenNewJobApplicationWithExistingCampaignIdAnCandidateId_whenAddJobApplication_ThenCallToJobApplicationRepository()
         {
             //Given
-
             var janneke = new CandidateBuilder()
                         .WithId(Guid.NewGuid())
                         .WithFirstName("Janneke")
@@ -63,7 +61,6 @@ namespace Swintake.services.tests.JobApplications
                    .WithStatus(StatusJobApplication.Active)
                    .Build();
 
-            
             _candidateService.GetCandidateById(newJobApplication.CandidateId.ToString()).Returns(janneke);
             _campaignService.GetCampaignByID(newJobApplication.CampaignId.ToString()).Returns(testCampaign);
 
@@ -78,7 +75,6 @@ namespace Swintake.services.tests.JobApplications
         public void GivenNewJobApplicationWithExistingCampaignIdAndNonCandidateId_whenAddJobApplication_ThenNoCallToJobApplicationRepositoryAndEntityNotFoundException()
         {
             //Given
-
             var janneke = new CandidateBuilder()
                         .WithId(Guid.NewGuid())
                         .WithFirstName("Janneke")
@@ -106,12 +102,11 @@ namespace Swintake.services.tests.JobApplications
                    .WithStatus(StatusJobApplication.Active)
                    .Build();
 
-
             _candidateService.GetCandidateById(newJobApplication.CandidateId.ToString()).Returns(ex => { throw new EntityNotFoundException("test info", "candidate", newJobApplication.CandidateId); });
             _campaignService.GetCampaignByID(newJobApplication.CampaignId.ToString()).Returns(testCampaign);
 
             //When
-            Action act  = () => _jobApplicationService.AddJobApplication(newJobApplication);
+            Action act = () => _jobApplicationService.AddJobApplication(newJobApplication);
 
             //Then
             _jobApplicationRepository.DidNotReceive().Save(newJobApplication);
@@ -122,7 +117,6 @@ namespace Swintake.services.tests.JobApplications
         public void GivenNewJobApplicationWithNonExistingCampaignIdAndExistingCandidateId_whenAddJobApplication_ThenNoCallToJobApplicationRepositoryAndEntityNotFoundException()
         {
             //Given
-
             var janneke = new CandidateBuilder()
                         .WithId(Guid.NewGuid())
                         .WithFirstName("Janneke")
@@ -150,7 +144,6 @@ namespace Swintake.services.tests.JobApplications
                    .WithStatus(StatusJobApplication.Active)
                    .Build();
 
-
             _candidateService.GetCandidateById(newJobApplication.CandidateId.ToString()).Returns(janneke);
             _campaignService.GetCampaignByID(newJobApplication.CampaignId.ToString()).Returns(ex => { throw new EntityNotFoundException("test info", "campaign", newJobApplication.CampaignId); });
 
@@ -160,6 +153,46 @@ namespace Swintake.services.tests.JobApplications
             //Then
             _jobApplicationRepository.DidNotReceive().Save(newJobApplication);
             Assert.Throws<EntityNotFoundException>(act);
+        }
+
+        [Fact]
+        public void GivenExistingJobApplication_WhenRejectJobApplication_ThenJobApplicationIsRemoved()
+        {
+            //Given
+            var janneke = new CandidateBuilder()
+                        .WithId(Guid.NewGuid())
+                        .WithFirstName("Janneke")
+                        .WithLastName("Janssens")
+                        .WithEmail("janneke.janssens@gmail.com")
+                        .WithPhoneNumber("0470000000")
+                        .WithGitHubUsername("janneke")
+                        .WithLinkedIn("janneke")
+                        .Build();
+
+            var testCampaign = new CampaignBuilder()
+                       .WithId(Guid.NewGuid())
+                       .WithName("testName")
+                       .WithClient("testClient")
+                       .WithStatus(CampaignStatus.Active)
+                       .WithStartDate(DateTime.Today.AddDays(5))
+                       .WithClassStartDate(DateTime.Today.AddDays(5))
+                       .WithComment("testComment")
+                       .Build();
+
+            var newJobApplication = new JobApplicationBuilder()
+                   .WithId(Guid.NewGuid())
+                   .WithCandidateId(janneke.Id)
+                   .WithCampaignId(testCampaign.Id)
+                   .WithStatus(StatusJobApplication.Active)
+                   .Build();
+
+            _jobApplicationRepository.Get(newJobApplication.Id).Returns(newJobApplication);
+
+            //When
+           var updatedJobapplication =  _jobApplicationService.RejectJobApplication(newJobApplication.Id.ToString());
+
+            //Then
+            Assert.Equal(StatusJobApplication.Rejected, updatedJobapplication.Status);
         }
     }
 }
