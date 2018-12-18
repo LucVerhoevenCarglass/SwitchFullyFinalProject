@@ -17,12 +17,10 @@ namespace Swintake.domain.JobApplications
         public List<SelectionStep> SelectionSteps { get; set; }
         public SelectionStep CurrentSelectionStep
         {
-            get { return SelectionSteps[SelectionSteps.Count - 1]; }
+            get{return SelectionSteps.Count == 0 ? null : SelectionSteps[SelectionSteps.Count - 1];}
         }
 
-
         public StatusJobApplication Status { get; set; }
-
 
         private JobApplication(){}
 
@@ -31,7 +29,7 @@ namespace Swintake.domain.JobApplications
             CandidateId = jobApplicationBuilder.CandiDateId;
             CampaignId = jobApplicationBuilder.CampaignId;
             Status = jobApplicationBuilder.Status;
-            SelectionSteps = new List<SelectionStep>(){new CvScreening()};
+            SelectionSteps = new List<SelectionStep>();
         }
 
         public void SetNewStatus(StatusJobApplication newStatus)
@@ -41,11 +39,30 @@ namespace Swintake.domain.JobApplications
 
         public SelectionStep GotoNextSelectionStep()
         {
-            var nextStep=CurrentSelectionStep.GoToNextState();
-            if (nextStep.GetType() == CurrentSelectionStep.GetType()) return null;
+            SelectionStep nextStep;
+            if (CurrentSelectionStep == null)
+            {
+                nextStep = new CvScreening();
+            }
+            else
+            {
+                if (IsSelectionStepEndOfSelectionProcess())
+                {
+                    return null;                
+                }
+                else
+                {
+                    nextStep = CurrentSelectionStep.GoToNextState();
+                }     
+            }
             SelectionSteps.Add(nextStep);
             return nextStep;
-        }       
+        }
+
+        private bool IsSelectionStepEndOfSelectionProcess()
+        {
+            return SelectionSteps.Count == SelectionStep.CountofStepsInSelectionProcess;
+        }
     }
 
     public class JobApplicationBuilder : Builder<JobApplication>
@@ -60,14 +77,11 @@ namespace Swintake.domain.JobApplications
             return new JobApplicationBuilder();
         }
 
-
-
         public JobApplicationBuilder WithId(Guid id)
         {
             Id = id;
             return this;
         }
-
 
         public JobApplicationBuilder WithCandidateId(Guid candidateId)
         {

@@ -6,6 +6,7 @@ using Swintake.services.JobApplications;
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class JobApplicationsController : ControllerBase
     {
@@ -19,30 +20,34 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
-            var newJobApplication = _jobApplicationMapper.ToNewDomain(jobApplicationDto);
-            var two = _jobApplicationService.AddJobApplication(newJobApplication);
-            var three = _jobApplicationMapper.ToDto(two);
+            var newJobApplication = _jobApplicationMapper.ToDto(
+                _jobApplicationService.AddJobApplication(
+                    _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
 
             return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
-            var candidate = _jobApplicationService.GetJobApplicationById(id);
-            return _jobApplicationMapper.ToDto(candidate);
+            var jobApplicationDto = _jobApplicationService.GetJobApplicationById(id);
+            return _jobApplicationMapper.ToDto(jobApplicationDto);
         }
 
-
         [HttpGet]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetAll()
         {
             return null;
         }
+
+        [HttpPut]
+        [Route("nextStep/id:string")]
+        public ActionResult<JobApplicationDto> UpdateJobApplication(string id)
+        {
+           return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id)));
+        }
+
     }
 }

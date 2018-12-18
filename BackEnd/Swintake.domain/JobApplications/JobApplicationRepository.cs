@@ -18,11 +18,8 @@ namespace Swintake.domain.JobApplications
 
         public JobApplication Get(Guid id)
         {
-            return  _context.JobApplications
-                .Include(jp => jp.Campaign)
-                .Include(jp => jp.Candidate)
-                .Include(jp => jp.Status)
-                .SingleOrDefault(jobApp => jobApp.Id==id);
+            var jobapplication = _context.JobApplications.SingleOrDefault(jobapp => jobapp.Id == id);
+            return jobapplication;
         }
 
         public IList<JobApplication> GetAll()
@@ -37,7 +34,6 @@ namespace Swintake.domain.JobApplications
         public JobApplication Save(JobApplication jobapplication)
         {
             _context.JobApplications.Add(jobapplication);
-            _context.SelectionSteps.Add(jobapplication.CurrentSelectionStep);
             _context.SaveChanges();
             return jobapplication;
         }
@@ -48,5 +44,6 @@ namespace Swintake.domain.JobApplications
             _context.SaveChanges();
             return jobAppToUpdate;
         }
+
     }
 }

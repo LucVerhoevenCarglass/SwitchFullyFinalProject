@@ -24,21 +24,39 @@ namespace Swintake.services.JobApplications
 
         public JobApplication AddJobApplication(JobApplication jobApplication)
         {
-            var foundcandidate = _candidateService.GetCandidateById(jobApplication.CandidateId.ToString());
-            var foundCampaign = _campaignService.GetCampaignByID(jobApplication.CampaignId.ToString());
-
-            return _repository.Save(jobApplication);
+            if (DoesCandidateAndCampaignOfThisJobApplicationExist(jobApplication))
+            {
+                return _repository.Save(jobApplication);
+            }
+            return null;
         }
 
-       public void RejectJob(JobApplication jobApplicationToReject)
+        private bool DoesCandidateAndCampaignOfThisJobApplicationExist(JobApplication jobApplication)
         {
+            _candidateService.GetCandidateById(jobApplication.CandidateId.ToString());
+            _campaignService.GetCampaignByID(jobApplication.CampaignId.ToString());
+            return true;
+        }
+
+        public JobApplication RejectJobApplication(string jobApplicationIdToReject)
+        {
+            var jobApplicationToReject = _repository.Get(new Guid(jobApplicationIdToReject));
             jobApplicationToReject.SetNewStatus(StatusJobApplication.Rejected);
-            _repository.Update(jobApplicationToReject);         
+            _repository.Update(jobApplicationToReject);
+            return jobApplicationToReject;
         }
 
         public IEnumerable<JobApplication> GetJobApplications()
         {
             return _repository.GetAll();
+        }
+
+        public JobApplication GoToNextSelectionStepInSelectionProcess(string id)
+        {
+            JobApplication jobApplicationToUpdate = GetJobApplicationById(id);
+            jobApplicationToUpdate.GotoNextSelectionStep();
+            _repository.Update(jobApplicationToUpdate);
+            return jobApplicationToUpdate;
         }
 
         public JobApplication GetJobApplicationById(string id)

@@ -8,6 +8,7 @@ namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CandidatesController : ControllerBase
     {
         private readonly CandidateMapper _candidateMapper;
@@ -20,7 +21,6 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult<CandidateDto> CreateCandidate([FromBody] CandidateDto candidateDto)
         {
             var newcandidate = _candidateMapper.ToDto(
@@ -31,7 +31,6 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<CandidateDto> GetById(string id)
         {
             var candidate = _candidateService.GetCandidateById(id);

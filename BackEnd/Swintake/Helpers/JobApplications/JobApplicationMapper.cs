@@ -33,8 +33,8 @@ namespace Swintake.api.Helpers.JobApplications
         {
             return new JobApplicationDto(
                  domainObject.Id.ToString(),
-                 domainObject.CampaignId.ToString(),
                 domainObject.CandidateId.ToString(),
+                 domainObject.CampaignId.ToString(),
                 domainObject.Status.ToString()
                 );
         }
