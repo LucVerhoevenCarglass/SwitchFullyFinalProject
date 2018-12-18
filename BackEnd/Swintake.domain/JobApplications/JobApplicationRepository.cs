@@ -36,15 +36,17 @@ namespace Swintake.domain.JobApplications
 
         public JobApplication Save(JobApplication jobapplication)
         {
-            _context.Add(jobapplication);
+            _context.JobApplications.Add(jobapplication);
+            _context.SelectionSteps.Add(jobapplication.CurrentSelectionStep);
             _context.SaveChanges();
             return jobapplication;
         }
 
-        public JobApplication Update(JobApplication appToUpdate)
+        public JobApplication Update(JobApplication jobAppToUpdate)
         {
-            
-            throw new NotImplementedException();
+            _context.JobApplications.Update(jobAppToUpdate);
+            _context.SaveChanges();
+            return jobAppToUpdate;
         }
     }
 }

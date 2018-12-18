@@ -80,7 +80,15 @@ namespace Swintake.domain.Data
                         .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SelectionStep>()
-                .ToTable("SelectionStep");
+                .ToTable("SelectionStep")
+                .HasKey(selectionStep => new {selectionStep.JobApplicationId, selectionStep.Description});
+
+            modelBuilder.Entity<SelectionStep>()
+                .HasOne(sel => sel.JobApplication)
+                .WithMany(jobApp => jobApp.SelectionSteps)
+                .HasForeignKey(sel => sel.JobApplicationId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<CvScreening>();
             //    .ToTable("CvScreening");
