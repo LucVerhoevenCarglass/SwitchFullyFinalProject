@@ -20,7 +20,6 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult<JobApplicationDto> CreateJobApplication([FromBody] CreateJobApplicationDto jobApplicationDto)
         {
             var newJobApplication = _jobApplicationMapper.ToNewDomain(jobApplicationDto);
@@ -31,16 +30,13 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetById(string id)
         {
             var candidate = _jobApplicationService.GetJobApplicationById(id);
             return _jobApplicationMapper.ToDto(candidate);
         }
 
-
         [HttpGet]
-        [Authorize]
         public ActionResult<JobApplicationDto> GetAll()
         {
             return null;

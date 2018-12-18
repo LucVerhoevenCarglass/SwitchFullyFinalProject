@@ -9,6 +9,7 @@ using System.Collections.Generic;
 namespace Swintake.api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CampaignsController : ControllerBase
     {
@@ -24,7 +25,6 @@ namespace Swintake.api.Controllers
 
         // POST: api/Campaign
         [HttpPost]
-        [Authorize]
         public ActionResult<CampaignDto> CreateCampaign([FromBody] CreateCampaignDto createCampaignDto)
         {
             var newCampaign = _campaignMapper.ToDto(
@@ -36,7 +36,6 @@ namespace Swintake.api.Controllers
 
         // GET: api/Campaign
         [HttpGet]
-        [Authorize]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
             IEnumerable<Campaign> campaigns = _campaignService.GetAllCampaigns();
@@ -48,7 +47,6 @@ namespace Swintake.api.Controllers
 
         // GET: api/Campaign/5
         [HttpGet("{id}", Name = "Get")]
-        [Authorize]
         public ActionResult<CampaignDto> Get(string id)
         {
             var campaign = _campaignService.GetCampaignByID(id);
