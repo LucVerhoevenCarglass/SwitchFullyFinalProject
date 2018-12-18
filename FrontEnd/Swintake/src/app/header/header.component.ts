@@ -20,7 +20,6 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
     this.authService.tokenInfo.subscribe(t => { this.currentUserToken = t });
-    console.log(this.currentUserToken);
   }
 
   ngOnInit() {

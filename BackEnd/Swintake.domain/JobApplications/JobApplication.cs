@@ -20,9 +20,7 @@ namespace Swintake.domain.JobApplications
         //    get{return (SelectionSteps==null || SelectionSteps.Count == 0) ? null : SelectionSteps[SelectionSteps.Count - 1];}
         //}
 
-
         public StatusJobApplication Status { get; set; }
-
 
         private JobApplication(){}
 
@@ -76,9 +74,6 @@ namespace Swintake.domain.JobApplications
         }
     }
 
-
-    
-
     public class JobApplicationBuilder : Builder<JobApplication>
     {
         public Guid Id { get; set; }
@@ -91,14 +86,11 @@ namespace Swintake.domain.JobApplications
             return new JobApplicationBuilder();
         }
 
-
-
         public JobApplicationBuilder WithId(Guid id)
         {
             Id = id;
             return this;
         }
-
 
         public JobApplicationBuilder WithCandidateId(Guid candidateId)
         {

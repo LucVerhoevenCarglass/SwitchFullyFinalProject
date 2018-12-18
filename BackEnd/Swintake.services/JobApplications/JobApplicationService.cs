@@ -38,10 +38,12 @@ namespace Swintake.services.JobApplications
             return true;
         }
 
-        public void RejectJob(JobApplication jobApplicationToReject)
+        public JobApplication RejectJobApplication(string jobApplicationIdToReject)
         {
+            var jobApplicationToReject = _repository.Get(new Guid(jobApplicationIdToReject));
             jobApplicationToReject.SetNewStatus(StatusJobApplication.Rejected);
-            _repository.Update(jobApplicationToReject);         
+            _repository.Update(jobApplicationToReject);
+            return jobApplicationToReject;
         }
 
         public IEnumerable<JobApplication> GetJobApplications()

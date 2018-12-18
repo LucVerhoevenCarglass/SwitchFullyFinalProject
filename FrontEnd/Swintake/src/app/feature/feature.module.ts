@@ -12,6 +12,7 @@ import { CandidateCreateComponent } from './candidates/candidate-create/candidat
 import { CandidateListComponent } from './candidates/candidate-list/candidate-list/candidate-list.component';
 import { CandidateDetailComponent } from './candidates/candidate-detail/candidate-detail.component';
 import { CampaignDropdownComponent } from './job-applications/campaign-dropdown/campaign-dropdown.component';
+import { JobapplicationDetailComponent } from './job-applications/jobapplication-detail/jobapplication-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CampaignDropdownComponent } from './job-applications/campaign-dropdown/
     CandidateCreateComponent, 
     CandidateListComponent,
     CandidateDetailComponent,
-    CampaignDropdownComponent
+    CampaignDropdownComponent,
+    JobapplicationDetailComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [
