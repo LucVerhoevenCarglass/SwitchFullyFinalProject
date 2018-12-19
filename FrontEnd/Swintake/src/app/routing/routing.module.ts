@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router'
 import { LoginComponent } from '../feature/login/login.component';
-import { JobApplicationsComponent } from '../feature/job-applications/job-applications.component';
+import { JobApplicationsComponent } from '../feature/job-applications/jobapplication-list/job-applications.component';
 import { CampaignCreateComponent } from '../feature/campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from '../feature/campaigns/campaign-list/campaign-list.component';
 import { AuthGuard } from '../core/authentication/helpers/auth.guard';

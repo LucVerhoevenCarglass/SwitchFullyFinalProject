@@ -3,7 +3,7 @@
         <label>Campaign name:</label>
     </div>
         <div class="form-group mx-sm-3 mb-2">
-            <select required name="Campaign" #refCampaign="ngModel" class="form-control" [(ngModel)]="selectedCampaign">
+            <select required name="Campaign" #refCampaign="ngModel" class="form-control" [(ngModel)]="selectedCampaign" id="selectCampaign">
                 <option value="" selected disabled>Please select</option>
                 <option *ngFor="let campaign of campaings" [ngValue]="campaign.id">
                     {{campaign.name}}
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success btn-md mx-2" [disabled]="!DropngForm.form.valid">
+        <button type="submit" id="jobapplicationCreateButton" class="btn btn-success btn-md mx-2" [disabled]="!DropngForm.form.valid">
             Submit
         </button>
         <button type="reset" class="btn btn-danger" (click)="cancel()">Cancel</button>
