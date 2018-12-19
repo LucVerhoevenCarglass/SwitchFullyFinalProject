@@ -25,7 +25,7 @@ export class JobApplicationPage{
 
    expectifJobApplicationHasbeenAddedToList()
    {
-       expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.className('p')),"job-applications"),5000)).toBeTruthy();
+       expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('campaignNameJobapplication')),"Java academy 2019"),5000)).toBeTruthy();
        return this;
    }
 
