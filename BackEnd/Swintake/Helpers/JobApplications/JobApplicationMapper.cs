@@ -4,13 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Swintake.api.Helpers.Campaigns;
+using Swintake.api.Helpers.Candidates;
 using Swintake.domain.JobApplications.SelectionSteps;
 
 namespace Swintake.api.Helpers.JobApplications
 {
     public class JobApplicationMapper : Mapper<JobApplicationDto, JobApplication>
     {
-        private SelectionStepMapper _selectionStepMapper;
+        private readonly CampaignMapper _campaignMapper;
+        private readonly CandidateMapper _candidateMapper;
+        private readonly SelectionStepMapper _selectionStepMapper;
+
+        public JobApplicationMapper(CampaignMapper campaignMapper, CandidateMapper candidateMapper)
+        {
+            _campaignMapper = campaignMapper;
+            _candidateMapper = candidateMapper;
+            _selectionStepMapper = new SelectionStepMapper();
+        }
+
         public override JobApplication ToDomain(JobApplicationDto dtoObject)
         {
             return new JobApplicationBuilder()
@@ -33,14 +45,15 @@ namespace Swintake.api.Helpers.JobApplications
 
         public override JobApplicationDto ToDto(JobApplication domainObject)
         {
-            _selectionStepMapper = new SelectionStepMapper();
+            
             var jobappDto = new JobApplicationDto()
             {
                 Id = domainObject.Id.ToString(),
-                CandidateId = domainObject.CandidateId.ToString(),
+                CandidateId = domainObject.CandidateId.ToString(),         
                 CampaignId = domainObject.CampaignId.ToString(),
                 Status = domainObject.Status.ToString(),
-
+                Candidate = _candidateMapper.ToDto(domainObject.Candidate),
+                Campaign = _campaignMapper.ToDto(domainObject.Campaign)
             };
             if (domainObject.CurrentSelectionStep != null)
             {

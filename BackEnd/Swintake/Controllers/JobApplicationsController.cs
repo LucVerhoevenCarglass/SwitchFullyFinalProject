@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swintake.api.Helpers.JobApplications;
+using Swintake.domain.JobApplications;
 using Swintake.services.JobApplications;
 
 namespace Swintake.api.Controllers
@@ -26,7 +29,7 @@ namespace Swintake.api.Controllers
                 _jobApplicationService.AddJobApplication(
                     _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
 
-            return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
+            return Created($"api/jobapplications/{newJobApplication.Id}", newJobApplication);
         }
 
         [HttpGet("{id}")]
@@ -37,11 +40,14 @@ namespace Swintake.api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<JobApplicationDto> GetAll()
+        public ActionResult<IEnumerable<JobApplicationDto>> GetAll()
         {
-            return null;
+            return Ok(_jobApplicationService.GetJobApplications()
+                .Select(jobapp => _jobApplicationMapper.ToDto(jobapp)).ToList());
+
         }
 
+ 
         [HttpPut]
         [Route("nextStep/{id}")]
         public ActionResult<JobApplicationDto> UpdateJobApplication(string id, [FromBody] string comment = null)

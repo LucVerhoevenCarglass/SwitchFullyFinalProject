@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 using NSubstitute;
@@ -204,7 +205,6 @@ namespace Swintake.services.tests.JobApplications
 
         }
 
-
         [Fact]
         public void GivenExistingJobApplication_WhenRejectJobApplication_ThenJobApplicationIsRemoved()
         {
@@ -243,6 +243,14 @@ namespace Swintake.services.tests.JobApplications
 
             //Then
             Assert.Equal(StatusJobApplication.Rejected, updatedJobapplication.Status);
+        }
+
+        [Fact]
+        public void GivenDatabaseWith2JobApp_GetAllJobApplications__ReturnListOfTwoJobApplications()
+        {
+            _jobApplicationRepository.GetAll().Returns(new List<JobApplication>()
+                    { new JobApplicationBuilder().Build(), new JobApplicationBuilder().Build() });
+            Assert.Equal(2, _jobApplicationService.GetJobApplications().Count());
         }
     }
 }
