@@ -23,7 +23,7 @@
                   <td><a id="candidateNameJobapplication" title="Detail">{{jobapplication.candidate.firstName}}</a></td>
                   <td><a title="Detail">{{jobapplication.campaign.name}}</a></td>
                   <td><a title="Detail">{{jobapplication.status}}</a></td>
-                  <td><a title="Detail">{{jobapplication.currentSelectionStep.description}}</a></td>
+                  <td><a *ngIf="jobapplication.currentSelectionStep" title="Detail">{{jobapplication.currentSelectionStep.description}}</a></td>
                 </tr>
               </tbody>
             </table>

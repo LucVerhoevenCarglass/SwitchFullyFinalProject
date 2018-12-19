@@ -34,14 +34,14 @@ namespace Swintake.api.Controllers
         public ActionResult<CandidateDto> GetById(string id)
         {
             var candidate = _candidateService.GetCandidateById(id);
-            return _candidateMapper.ToDto(candidate);
+            return Ok(_candidateMapper.ToDto(candidate));
         }
 
         [HttpGet]
         public ActionResult<List<CandidateDto>> GetAll()
         {
             var candidates = _candidateService.GetAllCandidates();
-            return _candidateMapper.ToDtoList(candidates);
+            return Ok(_candidateMapper.ToDtoList(candidates));
         }
     }
 }

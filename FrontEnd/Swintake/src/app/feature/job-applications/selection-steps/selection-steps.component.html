@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="box-shadow box-light-background parent-section">
+     <div class="container" >
+    
+        <header *ngIf="!selectionStep">
+            <h1>SelectionStep <small class="sub-title badge badge-dark">CV Screening</small></h1>
+            <hr>
+        </header>
+        <header *ngIf="selectionStep">
+          <h1>SelectionStep <small class="sub-title badge badge-dark">{{selectionStep.description}}</small></h1>
+          <hr>
+        </header>
+
+        <form [formGroup]="SelectionStepForm" (ngSubmit)="isValid()">
+        <div class="form-group">
+          <label for="inputCommentText" class="label-title">Comment:</label>
+          <input formControlName="comment" type="text" class="form-control" id="inputCommentText">
+        </div>
+        <button id="SelectionSaveButton" class="btn btn-success btn-md mx-2" type="submit">Save</button>
+        <button class="btn btn-danger" type="reset" (click)="cancel()">Cancel</button>
+      </form>
+      </div>
+    
+  </div>
+</div>
