@@ -19,7 +19,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let jobapplication of jobApplications" routerLink = "/jobapplication/{{jobapplication.id}}">
+                <tr *ngFor="let jobapplication of jobApplications" routerLink = "/jobapplications/{{jobapplication.id}}">
                   <td><a id="candidateNameJobapplication" title="Detail">{{jobapplication.candidate.firstName}}</a></td>
                   <td><a title="Detail">{{jobapplication.campaign.name}}</a></td>
                   <td><a title="Detail">{{jobapplication.status}}</a></td>

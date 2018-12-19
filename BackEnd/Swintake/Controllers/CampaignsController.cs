@@ -46,14 +46,10 @@ namespace Swintake.api.Controllers
         }
 
         // GET: api/Campaign/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ActionResult<CampaignDto> Get(string id)
         {
             var campaign = _campaignService.GetCampaignByID(id);
-            if (campaign == null)
-            {
-                return BadRequest($"Id {id} not found in campaigns");
-            }
             var campaignToReturn = _campaignMapper.ToDto(campaign);
 
             return Ok(campaignToReturn);
