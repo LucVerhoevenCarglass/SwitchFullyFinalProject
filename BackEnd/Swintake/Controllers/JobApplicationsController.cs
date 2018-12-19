@@ -29,7 +29,7 @@ namespace Swintake.api.Controllers
                 _jobApplicationService.AddJobApplication(
                     _jobApplicationMapper.ToNewDomain(jobApplicationDto)));
 
-            return Created($"api/jobapplication/{newJobApplication.Id}", newJobApplication);
+            return Created($"api/jobapplications/{newJobApplication.Id}", newJobApplication);
         }
 
         [HttpGet("{id}")]

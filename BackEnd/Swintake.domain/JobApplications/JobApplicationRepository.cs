@@ -21,6 +21,8 @@ namespace Swintake.domain.JobApplications
             var jobapplication = _context.JobApplications
                 .Include(jobapp => jobapp.SelectionSteps)
                 .Include(jobapp => jobapp.CurrentSelectionStep)
+                .Include(jobapp => jobapp.Campaign)
+                .Include(jobapp => jobapp.Candidate)
                 .SingleOrDefault(jobapp => jobapp.Id == id);
             return jobapplication;
         }
@@ -30,6 +32,8 @@ namespace Swintake.domain.JobApplications
             return _context.JobApplications
                 .Include(jobapp => jobapp.SelectionSteps)
                 .Include(jobapp => jobapp.CurrentSelectionStep)
+                .Include(jobapp => jobapp.Campaign)
+                .Include(jobapp => jobapp.Candidate)
                 .ToList();
                 //.Include(jp => jp.Campaign)
                 //.Include(jp => jp.Candidate)
