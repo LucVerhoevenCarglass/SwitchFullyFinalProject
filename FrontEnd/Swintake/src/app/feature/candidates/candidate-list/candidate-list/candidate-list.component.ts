@@ -10,6 +10,7 @@ import { CandidateService } from '../../../../core/candidates/services/candidate
 export class CandidateListComponent implements OnInit {
 
   candidates: Candidate[] = [];
+  allCandidates: Candidate[] = [];
 
   constructor(private candidateService: CandidateService) { }
 
@@ -19,7 +20,14 @@ export class CandidateListComponent implements OnInit {
 
   getAllCandidates(): void {
     this.candidateService.getCandidates()
-      .subscribe(candidates => this.candidates = candidates);
+      .subscribe(candidates => {
+        this.candidates = candidates;
+        this.allCandidates = candidates;
+      });
   }
+
+  seachByTitle(givenSearchTerm: string) {
+    this.candidates = this.candidateService.searchItem(givenSearchTerm,this.allCandidates);
+  } 
 
 }
