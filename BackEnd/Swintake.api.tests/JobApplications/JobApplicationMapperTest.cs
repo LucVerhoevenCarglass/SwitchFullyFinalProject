@@ -3,6 +3,8 @@ using Swintake.domain.JobApplications;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Swintake.api.Helpers.Campaigns;
+using Swintake.api.Helpers.Candidates;
 using Xunit;
 
 namespace Swintake.api.tests
@@ -12,7 +14,7 @@ namespace Swintake.api.tests
         private readonly JobApplicationMapper _jobApplicationMapper;
         public JobApplicationMapperTest()
         {
-            _jobApplicationMapper = new JobApplicationMapper();
+            _jobApplicationMapper = new JobApplicationMapper(new CampaignMapper(), new CandidateMapper());
         }
         [Fact]
         public void GivenJobApplicationDto_WhenMapTonewDomain_ThenStatusIsActiveAndIdGuidIsCreated()
