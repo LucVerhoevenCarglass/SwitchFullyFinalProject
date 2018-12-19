@@ -6,6 +6,9 @@
         <hr>
       </header>
       <button class="btn btn-info mb-3" id="CreateButtonCampaign" routerLink="/createcampaign">Create New Campaign</button>
+
+        <app-filtersearch (value)="seachByTitle($event)"></app-filtersearch>
+
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
           <section class="campaign-readonly table-responsive">
@@ -22,8 +25,8 @@
                 <tr *ngFor="let campaign of campaigns" routerLink = "/campaigns/{{campaign.id}}" >
                   <th scope="row"><a title="Detail">{{campaign.name}}</a></th>
                   <td><a title="Detail">{{campaign.client}}</a></td>
-                  <td><a title="Detail">{{campaign.startDate | date :'dd/MM/yyyy'}}</a></td>
-                  <td><a title="Detail">{{campaign.classStartDate | date :'dd/MM/yyyy'}}</a></td>
+                  <td><a title="Detail">{{campaign.startDate | date :'dd-MM-yyyy'}}</a></td>
+                  <td><a title="Detail">{{campaign.classStartDate | date :'dd-MM-yyyy'}}</a></td>
                 </tr>
               </tbody>
             </table>

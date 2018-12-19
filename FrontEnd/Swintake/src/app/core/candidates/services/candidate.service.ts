@@ -32,7 +32,11 @@ export class CandidateService {
     if(!searchTerm){
       return listOfItems;
     }
-    return listOfItems.filter(item => item.firstName.toLowerCase().includes(searchTerm.toLowerCase())); 
+    return listOfItems.filter(item =>
+      item.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase()) 
+    ); 
   } 
   
 }

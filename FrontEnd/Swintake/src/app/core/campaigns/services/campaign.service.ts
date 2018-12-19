@@ -27,4 +27,16 @@ export class CampaignService {
     return this.http.get<Campaign>(`${ApiUrl.urlCampaign}${id}`);
    }
 
+   searchItem (searchTerm:string,listOfItems: Campaign[]):Campaign[]{
+    if(!searchTerm){
+      return listOfItems;
+    }
+    return listOfItems.filter(item =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.startDate.toString().includes(searchTerm.toLowerCase()) ||
+      item.classStartDate.toString().includes(searchTerm.toLowerCase()) 
+    ); 
+  } 
+
 }

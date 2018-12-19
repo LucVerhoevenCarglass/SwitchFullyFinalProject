@@ -15,7 +15,7 @@ import { CampaignDropdownComponent } from './job-applications/campaign-dropdown/
 import { JobapplicationDetailComponent } from './job-applications/jobapplication-detail/jobapplication-detail.component';
 import { DetailcandidateComponent } from './job-applications/jobapplication-detail/detailcandidate/detailcandidate.component';
 import { DetailcampaignComponent } from './job-applications/jobapplication-detail/detailcampaign/detailcampaign.component';
-import { FiltersearchComponent } from './filtersearch/filtersearch.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,13 +32,13 @@ import { FiltersearchComponent } from './filtersearch/filtersearch.component';
     JobapplicationDetailComponent,
     DetailcandidateComponent,
     DetailcampaignComponent,
-    FiltersearchComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [
     CommonModule,
     CoreModule,
-    RoutingModule
+    RoutingModule,
+    SharedModule
   ],
 })
 export class FeatureModule { }
