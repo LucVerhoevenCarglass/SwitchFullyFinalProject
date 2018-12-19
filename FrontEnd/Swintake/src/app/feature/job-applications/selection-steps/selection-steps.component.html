@@ -1,7 +1,4 @@
-<div class="container">
-  <div class="box-shadow box-light-background parent-section">
-     <div class="container" >
-    
+    <br>
         <header *ngIf="!selectionStep">
             <h1>SelectionStep <small class="sub-title badge badge-dark">CV Screening</small></h1>
             <hr>
@@ -11,7 +8,7 @@
           <hr>
         </header>
 
-        <form [formGroup]="SelectionStepForm" (ngSubmit)="isValid()">
+        <form [formGroup]="SelectionStepForm" (ngSubmit)="isValid() && save()">
         <div class="form-group">
           <label for="inputCommentText" class="label-title">Comment:</label>
           <input formControlName="comment" type="text" class="form-control" id="inputCommentText">
@@ -19,7 +16,12 @@
         <button id="SelectionSaveButton" class="btn btn-success btn-md mx-2" type="submit">Save</button>
         <button class="btn btn-danger" type="reset" (click)="cancel()">Cancel</button>
       </form>
-      </div>
-    
-  </div>
-</div>
+      <br><br>
+
+              <table id="CampaignDetailTable" class="table table-bordred table-striped" *ngFor="let selection of selectionSteps">
+                  <h6>{{selection.description}}</h6>
+                <tr>
+                  <th>Comment: </th>
+                  <td>{{selection.comment}}</td>
+                </tr>          
+              </table>

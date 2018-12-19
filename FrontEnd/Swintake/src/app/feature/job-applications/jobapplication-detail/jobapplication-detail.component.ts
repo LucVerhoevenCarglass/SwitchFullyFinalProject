@@ -34,4 +34,9 @@ export class JobapplicationDetailComponent implements OnInit {
             //console.log(this.jobapplication);
           });
    }
+
+   jobapplicationChange(jobApplication: JobApplication){
+     this.jobapplication=jobApplication;
+   }
+   
 }

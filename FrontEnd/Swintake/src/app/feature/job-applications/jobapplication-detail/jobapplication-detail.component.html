@@ -17,7 +17,7 @@
         </div>
       </section>
     </div>
-    <div class="container">
+    <div class="container" *ngIf="isJobApplicationRetrieved">
     <app-selection-steps [jobapplication]="jobapplication"></app-selection-steps>
     </div>
   </div>
