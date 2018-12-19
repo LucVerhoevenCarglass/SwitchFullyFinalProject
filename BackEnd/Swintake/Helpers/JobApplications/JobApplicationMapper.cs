@@ -52,23 +52,14 @@ namespace Swintake.api.Helpers.JobApplications
                 CandidateId = domainObject.CandidateId.ToString(),         
                 CampaignId = domainObject.CampaignId.ToString(),
                 Status = domainObject.Status.ToString(),
-
+                Candidate = _candidateMapper.ToDto(domainObject.Candidate),
+                Campaign = _campaignMapper.ToDto(domainObject.Campaign)
             };
             if (domainObject.CurrentSelectionStep != null)
             {
                 jobappDto.SelectionSteps = _selectionStepMapper.ToDtoList(domainObject.SelectionSteps);
                 jobappDto.CurrentSelectionStep = _selectionStepMapper.ToDto(domainObject.CurrentSelectionStep);
             }
-
-            if (domainObject.Candidate != null)
-            {
-                jobappDto.Candidate = _candidateMapper.ToDto(domainObject.Candidate);
-            }
-            if (domainObject.Campaign != null)
-            {
-                jobappDto.Campaign = _campaignMapper.ToDto(domainObject.Campaign);
-            }
-
             return jobappDto;
         }
 
