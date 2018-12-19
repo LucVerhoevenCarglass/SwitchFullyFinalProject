@@ -15,6 +15,7 @@ import { CampaignDropdownComponent } from './job-applications/campaign-dropdown/
 import { JobapplicationDetailComponent } from './job-applications/jobapplication-detail/jobapplication-detail.component';
 import { DetailcandidateComponent } from './job-applications/jobapplication-detail/detailcandidate/detailcandidate.component';
 import { DetailcampaignComponent } from './job-applications/jobapplication-detail/detailcampaign/detailcampaign.component';
+import { FiltersearchComponent } from './filtersearch/filtersearch.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DetailcampaignComponent } from './job-applications/jobapplication-detai
     CampaignDropdownComponent,
     JobapplicationDetailComponent,
     DetailcandidateComponent,
-    DetailcampaignComponent
+    DetailcampaignComponent,
+    FiltersearchComponent
   ],
   entryComponents:[NgbdModalContent],
   imports: [

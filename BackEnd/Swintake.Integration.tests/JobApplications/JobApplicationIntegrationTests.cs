@@ -122,6 +122,21 @@ namespace Swintake.Integration.tests
             }
         }
 
+        [Fact]
+        public async Task GivenHappyPath_WhenGetAllApplications_ThenApplicationsAreReturned()
+        {
+            using (_server)
+            {
+                var client = await InitClient(_server);
+                var newJobApplicationCreatedDto = await PrepareNewJobApplicationTest(client);
+                var responseJobApplication = await CreateJobApplicationWithPost(client, newJobApplicationCreatedDto);
+                var response = await client.GetAsync("api/jobapplications");
+                response.EnsureSuccessStatusCode();
+
+                Assert.Equal("OK", response.StatusCode.ToString());
+            }
+        }
+
 
         [Fact]
         public async Task GivenNewJobApplicationWithExistingCampaignIdAndNonExistingCandidateId_WhenCreateNewJobApplication_ThenReturnNotFound()
