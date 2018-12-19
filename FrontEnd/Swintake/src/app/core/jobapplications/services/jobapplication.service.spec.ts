@@ -1,10 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-
-import { JobApplicationService } from './jobapplication.service';
 import { HttpClient } from '@angular/common/http';
-import { JobApplication } from '../classes/jobApplication';
-import { ApiUrl } from '../../CommonUrl/CommonUrl';
 import { of } from 'rxjs';
+import { ApiUrl } from '../../CommonUrl/CommonUrl';
+import { JobApplication } from '../classes/jobApplication';
+import { JobApplicationService } from './jobapplication.service';
 
 fdescribe('JobApplicationService', () => {
   let httpClient: HttpClient;
