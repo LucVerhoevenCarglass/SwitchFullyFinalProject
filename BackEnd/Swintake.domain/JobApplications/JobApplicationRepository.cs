@@ -28,10 +28,12 @@ namespace Swintake.domain.JobApplications
         public IList<JobApplication> GetAll()
         {
             return _context.JobApplications
-                .Include(jp => jp.Campaign)
-                .Include(jp => jp.Candidate)
-                .Include(jp => jp.Status)
+                .Include(jobapp => jobapp.SelectionSteps)
+                .Include(jobapp => jobapp.CurrentSelectionStep)
                 .ToList();
+                //.Include(jp => jp.Campaign)
+                //.Include(jp => jp.Candidate)
+                //.Include(jp => jp.Status)
         }
 
         public JobApplication Save(JobApplication jobapplication)
