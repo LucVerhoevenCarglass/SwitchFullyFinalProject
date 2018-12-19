@@ -23,7 +23,6 @@ namespace Swintake.api.Controllers
             _campaignMapper = campaignMapper;
         }
 
-        // POST: api/Campaign
         [HttpPost]
         public ActionResult<CampaignDto> CreateCampaign([FromBody] CreateCampaignDto createCampaignDto)
         {
@@ -34,7 +33,6 @@ namespace Swintake.api.Controllers
             return Created($"api/campaign/{newCampaign.Id}", newCampaign);
         }
 
-        // GET: api/Campaign
         [HttpGet]
         public ActionResult<IEnumerable<CampaignDto>> GetAllCampaigns()
         {
@@ -45,7 +43,6 @@ namespace Swintake.api.Controllers
             return Ok(campaignDtos);
         }
 
-        // GET: api/Campaign/5
         [HttpGet("{id}")]
         public ActionResult<CampaignDto> Get(string id)
         {

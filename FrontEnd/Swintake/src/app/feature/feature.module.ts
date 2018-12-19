@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { RoutingModule } from '../routing/routing.module';
 import { LoginComponent } from './login/login.component';
-import { JobApplicationsComponent } from './job-applications/job-applications.component';
+import { JobApplicationsComponent } from './job-applications/jobapplication-list/job-applications.component';
 import { CampaignDetailComponent } from './campaigns/campaign-detail/campaign-detail.component';
 import { CampaignCreateComponent } from './campaigns/campaign-create/campaign-create.component';
 import { CampaignListComponent } from './campaigns/campaign-list/campaign-list.component';
@@ -16,6 +16,7 @@ import { JobapplicationDetailComponent } from './job-applications/jobapplication
 import { DetailcandidateComponent } from './job-applications/jobapplication-detail/detailcandidate/detailcandidate.component';
 import { DetailcampaignComponent } from './job-applications/jobapplication-detail/detailcampaign/detailcampaign.component';
 import { SelectionStepsComponent } from './job-applications/selection-steps/selection-steps.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SelectionStepsComponent } from './job-applications/selection-steps/sele
   imports: [
     CommonModule,
     CoreModule,
-    RoutingModule
+    RoutingModule,
+    SharedModule
   ],
 })
 export class FeatureModule { }

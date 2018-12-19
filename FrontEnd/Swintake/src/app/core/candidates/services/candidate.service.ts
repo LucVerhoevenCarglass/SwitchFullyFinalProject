@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 import { Candidate } from '../classes/candidate';
+import { CandidateDetailComponent } from 'src/app/feature/candidates/candidate-detail/candidate-detail.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -26,4 +27,16 @@ export class CandidateService {
   getCandidates(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(ApiUrl.urlCandidates);
   }
+
+  searchItem (searchTerm:string,listOfItems: Candidate[]):Candidate[]{
+    if(!searchTerm){
+      return listOfItems;
+    }
+    return listOfItems.filter(item =>
+      item.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase()) 
+    ); 
+  } 
+  
 }

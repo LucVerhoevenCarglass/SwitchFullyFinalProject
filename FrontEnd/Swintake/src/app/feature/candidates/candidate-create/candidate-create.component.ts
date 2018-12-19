@@ -44,7 +44,7 @@ export class CandidateCreateComponent implements OnInit {
     this._router.navigateByUrl('/candidates');
   }
 
-  get i()
+  get formValues()
   {
     return this.createNewCandidateForm.controls;
   }

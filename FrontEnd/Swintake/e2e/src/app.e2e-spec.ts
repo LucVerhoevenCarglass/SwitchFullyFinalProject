@@ -1,11 +1,13 @@
 import { LoginPage } from './login.po';
 import { CampaignPage } from './campaign.po';
 import { CandidatePage } from './candidate.po';
+import { JobApplicationPage } from './jobapplication.po';
 
 fdescribe('workspace-project App', () => {
   let loginPage: LoginPage = new LoginPage();
   let campaignPage: CampaignPage = new CampaignPage();
   let candidatePage: CandidatePage = new CandidatePage();
+  let jobapplicationPage: JobApplicationPage = new JobApplicationPage();
 
  // beforeAll(() => loginPage.navigateTo());
 
@@ -36,6 +38,15 @@ fdescribe('workspace-project App', () => {
     candidatePage.navigateTo();
     candidatePage.performClickOnFirstElementInList();
     candidatePage.expectifCandidateSelected(candidatePage.candidate.firstName);
+  });
+
+  it('should create jobapplication when selecting campaign on candidate detail', () => {
+    jobapplicationPage.navigateTo();
+    jobapplicationPage.performClickOnFirstElementInList();
+    jobapplicationPage.navigateCampaignName();
+    jobapplicationPage.performClickOnFirstElementInDropDown();
+    jobapplicationPage.submitJobApplication();
+    jobapplicationPage.expectifJobApplicationHasbeenAddedToList();
   });
  
 });
