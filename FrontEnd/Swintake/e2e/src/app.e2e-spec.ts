@@ -9,8 +9,6 @@ fdescribe('workspace-project App', () => {
   let candidatePage: CandidatePage = new CandidatePage();
   let jobapplicationPage: JobApplicationPage = new JobApplicationPage();
 
- // beforeAll(() => loginPage.navigateTo());
-
   it('should authenticate the user', () => {
     loginPage.navigateTo();
     loginPage.login(loginPage.user)
@@ -34,10 +32,16 @@ fdescribe('workspace-project App', () => {
    });
 
    
-  it('should show detail when click on element in list', () => {
+  it('should show detail when click on candidate in list', () => {
     candidatePage.navigateTo();
     candidatePage.performClickOnFirstElementInList();
     candidatePage.expectifCandidateSelected(candidatePage.candidate.firstName);
+  });
+
+  it('should show detail when click on campaign in list', () => {
+    campaignPage.navigateTo();
+    campaignPage.performClickOnFirstElementInList();
+    campaignPage.expectIfCampaignSelected(campaignPage.campaign.name);
   });
 
   it('should create jobapplication when selecting campaign on candidate detail', () => {

@@ -4,7 +4,7 @@ import { Candidate } from '../classes/candidate';
 import { of } from 'rxjs'
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 
-fdescribe('CandidateService', () => {
+describe('CandidateService', () => {
   let httpClient: HttpClient;
   let candidateService: CandidateService;
 
@@ -47,6 +47,17 @@ fdescribe('CandidateService', () => {
     expect(result.length).toEqual(2));
   });
 
+  fit('should return a single candidate', () => {
+    spyOn(httpClient, 'get').and.callFake((url: string) => {
+      expect(url).toBe(`${ApiUrl.urlCandidates}1`);
+      return of(createFakeCandidate());
+    });
+
+    candidateService.getCandidateById('1')
+    .subscribe((result: Candidate) =>
+    expect(result.firstName).toEqual('UserFN1'));
+  })
+
 });
 
   function createFakeCandidates(): Candidate[] 
@@ -73,4 +84,19 @@ fdescribe('CandidateService', () => {
         comment: 'comment2'
       }
     ]
+}
+
+function createFakeCandidate(): Candidate{
+  let candidate: Candidate = 
+  {
+    id: '1',
+          firstName: 'UserFN1',
+          lastName: 'UserLN1',
+          email: 'User@email.one',
+          phoneNumber: '0470000000',
+          gitHubUserName: 'username1',
+          linkedIn: 'username1',
+          comment: 'comment1'
+  }
+  return candidate;
 }

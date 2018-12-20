@@ -27,6 +27,6 @@ export class JobApplicationService {
   }
 
   saveNextSelectionStep(id: string, comment: any): any {
-    return this.http.put<JobApplication>()
+    // return this.http.put<JobApplication>()
   }
 }

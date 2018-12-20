@@ -1,12 +1,11 @@
 import {browser, by, protractor, element} from 'protractor';
 import { Campaign } from 'src/app/core/campaigns/classes/campaign';
 
-
 export class CampaignPage{
-    navigateTo()
-    {
+    navigateTo(){
         return browser.get('/campaigns');
     }
+
     campaign: Campaign = 
     {
         name: 'User',
@@ -33,6 +32,17 @@ export class CampaignPage{
     expectifCampaignHasbeenAddedToList(campaingName: string)
     {
         expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('listcampaings')),campaingName),5000)).toBeTruthy();
+        return this;
+    }
+
+    performClickOnFirstElementInList(){
+        let firstelementInList = element.all(by.id("campaignName")).first();
+        firstelementInList.click();
+        return this;
+    }
+
+    expectIfCampaignSelected(campaignName: string){
+        expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('detailCampaignName')), campaignName), 5000)).toBeTruthy();
         return this;
     }
 }
