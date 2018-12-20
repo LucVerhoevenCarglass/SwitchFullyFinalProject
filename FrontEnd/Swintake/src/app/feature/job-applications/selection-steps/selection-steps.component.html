@@ -43,3 +43,7 @@
     </section>
   </div>
 </div>
+
+<div class="row" *ngIf="orderSelectionStepArray.length === jobapplication.selectionSteps.length  && jobapplication.status !== 'Hired' ">
+    <button type="click" (click)="accept()" class="btn btn-success btn-sm float-right">Accept</button>
+</div>

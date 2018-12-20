@@ -10,6 +10,7 @@ namespace Swintake.services.JobApplications
         JobApplication AddJobApplication(JobApplication jobApplication);
         JobApplication GetJobApplicationById(string id);
         JobApplication RejectJobApplication(string jobApplicationIdToReject);
+        JobApplication AcceptJobApplication(string id);
         IEnumerable<JobApplication> GetJobApplications();
         JobApplication GoToNextSelectionStepInSelectionProcess(string id, string comment);
     }

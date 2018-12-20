@@ -71,6 +71,12 @@ save() {
      );
 }
 
+
+accept() {
+  this.jobApplicationService.acceptCandidate(this.jobapplication.id)
+      .subscribe(data => {this._router.navigateByUrl('/jobapplications')});
+ }
+
 get i()
 {
   return this.SelectionStepForm.controls;
