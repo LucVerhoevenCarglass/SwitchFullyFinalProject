@@ -36,7 +36,7 @@
             <label for="{{nextSelectionStep}}NotesTextArea" class="label-title">Comments</label>
             <textarea formControlName="comment" class="form-control" id="{{nextSelectionStep}}NotesTextArea" rows="6"></textarea>
           </div>
-          <button type="button" name="cancel" class="btn btn-outline-secondary btn-sm">Cancel</button>
+          <button type="button" name="cancel" class="btn btn-outline-secondary btn-sm" (click)="cancel()">Cancel</button>
           <button type="submit" class="btn btn-success btn-sm float-right">Save</button>
         </form>
       </main>

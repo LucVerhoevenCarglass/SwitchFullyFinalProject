@@ -77,11 +77,6 @@ accept() {
       .subscribe(data => {this._router.navigateByUrl('/jobapplications')});
  }
 
-get i()
-{
-  return this.SelectionStepForm.controls;
-}
-
 isValid(): boolean{
   this.submitted = true;
   if(this.SelectionStepForm.invalid)
@@ -92,7 +87,7 @@ isValid(): boolean{
 }
 
 cancel(){
-  //this._router.navigateByUrl('/candidates');
+  this._router.navigateByUrl('/jobapplications');
 }
 
 }
