@@ -5,6 +5,8 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { UserAuth } from '../classes/userAuth';
 import { LoggedInUser } from '../classes/loggedInUser';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable()
 
@@ -14,14 +16,26 @@ export class AuthService {
   public tokenInfo: Observable<UserAuth>;
 
   private userUrl = ApiUrl.urlUsers;
+  private jwtHelper: JwtHelperService;
+
   
   constructor(private http: HttpClient) {
     this.tokenInfoSubject = new BehaviorSubject<UserAuth>(JSON.parse(sessionStorage.getItem('tokenInfo')));
     this.tokenInfo = this.tokenInfoSubject.asObservable();
+    this.jwtHelper = new JwtHelperService();
   }
 
   get currentUserTokenValue(): UserAuth{
     return this.tokenInfoSubject.value;
+  }
+
+  public isAuthenticated(): boolean{
+    const token = localStorage.getItem('tokenInfo');
+    if  (token)
+    {
+      return !this.jwtHelper.isTokenExpired(token);
+    }
+    return false;
   }
 
   login(email: string, password: string) {

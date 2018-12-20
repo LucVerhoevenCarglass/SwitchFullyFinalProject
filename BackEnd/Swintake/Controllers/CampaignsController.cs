@@ -43,6 +43,7 @@ namespace Swintake.api.Controllers
             return Ok(campaignDtos);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<CampaignDto> Get(string id)
         {
