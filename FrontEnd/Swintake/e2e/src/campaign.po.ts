@@ -10,8 +10,8 @@ export class CampaignPage{
     {
         name: 'User',
         client: 'Client',
-        startDate: new Date(),
-        classStartDate: new Date()
+        startDate: new Date('01/01/2020'),
+        classStartDate: new Date('02/02/2020')
     };
 
     navigateCreateCampaign()
@@ -23,8 +23,8 @@ export class CampaignPage{
     {
         browser.findElement(by.id('inputNameText')).sendKeys(campaign.name);
         browser.findElement(by.id('inputClientText')).sendKeys(campaign.client);
-        browser.findElement(by.id('inputStartDate')).sendKeys(campaign.startDate.getDate()+'-'+(campaign.startDate.getMonth()+1)+'-'+campaign.startDate.getFullYear());
-        browser.findElement(by.id('inputClassStartDate')).sendKeys(campaign.classStartDate.getDate()+'-'+(campaign.classStartDate.getMonth()+1)+'-'+(campaign.classStartDate.getFullYear()+1));
+        browser.findElement(by.id('inputStartDate')).sendKeys(campaign.startDate.toDateString());
+        browser.findElement(by.id('inputClassStartDate')).sendKeys(campaign.classStartDate.toDateString());
         browser.findElement(by.id('CampaignCreateButton')).click();
         return this;
     }

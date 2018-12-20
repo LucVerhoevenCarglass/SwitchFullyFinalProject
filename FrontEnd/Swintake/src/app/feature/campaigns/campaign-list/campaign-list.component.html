@@ -23,7 +23,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let campaign of campaigns" routerLink = "/campaigns/{{campaign.id}}" >
-                  <th scope="row"><a title="Detail">{{campaign.name}}</a></th>
+                  <th scope="row"><a title="Detail" id="campaignName">{{campaign.name}}</a></th>
                   <td><a title="Detail">{{campaign.client}}</a></td>
                   <td><a title="Detail">{{campaign.startDate | date :'dd-MM-yyyy'}}</a></td>
                   <td><a title="Detail">{{campaign.classStartDate | date :'dd-MM-yyyy'}}</a></td>

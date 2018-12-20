@@ -18,7 +18,6 @@ fdescribe('workspace-project App', () => {
   it('should add new created campaing into list', () => {
      campaignPage.navigateTo();
      campaignPage.navigateCreateCampaign();
-
      campaignPage.AddNewCampaign(campaignPage.campaign)
                  .expectifCampaignHasbeenAddedToList(campaignPage.campaign.name);
   });
@@ -26,11 +25,9 @@ fdescribe('workspace-project App', () => {
   it('should add new created candidate into list', () => {
       candidatePage.navigateTo();
       candidatePage.navigateCreateCandidate();
- 
       candidatePage.addNewCandidate(candidatePage.candidate)
                   .expectifCandidateHasbeenAddedToList(candidatePage.candidate.firstName);
    });
-
    
   it('should show detail when click on candidate in list', () => {
     candidatePage.navigateTo();
@@ -46,7 +43,7 @@ fdescribe('workspace-project App', () => {
 
   it('should create jobapplication when selecting campaign on candidate detail', () => {
     jobapplicationPage.navigateTo();
-    jobapplicationPage.performClickOnFirstElementInList();
+    jobapplicationPage.performClickOnFirstElementInListCandidates();
     jobapplicationPage.navigateCampaignName();
     jobapplicationPage.performClickOnFirstElementInDropDown();
     jobapplicationPage.submitJobApplication();

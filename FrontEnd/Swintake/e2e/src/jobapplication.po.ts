@@ -5,7 +5,7 @@ export class JobApplicationPage{
        return browser.get('/candidates');
    }
 
-   performClickOnFirstElementInList() {
+   performClickOnFirstElementInListCandidates() {
     let firstelementInList = element.all(by.id("candidateFirstName")).first();
     firstelementInList.click();  
     return this;
@@ -28,6 +28,5 @@ export class JobApplicationPage{
        expect(browser.wait(protractor.ExpectedConditions.textToBePresentInElement(element(by.id('campaignNameJobapplication')),"Java academy 2019"),5000)).toBeTruthy();
        return this;
    }
-
 
 }
