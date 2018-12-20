@@ -17,12 +17,16 @@ export class JobApplicationService {
   createJobApplication(campaignId: string, candidateId: string): Observable<JobApplication> {
     return this.http.post<JobApplication>(ApiUrl.urlJobApplications, { candidateId, campaignId }, httpOptions);
   }
- 
+
   getJobApplicationById(id: string): Observable<JobApplication> {
     return this.http.get<JobApplication>(`${ApiUrl.urlJobApplications}${id}`);
   }
 
-  getJobApplications(): Observable<JobApplication[]>{
+  getJobApplications(): Observable<JobApplication[]> {
     return this.http.get<JobApplication[]>(ApiUrl.urlJobApplications);
+  }
+
+  saveNextSelectionStep(id: string, comment: any): any {
+    return this.http.put<JobApplication>()
   }
 }

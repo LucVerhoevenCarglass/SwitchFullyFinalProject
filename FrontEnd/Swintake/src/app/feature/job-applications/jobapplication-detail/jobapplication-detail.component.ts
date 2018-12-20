@@ -28,10 +28,8 @@ export class JobapplicationDetailComponent implements OnInit {
     this.jobapplicationId = this.route.snapshot.paramMap.get('id');
     this.jobApplicationService.getJobApplicationById(this.jobapplicationId)
           .subscribe(jobapp => {
-            //console.log(jobapp);
             this.jobapplication = jobapp;
             this.isJobApplicationRetrieved = true;
-            //console.log(this.jobapplication);
           });
    }
 

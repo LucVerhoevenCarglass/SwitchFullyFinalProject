@@ -1,12 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobApplication } from 'src/app/core/jobapplications/classes/jobApplication';
-import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectionStep } from 'src/app/core/jobapplications/classes/selectionStep';
-import { identifierModuleUrl } from '@angular/compiler';
-import { stringify } from '@angular/core/src/render3/util';
-import { JobapplicationDetailComponent } from '../jobapplication-detail/jobapplication-detail.component';
+import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
 
 
 @Component({
@@ -62,11 +59,11 @@ const orderSelectionStep = ["Register CV Screening",
 }
 
 save() {
- // this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
- //     .subscribe(data => {this.jobapplication = data;
- //                         this.orderSelectionStep();
- //                         this.jobapplicationChange.emit(data)}
- //     );
+ this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
+     .subscribe(data => {this.jobapplication = data;
+                         this.orderSelectionStep();
+                         this.jobapplicationChange.emit(data)}
+     );
 }
 
 get i()
