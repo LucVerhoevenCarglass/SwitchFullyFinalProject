@@ -16,9 +16,6 @@ namespace Swintake.domain.JobApplications
         public Guid CampaignId { get; set; }
         public List<SelectionStep> SelectionSteps { get; set; }
         public SelectionStep CurrentSelectionStep { get; set; }
-        //{
-        //    get{return (SelectionSteps==null || SelectionSteps.Count == 0) ? null : SelectionSteps[SelectionSteps.Count - 1];}
-        //}
 
         public StatusJobApplication Status { get; set; }
 
