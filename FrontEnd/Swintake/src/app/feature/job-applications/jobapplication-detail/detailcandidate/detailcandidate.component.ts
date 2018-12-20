@@ -10,11 +10,12 @@ import { JobApplicationService } from 'src/app/core/jobapplications/services/job
   templateUrl: './detailcandidate.component.html',
   styleUrls: ['./detailcandidate.component.css']
 })
+
 export class DetailcandidateComponent implements OnInit {
 
   candidateId: string;
-  candidate: Candidate = new Candidate();
-  jobapp: JobApplication = new JobApplication();
+  //candidate: Candidate = new Candidate();
+  @Input() jobapplication: JobApplication ;
 
   constructor(
     private candidateService: CandidateService,
@@ -22,17 +23,18 @@ export class DetailcandidateComponent implements OnInit {
     private jobAppService: JobApplicationService) { }
 
   ngOnInit() {
-    this.getJobApplication();
+    //this.candidate = this.jobApplication.candidate;
+    //this.getJobApplication();
   }
 
-  getJobApplication(): any {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.jobAppService.getJobApplicationById(id)
-      .subscribe(jobapp => { 
-        this.jobapp = jobapp;
-        this.candidateService.getCandidateById(jobapp.candidateId)
-          .subscribe(candidate => this.candidate = candidate)
-      });
-  }
+  // getJobApplication(): any {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   this.jobAppService.getJobApplicationById(id)
+  //     .subscribe(jobapp => { 
+  //       this.jobapp = jobapp;
+  //       this.candidateService.getCandidateById(jobapp.candidateId)
+  //         .subscribe(candidate => this.candidate = candidate)
+  //     });
+  // }
   
 }

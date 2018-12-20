@@ -1,4 +1,4 @@
-export abstract class SelectionStep{
+export class SelectionStep{
     jobApplicationId?: string;
     description: string;
     comment?: string;

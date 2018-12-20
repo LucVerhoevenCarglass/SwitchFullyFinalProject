@@ -36,7 +36,7 @@ namespace Swintake.api.Controllers
         public ActionResult<JobApplicationDto> GetById(string id)
         {
             var jobApplicationDto = _jobApplicationService.GetJobApplicationById(id);
-            return _jobApplicationMapper.ToDto(jobApplicationDto);
+            return Ok(_jobApplicationMapper.ToDto(jobApplicationDto));
         }
 
         [HttpGet]

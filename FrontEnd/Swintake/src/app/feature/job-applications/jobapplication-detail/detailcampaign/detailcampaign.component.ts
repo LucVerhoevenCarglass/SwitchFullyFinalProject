@@ -13,8 +13,9 @@ import { JobApplicationService } from 'src/app/core/jobapplications/services/job
 export class DetailcampaignComponent implements OnInit {
 
   campaignId: string;
-  campaign: Campaign = new Campaign();
-  jobapp: JobApplication = new JobApplication();
+ // campaign: Campaign = new Campaign();
+  @Input() jobapplication: JobApplication ;
+  //jobapp: JobApplication = new JobApplication();
 
   constructor(
     private campaignService: CampaignService,
@@ -22,17 +23,18 @@ export class DetailcampaignComponent implements OnInit {
     private jobAppService: JobApplicationService) { }
 
   ngOnInit() {
-    this.getJobApplication();
+   // this.campaign= this.jobApplication.campaign;
+    //this.getJobApplication();
   }
 
-  getJobApplication(): any {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.jobAppService.getJobApplicationById(id)
-      .subscribe(jobapp => { 
-        this.jobapp = jobapp;
-        this.campaignService.getCampaignById(jobapp.campaignId)
-          .subscribe(campaign => this.campaign = campaign)
-      });
-  }
+  // getJobApplication(): any {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   this.jobAppService.getJobApplicationById(id)
+  //     .subscribe(jobapp => { 
+  //       this.jobapp = jobapp;
+  //       this.campaignService.getCampaignById(jobapp.campaignId)
+  //         .subscribe(campaign => this.campaign = campaign)
+  //     });
+  // }
   
 }
