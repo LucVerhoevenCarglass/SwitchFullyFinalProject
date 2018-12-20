@@ -65,5 +65,14 @@ namespace Swintake.api.Controllers
             var jobApplicationDtoToReturn = _jobApplicationMapper.ToDto(rejectedDomainJobApplication);
             return Ok(jobApplicationDtoToReturn);
         }
+
+        [HttpPut]
+        [Route("accept/{id}")]
+        public ActionResult<JobApplicationDto> Accept(string id)
+        {
+            var acceptJobApplication = _jobApplicationService.AcceptJobApplication(id);
+            var jobApplicationDtoToReturn = _jobApplicationMapper.ToDto(acceptJobApplication);
+            return Ok(jobApplicationDtoToReturn);
+        }
     }
 }

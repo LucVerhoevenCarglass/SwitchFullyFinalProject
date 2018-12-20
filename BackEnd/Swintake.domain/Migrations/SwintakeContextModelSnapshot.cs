@@ -44,9 +44,9 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Campaigns");
 
                     b.HasData(
-                        new { Id = new Guid("bc482f0a-08b6-4b98-9a56-a1f06da0cac1"), ClassStartDate = new DateTime(2019, 2, 19, 15, 54, 51, 487, DateTimeKind.Local), Client = "mixed", Comment = "max 8 candidates", Name = "dotnet class 2019", StartDate = new DateTime(2019, 1, 19, 15, 54, 51, 489, DateTimeKind.Local), Status = 1 },
-                        new { Id = new Guid("9bf09829-b5ba-4ba1-8652-cb9d6399baaa"), ClassStartDate = new DateTime(2018, 12, 19, 15, 54, 51, 491, DateTimeKind.Local), Client = "CM", Comment = "at cm location", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 19, 15, 54, 51, 491, DateTimeKind.Local), Status = 1 },
-                        new { Id = new Guid("4f37f0d4-b8b8-405f-aae9-d81b7607cfcb"), ClassStartDate = new DateTime(2019, 2, 7, 15, 54, 51, 491, DateTimeKind.Local), Client = "open for all", Comment = "", Name = "Short javascript bootcamp", StartDate = new DateTime(2018, 12, 29, 15, 54, 51, 491, DateTimeKind.Local), Status = 1 }
+                        new { Id = new Guid("f024fe5d-c994-48df-8849-1eb513049b71"), ClassStartDate = new DateTime(2019, 2, 20, 13, 8, 16, 281, DateTimeKind.Local), Client = "mixed", Comment = "max 8 candidates", Name = "dotnet class 2019", StartDate = new DateTime(2019, 1, 20, 13, 8, 16, 283, DateTimeKind.Local), Status = 1 },
+                        new { Id = new Guid("717d8747-dc4f-4655-99f4-ec936a4afbc4"), ClassStartDate = new DateTime(2018, 12, 20, 13, 8, 16, 286, DateTimeKind.Local), Client = "CM", Comment = "at cm location", Name = "Java academy 2019", StartDate = new DateTime(2018, 12, 20, 13, 8, 16, 286, DateTimeKind.Local), Status = 1 },
+                        new { Id = new Guid("d5c5b85d-feb7-4f4a-b60a-f09525bd0553"), ClassStartDate = new DateTime(2019, 2, 8, 13, 8, 16, 286, DateTimeKind.Local), Client = "open for all", Comment = "", Name = "Short javascript bootcamp", StartDate = new DateTime(2018, 12, 30, 13, 8, 16, 286, DateTimeKind.Local), Status = 1 }
                     );
                 });
 
@@ -81,10 +81,10 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Candidates");
 
                     b.HasData(
-                        new { Id = new Guid("2201a275-63cf-453f-9141-d20fb16dd8c3"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gwen", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472020406" },
-                        new { Id = new Guid("e2fd2bb3-f5a0-4619-8403-68ff741b2a6d"), Comment = "", Email = "caroline.callens@cegeka.com", FirstName = "Caroline", GitHubUsername = "carolinecallens", LastName = "Callens", LinkedIn = "carolinecallens", PhoneNumber = "0472030507" },
-                        new { Id = new Guid("687155ff-0029-4590-b641-6f5622b70cb1"), Comment = "", Email = "siene.dekeyser@cegeka.com", FirstName = "Siene", GitHubUsername = "sienedekeyser", LastName = "Dekeyser", LinkedIn = "sienedekeyser", PhoneNumber = "0472040608" },
-                        new { Id = new Guid("7832c2cf-ad0f-4873-bd7b-af3f60ba0179"), Comment = "", Email = "luc.verhoeven@carglass.be", FirstName = "Luc", GitHubUsername = "lucverhoeven", LastName = "Verhoeven", LinkedIn = "lucverhoeven", PhoneNumber = "0472050403" }
+                        new { Id = new Guid("78688585-ea60-413a-bfff-e4ede781200b"), Comment = "", Email = "gwen.jamroziak@cegeka.com", FirstName = "Gwen", GitHubUsername = "gwenjamroziak", LastName = "Jamroziak", LinkedIn = "gwenjamroziak", PhoneNumber = "0472020406" },
+                        new { Id = new Guid("054d5899-a803-499e-b5cb-ea2fe1a99b6c"), Comment = "", Email = "caroline.callens@cegeka.com", FirstName = "Caroline", GitHubUsername = "carolinecallens", LastName = "Callens", LinkedIn = "carolinecallens", PhoneNumber = "0472030507" },
+                        new { Id = new Guid("d4ebff88-7319-453a-849d-a0f726748432"), Comment = "", Email = "siene.dekeyser@cegeka.com", FirstName = "Siene", GitHubUsername = "sienedekeyser", LastName = "Dekeyser", LinkedIn = "sienedekeyser", PhoneNumber = "0472040608" },
+                        new { Id = new Guid("5fc97819-fe50-4b3c-a913-c089e1ab4f77"), Comment = "", Email = "luc.verhoeven@carglass.be", FirstName = "Luc", GitHubUsername = "lucverhoeven", LastName = "Verhoeven", LinkedIn = "lucverhoeven", PhoneNumber = "0472050403" }
                     );
                 });
 
@@ -148,19 +148,9 @@ namespace Swintake.domain.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = new Guid("977bd92b-0206-48f4-a72e-4a839297e9ad"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
-                        new { Id = new Guid("a167f922-0c23-426e-96ee-aca43e4b95a2"), Email = "niels@switchfully.com", FirstName = "Niels" }
+                        new { Id = new Guid("a79fac29-f3e2-4640-b686-97eb1bd62ae4"), Email = "reinout@switchfully.com", FirstName = "Reinout" },
+                        new { Id = new Guid("d7590554-e931-4e2f-98ab-c223d94cdef2"), Email = "niels@switchfully.com", FirstName = "Niels" }
                     );
-                });
-
-            modelBuilder.Entity("Swintake.domain.JobApplications.SelectionSteps.AuditSelectionProcess", b =>
-                {
-                    b.HasBaseType("Swintake.domain.JobApplications.SelectionSteps.SelectionStep");
-
-
-                    b.ToTable("AuditSelectionProcess");
-
-                    b.HasDiscriminator().HasValue("AuditSelectionProcess");
                 });
 
             modelBuilder.Entity("Swintake.domain.JobApplications.SelectionSteps.CvScreening", b =>
@@ -268,8 +258,8 @@ namespace Swintake.domain.Migrations
                                 .OnDelete(DeleteBehavior.Cascade);
 
                             b1.HasData(
-                                new { UserId = new Guid("977bd92b-0206-48f4-a72e-4a839297e9ad"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                                new { UserId = new Guid("a167f922-0c23-426e-96ee-aca43e4b95a2"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                                new { UserId = new Guid("a79fac29-f3e2-4640-b686-97eb1bd62ae4"), AppliedSalt = "NgBFEGiYlnKAVlAkBj6Qkg==", PasswordHashedAndSalted = "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                                new { UserId = new Guid("d7590554-e931-4e2f-98ab-c223d94cdef2"), AppliedSalt = "rODZhnBsLGRP908sBZiXzg==", PasswordHashedAndSalted = "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                             );
                         });
                 });

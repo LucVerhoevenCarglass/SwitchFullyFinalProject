@@ -13,7 +13,7 @@ namespace Swintake.domain.JobApplications.SelectionSteps
 
         public override SelectionStep GoToNextState()
         {
-            return new AuditSelectionProcess();
+            return this;
         }
     }
 }

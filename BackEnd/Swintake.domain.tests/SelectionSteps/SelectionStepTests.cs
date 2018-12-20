@@ -74,7 +74,7 @@ namespace Swintake.domain.tests.SelectionSteps
         }
 
         [Fact]
-        public void GivenFinalDecision_whenGoToNextState_ThenReturnNewAuditSelectionProcess()
+        public void GivenFinalDecision_whenGoToNextState_ThenReturnSameProcess()
         {
             //Given
             var selectionstep = new FinalDecision();
@@ -83,20 +83,8 @@ namespace Swintake.domain.tests.SelectionSteps
             var nextSelectionStep = selectionstep.GoToNextState();
 
             //Then
-            Assert.IsType<AuditSelectionProcess>(nextSelectionStep);
+            Assert.IsType<FinalDecision>(nextSelectionStep);
         }
 
-        [Fact]
-        public void GivenNewAuditSelectionProcess_whenGoToNextState_ThenStayWithAuditSelectionProcess()
-        {
-            //Given
-            var selectionstep = new AuditSelectionProcess();
-
-            //When
-            var nextSelectionStep = selectionstep.GoToNextState();
-
-            //Then
-            Assert.IsType<AuditSelectionProcess>(nextSelectionStep);
-        }
     }
 }
