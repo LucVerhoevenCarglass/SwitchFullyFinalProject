@@ -58,7 +58,6 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
         [Route("reject/{id}")]
         public ActionResult<JobApplicationDto> Reject(string id)
         {
