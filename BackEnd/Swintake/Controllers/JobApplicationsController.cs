@@ -60,10 +60,11 @@ namespace Swintake.api.Controllers
         }
 
         [HttpPut]
-        [Route("reject/id:string")]
-        public ActionResult<JobApplicationDto> Reject(string jobApplicationIdToReject)
+        [AllowAnonymous]
+        [Route("reject/{id}")]
+        public ActionResult<JobApplicationDto> Reject(string id, [FromBody] string status)
         {
-            var rejectedDomainJobApplication = _jobApplicationService.RejectJobApplication(jobApplicationIdToReject);
+            var rejectedDomainJobApplication = _jobApplicationService.RejectJobApplication(id);
             var jobApplicationDtoToReturn = _jobApplicationMapper.ToDto(rejectedDomainJobApplication);
             return Ok(jobApplicationDtoToReturn);
         }
