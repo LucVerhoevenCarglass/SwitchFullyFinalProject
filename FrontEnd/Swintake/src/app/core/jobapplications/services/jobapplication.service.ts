@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ApiUrl } from '../../CommonUrl/CommonUrl';
 import { JobApplication } from '../classes/jobApplication';
 import { Observable } from 'rxjs';
+import { JobapplicationDetailComponent } from 'src/app/feature/job-applications/jobapplication-detail/jobapplication-detail.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,5 +25,9 @@ export class JobApplicationService {
 
   getJobApplications(): Observable<JobApplication[]>{
     return this.http.get<JobApplication[]>(ApiUrl.urlJobApplications);
+  }
+
+  rejectJobApplication(id: string): Observable<JobApplication>{
+    return this.http.put<JobApplication>(`${ApiUrl.urlJobApplications}/reject/${id}`,{id}, httpOptions);
   }
 }
