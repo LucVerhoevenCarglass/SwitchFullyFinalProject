@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobApplication } from 'src/app/core/jobapplications/classes/jobApplication';
 import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class JobapplicationDetailComponent implements OnInit {
 
-  jobapplicationId: string;
+  @Input() jobapplicationId: string;
   jobapplication: JobApplication;
   isJobApplicationRetrieved: boolean;
   
@@ -32,10 +32,22 @@ export class JobapplicationDetailComponent implements OnInit {
             this.jobapplication = jobapp;
             this.isJobApplicationRetrieved = true;
           });
-   }
+  }
 
-   jobapplicationChange(jobApplication: JobApplication){
-     this.jobapplication=jobApplication;
-   }
-   
+  jobapplicationChange(jobApplication: JobApplication){
+    this.jobapplication=jobApplication;
+  }
+  
+  rejectJobApplication()
+  {
+    if (confirm('Are you sure you want to reject this jobapplication?')) {
+      this.jobApplicationService.rejectJobApplication(this.jobapplicationId);
+      this.getApplicationById();
+      console.log("service.rejectjobapplication done");
+    } 
+    else {
+      alert('The jobapplication was not rejected');
+    }
+  }
+
 }

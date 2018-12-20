@@ -7,9 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../core/authentication/services/auth.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 import { AuthGuard } from './authentication/helpers/auth.guard';
 import { CandidateService } from './candidates/services/candidate.service';
 import { JobApplicationService } from './jobapplications/services/jobapplication.service';
+
 
 @NgModule({
   declarations: [],
@@ -18,7 +20,7 @@ import { JobApplicationService } from './jobapplications/services/jobapplication
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports:[
     CommonModule,
@@ -26,14 +28,14 @@ import { JobApplicationService } from './jobapplications/services/jobapplication
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
   ],
   providers:[
     CampaignService,
     AuthService,
     AuthGuard,
     CandidateService,
-    JobApplicationService
+    JobApplicationService,
   ]
 
 })

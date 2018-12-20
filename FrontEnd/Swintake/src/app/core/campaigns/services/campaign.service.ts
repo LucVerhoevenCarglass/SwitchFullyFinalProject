@@ -35,7 +35,7 @@ export class CampaignService {
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.startDate.toString().includes(searchTerm.toLowerCase()) ||
-      item.classStartDate.toString().includes(searchTerm.toLowerCase()) 
+      item.classStartDate.toString().includes(searchTerm.toLowerCase())
     ); 
   } 
 
