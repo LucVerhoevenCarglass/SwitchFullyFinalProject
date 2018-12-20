@@ -28,8 +28,7 @@ export class JobApplicationService {
   }
 
   rejectJobApplication(id: string): Observable<JobApplication>{
-    console.log("service.rejectjobapplication running")
-    return this.http.put<JobApplication>(`${ApiUrl.urlJobApplications}reject/${id}`,JSON.stringify(""), httpOptions);
+    return this.http.put<JobApplication>(`${ApiUrl.urlJobApplications}reject/${id}`, {}, httpOptions);
   }
 
  saveNextSelectionStep(id: string, comment: string): Observable<JobApplication> {

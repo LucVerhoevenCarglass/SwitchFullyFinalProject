@@ -55,14 +55,12 @@ namespace Swintake.api.Controllers
             var jobapp = _jobApplicationService.GoToNextSelectionStepInSelectionProcess(id, comment);
             var testjobappdto =_jobApplicationMapper.ToDto(jobapp);
             return Ok(testjobappdto);
-
-           //return Ok(_jobApplicationMapper.ToDto(_jobApplicationService.GoToNextSelectionStepInSelectionProcess(id, comment)));
         }
 
         [HttpPut]
         [AllowAnonymous]
         [Route("reject/{id}")]
-        public ActionResult<JobApplicationDto> Reject(string id, [FromBody] string status)
+        public ActionResult<JobApplicationDto> Reject(string id)
         {
             var rejectedDomainJobApplication = _jobApplicationService.RejectJobApplication(id);
             var jobApplicationDtoToReturn = _jobApplicationMapper.ToDto(rejectedDomainJobApplication);

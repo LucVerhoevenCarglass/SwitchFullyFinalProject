@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobApplication } from 'src/app/core/jobapplications/classes/jobApplication';
 import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
 import { tap } from 'rxjs/operators';
@@ -17,7 +17,8 @@ export class JobapplicationDetailComponent implements OnInit {
   
 
   constructor(private route: ActivatedRoute,
-              private jobApplicationService: JobApplicationService
+              private jobApplicationService: JobApplicationService,
+              private _router: Router
     ) { }
 
   ngOnInit() {
@@ -41,9 +42,8 @@ export class JobapplicationDetailComponent implements OnInit {
   rejectJobApplication()
   {
     if (confirm('Are you sure you want to reject this jobapplication?')) {
-      this.jobApplicationService.rejectJobApplication(this.jobapplicationId);
-      this.getApplicationById();
-      console.log("service.rejectjobapplication done");
+      this.jobApplicationService.rejectJobApplication(this.jobapplicationId)
+      .subscribe(data => {this._router.navigateByUrl('/jobapplications')});
     } 
     else {
       alert('The jobapplication was not rejected');
