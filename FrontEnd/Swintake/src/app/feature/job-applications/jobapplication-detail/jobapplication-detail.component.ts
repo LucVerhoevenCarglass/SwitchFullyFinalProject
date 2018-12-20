@@ -14,40 +14,43 @@ export class JobapplicationDetailComponent implements OnInit {
   @Input() jobapplicationId: string;
   jobapplication: JobApplication;
   isJobApplicationRetrieved: boolean;
-  
+
 
   constructor(private route: ActivatedRoute,
-              private jobApplicationService: JobApplicationService,
-              private _router: Router
-    ) { }
+    private jobApplicationService: JobApplicationService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
     this.isJobApplicationRetrieved = false;
-        this.getApplicationById();
+    this.getApplicationById();
   }
 
-  getApplicationById(){
+  getApplicationById() {
     this.jobapplicationId = this.route.snapshot.paramMap.get('id');
     this.jobApplicationService.getJobApplicationById(this.jobapplicationId)
-          .subscribe(jobapp => {
-            this.jobapplication = jobapp;
-            this.isJobApplicationRetrieved = true;
-          });
+      .subscribe(jobapp => {
+        this.jobapplication = jobapp;
+        this.isJobApplicationRetrieved = true;
+      });
   }
 
-  jobapplicationChange(jobApplication: JobApplication){
-    this.jobapplication=jobApplication;
+  jobapplicationChange(jobApplication: JobApplication) {
+    this.jobapplication = jobApplication;
   }
-  
-  rejectJobApplication()
-  {
+
+  rejectJobApplication() {
     if (confirm('Are you sure you want to reject this jobapplication?')) {
       this.jobApplicationService.rejectJobApplication(this.jobapplicationId)
-      .subscribe(data => {this._router.navigateByUrl('/jobapplications')});
-    } 
+        .subscribe(data => { this._router.navigateByUrl('/jobapplications') });
+    }
     else {
       alert('The jobapplication was not rejected');
     }
+  }
+
+  cancel() {
+    this._router.navigateByUrl('/jobapplications');
   }
 
 }
