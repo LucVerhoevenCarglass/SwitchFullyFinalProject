@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobApplication } from 'src/app/core/jobapplications/classes/jobApplication';
 import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class JobapplicationDetailComponent implements OnInit {
 
-  jobapplicationId: string;
+  @Input() jobapplicationId: string;
   jobapplication: JobApplication;
   isJobApplicationRetrieved: boolean;
 
