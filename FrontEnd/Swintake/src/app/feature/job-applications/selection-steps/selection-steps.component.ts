@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JobApplication } from 'src/app/core/jobapplications/classes/jobApplication';
 import { SelectionStep } from 'src/app/core/jobapplications/classes/selectionStep';
 import { JobApplicationService } from 'src/app/core/jobapplications/services/jobapplication.service';
+import { ApiUrl } from 'src/app/core/CommonUrl/CommonUrl';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class SelectionStepsComponent implements OnInit {
   @Output() jobapplicationChange = new EventEmitter<JobApplication>();
 
   selectionStep: SelectionStep;
+  nextSelectionStep: string;
   selectionSteps: SelectionStep [];
   submitted = false;
   SelectionStepForm: FormGroup;
@@ -25,11 +27,21 @@ export class SelectionStepsComponent implements OnInit {
               private _router: Router,
               private jobApplicationService: JobApplicationService  ) { }
 
-ngOnInit() {
+  orderSelectionStepArray = ["Register CV Screening",
+              "Register Phone Screening",
+              "Register TestResults",
+              "Register First interview",
+              "Register Group interview",
+              "Register Final decision",
+              "Audit Selection process" ];
+
+  ngOnInit() {
+  this.nextSelectionStep=this.orderSelectionStepArray[0];
   if (this.jobapplication && this.jobapplication.currentSelectionStep) 
   {
        this.selectionStep = this.jobapplication.currentSelectionStep;
        this.selectionSteps = this.orderSelectionStep();
+       this.nextSelectionStep=this.orderSelectionStepArray[this.jobapplication.selectionSteps.length];
   };
   this.SelectionStepForm = this.formbuilder.group({
     comment: ['']
@@ -39,32 +51,34 @@ ngOnInit() {
 orderSelectionStep(): SelectionStep[] 
 {
   
-const orderSelectionStep = ["Register CV Screening",
-"Register Phone Screening",
-"Register TestResults",
-"Register First interview",
-"Register Group interview",
-"Register Final decision",
-"Audit Selection process" ];
-
   let orderSelectionSteps: SelectionStep [] = new Array <SelectionStep>(this.jobapplication.selectionSteps.length);
 
   for (let index = 0; index < this.jobapplication.selectionSteps.length; index++) {
     
-    let i = orderSelectionStep.findIndex(desc => desc === this.jobapplication.selectionSteps[index].description);
+    let i = this.orderSelectionStepArray.findIndex(desc => desc === this.jobapplication.selectionSteps[index].description);
     
     orderSelectionSteps[i] = this.jobapplication.selectionSteps[index];    
   }
   return orderSelectionSteps;
 }
 
+//save() {
+// this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
+//     .subscribe(data => {this.jobapplication = data;
+//                         this.orderSelectionStep();
+//                         this.jobapplicationChange.emit(data)}
+//     );
+//}
+
 save() {
- this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
-     .subscribe(data => {this.jobapplication = data;
-                         this.orderSelectionStep();
-                         this.jobapplicationChange.emit(data)}
-     );
-}
+  this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
+      .subscribe(data => {this.jobapplication = data;
+                          this._router.navigateByUrl(`/jobapplications/${this.jobapplication.id}`); 
+                         }
+      );
+ }
+
+ //this._router.navigateByUrl(`${ApiUrl.urlJobApplications}${this.jobapplication.id}`)
 
 get i()
 {

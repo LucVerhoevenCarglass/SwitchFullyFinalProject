@@ -14,6 +14,7 @@ export class JobapplicationDetailComponent implements OnInit {
   jobapplicationId: string;
   jobapplication: JobApplication;
   isJobApplicationRetrieved: boolean;
+  
 
   constructor(private route: ActivatedRoute,
               private jobApplicationService: JobApplicationService

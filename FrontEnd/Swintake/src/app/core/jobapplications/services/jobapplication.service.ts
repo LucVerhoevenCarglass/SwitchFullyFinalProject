@@ -27,7 +27,7 @@ export class JobApplicationService {
   }
 
   saveNextSelectionStep(id: string, comment: string): Observable<JobApplication> {
-    return this.http.put<JobApplication>(`${ApiUrl.urlJobApplications}nextstep/${id}`, { comment}, httpOptions)
+    return this.http.put<JobApplication>(`${ApiUrl.urlJobApplications}nextstep/${id}`, JSON.stringify(comment) , httpOptions)
   }
 
 }
