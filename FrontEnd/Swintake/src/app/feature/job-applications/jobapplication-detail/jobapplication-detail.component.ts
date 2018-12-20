@@ -32,10 +32,22 @@ export class JobapplicationDetailComponent implements OnInit {
             this.jobapplication = jobapp;
             this.isJobApplicationRetrieved = true;
           });
-   }
+  }
 
-   jobapplicationChange(jobApplication: JobApplication){
-     this.jobapplication=jobApplication;
-   }
-   
+  jobapplicationChange(jobApplication: JobApplication){
+    this.jobapplication=jobApplication;
+  }
+  
+  rejectJobApplication()
+  {
+    if (confirm('Are you sure you want to reject this jobapplication?')) {
+      this.jobApplicationService.rejectJobApplication(this.jobapplicationId);
+      this.getApplicationById();
+      console.log("service.rejectjobapplication done");
+    } 
+    else {
+      alert('The jobapplication was not rejected');
+    }
+  }
+
 }
