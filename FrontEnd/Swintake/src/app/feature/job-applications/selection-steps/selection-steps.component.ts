@@ -41,7 +41,6 @@ export class SelectionStepsComponent implements OnInit {
   {
        this.selectionStep = this.jobapplication.currentSelectionStep;
        this.selectionSteps = this.orderSelectionStep();
-       this.nextSelectionStep=this.orderSelectionStepArray[this.jobapplication.selectionSteps.length];
   };
   this.SelectionStepForm = this.formbuilder.group({
     comment: ['']
@@ -59,26 +58,28 @@ orderSelectionStep(): SelectionStep[]
     
     orderSelectionSteps[i] = this.jobapplication.selectionSteps[index];    
   }
+
+  this.nextSelectionStep=this.orderSelectionStepArray[this.jobapplication.selectionSteps.length];
   return orderSelectionSteps;
 }
 
-//save() {
-// this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
-//     .subscribe(data => {this.jobapplication = data;
-//                         this.orderSelectionStep();
-//                         this.jobapplicationChange.emit(data)}
-//     );
-//}
-
 save() {
-  this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
-      .subscribe(data => {this.jobapplication = data;
-                          this._router.navigateByUrl(`/jobapplications/${this.jobapplication.id}`); 
-                         }
-      );
- }
+ this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
+     .subscribe(data => {this.jobapplication = data;
+                         this.selectionSteps=this.orderSelectionStep();
+                         this.jobapplicationChange.emit(data);
+                         this.SelectionStepForm.reset();}
+     );
+}
 
- //this._router.navigateByUrl(`${ApiUrl.urlJobApplications}${this.jobapplication.id}`)
+//save() {
+//  this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
+//      .subscribe(data => {this.jobapplication = data;
+//                          this._router.navigateByUrl(`/jobapplications/${this.jobapplication.id}`); 
+//                         }
+//      );
+ //}
+
 
 get i()
 {
