@@ -107,8 +107,6 @@ namespace Swintake.domain.Data
 
             modelBuilder.Entity<TestResult>();
 
-            modelBuilder.Entity<AuditSelectionProcess>();
-            //    .ToTable("TestResult");
 
             base.OnModelCreating(modelBuilder);
 

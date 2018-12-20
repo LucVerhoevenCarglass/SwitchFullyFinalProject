@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Swintake.domain.Migrations
 {
-    public partial class CreatingDatabaseAddingCurrenSelectionStep : Migration
+    public partial class InitialSetupDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -108,20 +108,31 @@ namespace Swintake.domain.Migrations
             migrationBuilder.InsertData(
                 table: "Campaigns",
                 columns: new[] { "Id", "ClassStartDate", "Client", "Comment", "Name", "StartDate", "Status" },
-                values: new object[] { new Guid("956faf4a-2925-49c2-a68b-34bdd8bead72"), new DateTime(2018, 12, 18, 12, 48, 4, 461, DateTimeKind.Local), "CM", "cm comment", "Java academy 2019", new DateTime(2018, 12, 18, 12, 48, 4, 466, DateTimeKind.Local), 1 });
+                values: new object[,]
+                {
+                    { new Guid("f024fe5d-c994-48df-8849-1eb513049b71"), new DateTime(2019, 2, 20, 13, 8, 16, 281, DateTimeKind.Local), "mixed", "max 8 candidates", "dotnet class 2019", new DateTime(2019, 1, 20, 13, 8, 16, 283, DateTimeKind.Local), 1 },
+                    { new Guid("717d8747-dc4f-4655-99f4-ec936a4afbc4"), new DateTime(2018, 12, 20, 13, 8, 16, 286, DateTimeKind.Local), "CM", "at cm location", "Java academy 2019", new DateTime(2018, 12, 20, 13, 8, 16, 286, DateTimeKind.Local), 1 },
+                    { new Guid("d5c5b85d-feb7-4f4a-b60a-f09525bd0553"), new DateTime(2019, 2, 8, 13, 8, 16, 286, DateTimeKind.Local), "open for all", "", "Short javascript bootcamp", new DateTime(2018, 12, 30, 13, 8, 16, 286, DateTimeKind.Local), 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Candidates",
                 columns: new[] { "Id", "Comment", "Email", "FirstName", "GitHubUsername", "LastName", "LinkedIn", "PhoneNumber" },
-                values: new object[] { new Guid("7683a833-cbd1-47f2-9ee0-6eb6288bac26"), "", "gwen.jamroziak@cegeka.com", "Gween", "gwenjamroziak", "Jamroziak", "gwenjamroziak", "0472697959" });
+                values: new object[,]
+                {
+                    { new Guid("78688585-ea60-413a-bfff-e4ede781200b"), "", "gwen.jamroziak@cegeka.com", "Gwen", "gwenjamroziak", "Jamroziak", "gwenjamroziak", "0472020406" },
+                    { new Guid("054d5899-a803-499e-b5cb-ea2fe1a99b6c"), "", "caroline.callens@cegeka.com", "Caroline", "carolinecallens", "Callens", "carolinecallens", "0472030507" },
+                    { new Guid("d4ebff88-7319-453a-849d-a0f726748432"), "", "siene.dekeyser@cegeka.com", "Siene", "sienedekeyser", "Dekeyser", "sienedekeyser", "0472040608" },
+                    { new Guid("5fc97819-fe50-4b3c-a913-c089e1ab4f77"), "", "luc.verhoeven@carglass.be", "Luc", "lucverhoeven", "Verhoeven", "lucverhoeven", "0472050403" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "AppliedSalt", "PasswordHashed" },
                 values: new object[,]
                 {
-                    { new Guid("7845252f-0010-4d38-99b4-e4a63038db1c"), "reinout@switchfully.com", "Reinout", "NgBFEGiYlnKAVlAkBj6Qkg==", "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
-                    { new Guid("2e5e828b-c8e5-4e13-b366-4f2562e38d00"), "niels@switchfully.com", "Niels", "rODZhnBsLGRP908sBZiXzg==", "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
+                    { new Guid("a79fac29-f3e2-4640-b686-97eb1bd62ae4"), "reinout@switchfully.com", "Reinout", "NgBFEGiYlnKAVlAkBj6Qkg==", "p1irTnDYNZBcCOfoph9UZaEmX5h4kd/UqkofgCUMMrA=" },
+                    { new Guid("d7590554-e931-4e2f-98ab-c223d94cdef2"), "niels@switchfully.com", "Niels", "rODZhnBsLGRP908sBZiXzg==", "TeBgBijhTG1++pvIvcEOd0hvSGBE1Po1kh6TFlW097w=" }
                 });
 
             migrationBuilder.CreateIndex(

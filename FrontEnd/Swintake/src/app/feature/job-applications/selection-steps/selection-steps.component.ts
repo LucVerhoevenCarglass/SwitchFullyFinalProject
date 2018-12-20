@@ -32,8 +32,7 @@ export class SelectionStepsComponent implements OnInit {
               "Register TestResults",
               "Register First interview",
               "Register Group interview",
-              "Register Final decision",
-              "Audit Selection process" ];
+              "Register Final decision" ];
 
   ngOnInit() {
   this.nextSelectionStep=this.orderSelectionStepArray[0];
@@ -71,15 +70,6 @@ save() {
                          this.SelectionStepForm.reset();}
      );
 }
-
-//save() {
-//  this.jobApplicationService.saveNextSelectionStep(this.jobapplication.id, this.SelectionStepForm.value.comment)
-//      .subscribe(data => {this.jobapplication = data;
-//                          this._router.navigateByUrl(`/jobapplications/${this.jobapplication.id}`); 
-//                         }
-//      );
- //}
-
 
 get i()
 {

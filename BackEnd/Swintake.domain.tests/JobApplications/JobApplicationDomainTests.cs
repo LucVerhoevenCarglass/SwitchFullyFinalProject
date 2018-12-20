@@ -36,7 +36,7 @@ namespace Swintake.domain.tests.JobApplications
                 .WithStatus(StatusJobApplication.Active)
                 .Build();
 
-            var selectionStep = new AuditSelectionProcess();
+            var selectionStep = new FinalDecision();
             for (int i = 0; i < SelectionStep.CountofStepsInSelectionProcess+1; i++)
             {
                 newJobApplication.GotoNextSelectionStep();

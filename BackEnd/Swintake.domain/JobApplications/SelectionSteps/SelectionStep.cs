@@ -9,7 +9,7 @@ namespace Swintake.domain.JobApplications.SelectionSteps
     {
         public Guid JobApplicationId { get; set; }
         public JobApplication JobApplication { get; set; }
-        public static int CountofStepsInSelectionProcess = 7;
+        public static int CountofStepsInSelectionProcess = 6;
 
         [MaxLength(90)]
         public string Description { get; set; }
